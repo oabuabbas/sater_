@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://thesater.com/</loc>
+      <priority>1.00</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/index.html</loc>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/apps.html</loc>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/games.html</loc>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/about.html</loc>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/more.html</loc>
+      <priority>0.80</priority>
+   </url>
+
+   <url>
+      <loc>https://thesater.com/tam/index.html</loc>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/tam/privacy.html</loc>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/tam/terms.html</loc>
+      <priority>0.50</priority>
+   </url>
+
+   <url>
+      <loc>https://thesater.com/khamen/index.html</loc>
+      <priority>0.90</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/khamen/privacy.html</loc>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://thesater.com/khamen/terms.html</loc>
+      <priority>0.50</priority>
+   </url>
+</urlset>
