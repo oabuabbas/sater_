@@ -3,76 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATER_ | Page</title>
+    <title>SATER_ | The Arena</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* نفس الهوية البصرية */
-        :root { --bg-color: #F2EFE5; --text-color: #0E182A; }
+        :root { 
+            --bg-color: #F2EFE5; 
+            --text-color: #0E182A; 
+            --game-accent: #27AE60; /* أخضر للإشارة للنجاح */
+            --game-fail: #C0392B; /* أحمر للفشل */
+        }
+        
         body {
             background-color: var(--bg-color); color: var(--text-color);
             font-family: 'Space Mono', monospace; margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            overflow-x: hidden; user-select: none; /* منع تحديد النص أثناء اللعب */
         }
+
+        /* ملمس الخلفية */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none; z-index: -1;
         }
 
-        /* القائمة */
-        nav { padding: 40px 0; text-align: center; }
+        nav { padding: 40px 0; text-align: center; width: 100%; z-index: 10; }
         nav a {
             text-decoration: none; color: var(--text-color); font-size: 0.9rem;
             margin: 0 15px; text-transform: uppercase; letter-spacing: 1px;
-            position: relative; transition: opacity 0.3s;
+            opacity: 0.6; transition: opacity 0.3s;
         }
-        nav a:hover { opacity: 0.6; }
+        nav a:hover { opacity: 1; }
         nav a.current { font-weight: 700; border-bottom: 2px solid var(--text-color); }
 
-        /* منطقة المحتوى */
-        .content-area {
-            width: 80%; max-width: 800px;
-            margin-top: 50px; text-align: left;
-            opacity: 0; animation: fadeIn 1s ease-out 0.5s forwards;
+        /* حاوية الصفحة */
+        .container {
+            width: 90%; max-width: 800px; text-align: center; margin-top: 40px;
         }
 
+        /* النص العظيم */
         h1.page-title {
-            font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 10px;
+            font-family: 'Cinzel', serif; font-size: 3rem; margin: 0 0 20px 0;
             text-transform: uppercase; letter-spacing: 5px;
         }
-
-        p.description { line-height: 1.6; opacity: 0.8; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        @media (max-width: 600px) {
-            nav { padding: 20px 0; }
-            nav a { margin: 0 8px; font-size: 0.75rem; }
-            h1.page-title { font-size: 2rem; }
+        p.intro-text {
+            max-width: 600px; margin: 0 auto 60px auto; line-height: 1.6; opacity: 0.8;
         }
+
+        /* --- منطقة اللعبة (Mini-Game) --- */
+        .game-area {
+            background: rgba(14, 24, 42, 0.05); border: 2px solid var(--text-color);
+            padding: 40px; margin: 0 auto 60px auto; max-width: 500px;
+            position: relative; overflow: hidden;
+        }
+
+        .game-status {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 20px;
+            min-height: 1.5em; letter-spacing: 2px;
+        }
+
+        /* شريط اللعبة */
+        .game-bar-container {
+            width: 100%; height: 30px; background: #ddd; position: relative;
+            margin-bottom: 30px; border-radius: 4px; overflow: hidden;
+        }
+
+        /* المنطقة المستهدفة (Target Zone) */
+        .target-zone {
+            position: absolute; top: 0; bottom: 0; left: 40%; width: 20%;
+            background: rgba(39, 174, 96, 0.3); border-left: 2px solid var(--game-accent);
+            border-right: 2px solid var(--game-accent); z-index: 1;
+        }
+
+        /* المؤشر المتحرك */
+        .cursor-bar {
+            position: absolute; top: 0; bottom: 0; width: 4px; background: var(--text-color);
+            left: 0; z-index: 2;
+        }
+
+        /* زر التفاعل */
+        .action-btn {
+            background: var(--text-color); color: var(--bg-color); border: none;
+            padding: 15px 40px; font-family: 'Space Mono', monospace; font-size: 1rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            transition: transform 0.1s;
+        }
+        .action-btn:active { transform: scale(0.95); }
+
+        /* قسم الانتظار (Teaser) */
+        .coming-soon {
+            border-top: 1px solid rgba(14,24,42,0.1); padding-top: 50px; opacity: 0.7;
+        }
+        .coming-soon h3 { font-family: 'Cinzel', serif; letter-spacing: 3px; }
+        .loading-dots::after {
+            content: ' .'; animation: dots 2s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ' .'; }
+            40% { content: ' ..'; }
+            60% { content: ' ...'; }
+            80%, 100% { content: ' ....'; }
+        }
+
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="apps.html" >Apps</a> 
+        <a href="apps.html">Apps</a>
         <a href="games.html" class="current">Games</a>
         <a href="about.html">About</a>
         <a href="more.html">More</a>
     </nav>
 
-    <div class="content-area">
-        <h1 class="page-title">Apps_</h1>
-        <p class="description">
-            [ Under Construction ] <br><br>
-            Innovative tools built from scratch. Developing the future of utility software.
+    <div class="container">
+        
+        <h1 class="page-title">The Arena</h1>
+        <p class="intro-text">
+            We don't just build distractions; we forge digital battlefields. 
+            The major titles are currently being tempered in the dark. 
+            Until they emerge, keep your reflexes sharp here.
         </p>
+
+        <div class="game-area">
+            <div class="game-status" id="statusText">SYSTEM LOCKED</div>
+            
+            <div class="game-bar-container">
+                <div class="target-zone" id="target"></div>
+                <div class="cursor-bar" id="cursor"></div>
+            </div>
+
+            <button class="action-btn" id="lockBtn" onclick="attemptUnlock()">DECRYPT</button>
+            <p style="font-size: 0.7rem; margin-top: 15px; opacity: 0.5;">Score: <span id="score">0</span></p>
+        </div>
+
+        <div class="coming-soon">
+            <h3>Major Titles Inbound</h3>
+            <p>Project C.O.R (Chess of Realms) is compiling<span class="loading-dots"></span></p>
+            <p style="font-size: 0.8rem;">Expect Chaos.</p>
+        </div>
+
     </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        const statusText = document.getElementById('statusText');
+        const scoreEl = document.getElementById('score');
+        let position = 0;
+        let direction = 1;
+        let speed = 1.5;
+        let gameActive = true;
+        let score = 0;
+        let animationFrame;
+
+        // Game Loop (Animation)
+        function animate() {
+            if (!gameActive) return;
+
+            position += speed * direction;
+            
+            // Bounce off walls
+            if (position >= 100 || position <= 0) {
+                direction *= -1;
+            }
+
+            cursor.style.left = position + '%';
+            animationFrame = requestAnimationFrame(animate);
+        }
+
+        // Action Logic
+        function attemptUnlock() {
+            if (!gameActive) {
+                // Reset Game
+                resetGame();
+                return;
+            }
+
+            // Check Win Condition
+            // Target is between 40% and 60%
+            if (position >= 40 && position <= 60) {
+                // WIN
+                score++;
+                speed += 0.5; // Make it faster
+                statusText.innerText = "ACCESS GRANTED";
+                statusText.style.color = "var(--game-accent)";
+                scoreEl.innerText = score;
+                
+                // Visual Flash
+                document.querySelector('.game-bar-container').style.background = "#fff";
+                setTimeout(() => document.querySelector('.game-bar-container').style.background = "#ddd", 100);
+
+            } else {
+                // LOSE
+                gameActive = false;
+                statusText.innerText = "ACCESS DENIED";
+                statusText.style.color = "var(--game-fail)";
+                document.getElementById('lockBtn').innerText = "RETRY";
+                cancelAnimationFrame(animationFrame);
+            }
+        }
+
+        function resetGame() {
+            gameActive = true;
+            position = 0;
+            score = 0;
+            speed = 1.5;
+            scoreEl.innerText = score;
+            statusText.innerText = "SYSTEM LOCKED";
+            statusText.style.color = "var(--text-color)";
+            document.getElementById('lockBtn').innerText = "DECRYPT";
+            animate();
+        }
+
+        // Start Game
+        animate();
+
+    </script>
 
 </body>
 </html>
