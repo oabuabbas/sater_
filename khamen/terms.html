@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATER_ | KHAMEN Terms</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { 
+            --bg-color: #F2EFE5; 
+            --text-color: #0E182A; 
+            --accent-color: #3498DB; /* الأزرق السماوي الخاص بـ KHAMEN */
+        }
+        
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Space Mono', monospace; margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: -1;
+        }
+
+        nav { padding: 40px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(14,24,42,0.1); }
+        nav a {
+            text-decoration: none; color: var(--text-color); font-size: 0.8rem;
+            margin: 0 10px; text-transform: uppercase; letter-spacing: 1px;
+            opacity: 0.6; transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+
+        .legal-container {
+            width: 85%; max-width: 800px; margin-top: 50px; margin-bottom: 80px;
+            text-align: left; opacity: 0; animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        h1.doc-title {
+            font-family: 'Cinzel', serif; font-size: 2.5rem; margin: 0;
+            text-transform: uppercase; letter-spacing: 3px;
+        }
+
+        h2.app-name {
+            font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent-color);
+            opacity: 0.8; margin-top: 10px; margin-bottom: 50px; text-transform: uppercase; font-weight: 700;
+        }
+
+        .legal-text h3 {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; margin-top: 40px;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.3); padding-bottom: 10px;
+        }
+
+        .legal-text p { font-size: 0.9rem; line-height: 1.7; opacity: 0.9; margin-bottom: 20px; }
+        
+        .legal-text ul { list-style-type: square; padding-left: 20px; opacity: 0.9; line-height: 1.7; }
+        .legal-text li { margin-bottom: 10px; }
+        .legal-text strong { font-weight: 700; color: var(--text-color); }
+
+        .back-btn {
+            display: inline-block; margin-top: 40px; padding: 15px 30px;
+            border: 1px solid var(--text-color); color: var(--text-color);
+            text-decoration: none; text-transform: uppercase; font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        .back-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); color: white; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) { h1.doc-title { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../apps.html">Apps</a>
+    </nav>
+
+    <div class="legal-container">
+        <h1 class="doc-title">Terms of Service</h1>
+        <h2 class="app-name">For Application: KHAMEN</h2>
+
+        <div class="legal-text">
+            <p><strong>Last Updated:</strong> January 22, 2026</p>
+            <p>
+                Welcome to KHAMEN. By using our application, you agree to the following terms provided by SATER. 
+                Please read them carefully as they govern your experience within our social gaming arena.
+            </p>
+
+            <h3>1. Acceptance of Terms</h3>
+            <p>
+                By downloading, installing, or using KHAMEN, you agree to be bound by these Terms of Service. 
+                If you do not agree to these terms, you must not use the application.
+            </p>
+
+            <h3>2. Description of Service</h3>
+            <p>
+                KHAMEN is a social entertainment application designed to facilitate party games and decision-making processes. 
+                Services include, but are not limited to:
+            </p>
+            <ul>
+                <li><strong>The Spy (Bra Al-Salfa):</strong> A social deduction game engine involving topic generation and role assignment.</li>
+                <li><strong>Voting Systems:</strong> Tools for secret and public voting to resolve game rounds.</li>
+                <li><strong>Decision Tools:</strong> Randomized utilities including Spin the Wheel, Dice Rolling, and Coin Flipping.</li>
+                <li><strong>Party Games:</strong> Interactive modules like "Spin the Bottle" and "Word Guessing".</li>
+            </ul>
+
+            <h3>3. User Data & Privacy</h3>
+            <ul>
+                <li><strong>Local Processing:</strong> Game data (such as player names and scores) is processed locally on your device for the duration of the session.</li>
+                <li><strong>Ad Data:</strong> KHAMEN is an ad-supported application. We use Google AdMob to display advertisements. By using the app, you acknowledge that third-party partners may collect device identifiers (Advertising ID) to provide personalized or non-personalized ads, in accordance with our Privacy Policy.</li>
+            </ul>
+
+            <h3>4. Intellectual Property Rights</h3>
+            <ul>
+                <li><strong>Ownership:</strong> All content, including but not limited to the SATER brand, the KHAMEN logo, source code, game mechanics, UI design, and graphics, is the exclusive property of SATER.</li>
+                <li><strong>License:</strong> We grant you a personal, non-exclusive, non-transferable license to use the app for personal, non-commercial entertainment purposes.</li>
+            </ul>
+
+            <h3>5. Social Interactions & Responsibility</h3>
+            <ul>
+                <li><strong>User Conduct:</strong> KHAMEN is a tool for social interaction. SATER is not responsible for arguments, disputes, or interpersonal conflicts that may arise during gameplay (e.g., during "The Spy" accusations or "Truth or Dare" challenges).</li>
+                <li><strong>Content Usage:</strong> Users are responsible for how they utilize the "Truth or Dare" or "Custom Input" features. We encourage a safe and respectful gaming environment.</li>
+            </ul>
+
+            <h3>6. Monetization & Third-Party Links</h3>
+            <ul>
+                <li><strong>Advertising:</strong> This service is provided at no cost and is supported by advertisements.</li>
+                <li><strong>Third-Party Content:</strong> The application may contain links to third-party websites or services (via ads) that are not owned or controlled by SATER. We assume no responsibility for the content, privacy policies, or practices of any third-party websites.</li>
+            </ul>
+
+            <h3>7. Prohibited Activities</h3>
+            <p>You agree not to:</p>
+            <ul>
+                <li>Decompile, reverse engineer, or attempt to extract the source code of KHAMEN.</li>
+                <li>Use the application to harass, abuse, or harm others.</li>
+                <li>Use automated tools to manipulate voting results or game outcomes.</li>
+            </ul>
+
+            <h3>8. Limitation of Liability</h3>
+            <p>
+                KHAMEN is provided on an "AS IS" and "AS AVAILABLE" basis. SATER shall not be liable for any device malfunction, 
+                data loss, or indirect damages resulting from the use of the application or reliance on its decision-making tools.
+            </p>
+
+            <h3>9. Changes to Terms</h3>
+            <p>
+                We reserve the right to modify these terms at any time. Continued use of the app after changes are posted 
+                constitutes your acceptance of the new terms.
+            </p>
+
+            <h3>10. Contact Information</h3>
+            <p>
+                For questions regarding these Terms, please contact SATER via our official channels or at our developer email.
+            </p>
+        </div>
+
+        <a href="../apps.html" class="back-btn">← Back to Apps</a>
+    </div>
+
+</body>
+</html>
