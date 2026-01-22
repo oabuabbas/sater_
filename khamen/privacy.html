@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATER_ | KHAMEN Privacy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { 
+            --bg-color: #F2EFE5; 
+            --text-color: #0E182A; 
+            --accent-color: #3498DB; /* نفس الأزرق السماوي لصفحة خمن */
+        }
+        
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Space Mono', monospace; margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: -1;
+        }
+
+        nav { padding: 40px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(14,24,42,0.1); }
+        nav a {
+            text-decoration: none; color: var(--text-color); font-size: 0.8rem;
+            margin: 0 10px; text-transform: uppercase; letter-spacing: 1px;
+            opacity: 0.6; transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+
+        .legal-container {
+            width: 85%; max-width: 800px; margin-top: 50px; margin-bottom: 80px;
+            text-align: left; opacity: 0; animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        h1.doc-title {
+            font-family: 'Cinzel', serif; font-size: 2.5rem; margin: 0;
+            text-transform: uppercase; letter-spacing: 3px;
+        }
+
+        h2.app-name {
+            font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent-color);
+            opacity: 0.8; margin-top: 10px; margin-bottom: 50px; text-transform: uppercase; font-weight: 700;
+        }
+
+        .legal-text h3 {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; margin-top: 40px;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.3); padding-bottom: 10px;
+        }
+
+        .legal-text p { font-size: 0.9rem; line-height: 1.7; opacity: 0.9; margin-bottom: 20px; }
+        
+        .legal-text strong { font-weight: 700; color: var(--text-color); }
+
+        .back-btn {
+            display: inline-block; margin-top: 40px; padding: 15px 30px;
+            border: 1px solid var(--text-color); color: var(--text-color);
+            text-decoration: none; text-transform: uppercase; font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        .back-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); color: white; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) { h1.doc-title { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../apps.html">Apps</a>
+    </nav>
+
+    <div class="legal-container">
+        <h1 class="doc-title">Privacy Policy</h1>
+        <h2 class="app-name">For Application: KHAMEN</h2>
+
+        <div class="legal-text">
+            <p><strong>Last Updated:</strong> January 01, 2026</p>
+            
+            <p>
+                SATER built the KHAMEN app as a Free app. This SERVICE is provided by SATER at no cost and is intended for use as is.
+                This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+            </p>
+
+            <h3>1. Information Collection and Use</h3>
+            <p>
+                I want to inform you that <strong>I do not collect, store, or share any personal information</strong> or data from users. 
+                The app functions entirely locally on your device.
+            </p>
+
+            <h3>2. Device Sensors Data</h3>
+            <p>
+                The app requires access to your device's sensors (specifically the Accelerometer and Gyroscope) to function properly. 
+                This sensor data is used solely for gameplay mechanics (to detect motion and orientation during the game). 
+                This data is processed in real-time on your device and is <strong>never recorded, stored, or transmitted</strong> to any server.
+            </p>
+
+            <h3>3. Children’s Privacy</h3>
+            <p>
+                These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13.
+            </p>
+
+            <h3>4. Changes to This Privacy Policy</h3>
+            <p>
+                I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. 
+                I will notify you of any changes by posting the new Privacy Policy on this page.
+            </p>
+
+            <h3>5. Contact Us</h3>
+            <p>
+                If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at: 
+                <a href="mailto:beatnabytna@gmail.com" style="color: var(--accent-color); font-weight: bold; text-decoration: none;">beatnabytna@gmail.com</a>
+            </p>
+        </div>
+
+        <a href="../apps.html" class="back-btn">← Back to Apps</a>
+    </div>
+
+</body>
+</html>
