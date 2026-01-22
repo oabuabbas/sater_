@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATER_ | Legal</title>
+    <title>SATER_ | TAM Terms</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,14 +18,12 @@
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
 
-        /* الملمس الخلفي */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none; z-index: -1;
         }
 
-        /* القائمة */
         nav { padding: 40px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(14,24,42,0.1); }
         nav a {
             text-decoration: none; color: var(--text-color); font-size: 0.8rem;
@@ -34,13 +32,11 @@
         }
         nav a:hover { opacity: 1; }
 
-        /* حاوية النص القانوني */
         .legal-container {
             width: 85%; max-width: 800px; margin-top: 50px; margin-bottom: 80px;
             text-align: left; opacity: 0; animation: fadeIn 0.8s ease-out 0.2s forwards;
         }
 
-        /* العناوين */
         h1.doc-title {
             font-family: 'Cinzel', serif; font-size: 2.5rem; margin: 0;
             text-transform: uppercase; letter-spacing: 3px;
@@ -51,15 +47,16 @@
             opacity: 0.5; margin-top: 10px; margin-bottom: 50px; text-transform: uppercase;
         }
 
-        /* تنسيق النصوص */
         .legal-text h3 {
             font-family: 'Cinzel', serif; font-size: 1.2rem; margin-top: 40px;
             border-bottom: 1px solid rgba(14,24,42,0.1); padding-bottom: 10px;
         }
 
-        .legal-text p, .legal-text ul {
-            font-size: 0.9rem; line-height: 1.7; opacity: 0.9; margin-bottom: 20px;
-        }
+        .legal-text p { font-size: 0.9rem; line-height: 1.7; opacity: 0.9; margin-bottom: 20px; }
+        
+        .legal-text ul { list-style-type: square; padding-left: 20px; opacity: 0.9; line-height: 1.7; }
+        .legal-text li { margin-bottom: 10px; }
+        .legal-text strong { font-weight: 700; color: var(--text-color); }
 
         .back-btn {
             display: inline-block; margin-top: 40px; padding: 15px 30px;
@@ -82,31 +79,79 @@
     </nav>
 
     <div class="legal-container">
-        <h1 class="doc-title">Privacy Policy</h1>
-        
+        <h1 class="doc-title">Terms of Service</h1>
         <h2 class="app-name">For Application: TAM</h2>
 
         <div class="legal-text">
-            <p>Last Updated: January 2026</p>
-
-            <h3>1. Introduction</h3>
+            <p><strong>Last Updated:</strong> January 11, 2026</p>
             <p>
-                Welcome to SATER_. We respect your privacy and are committed to protecting your personal data. 
-                This privacy policy will inform you as to how we look after your personal data when you use our application 
-                and tell you about your privacy rights.
+                Welcome to TAM. By using our application, you agree to the following terms provided by SATER Studio. 
+                Please read them carefully as they govern your journey as a Hero within our ecosystem.
             </p>
 
-            <h3>2. Data We Collect</h3>
+            <h3>1. Acceptance of Terms</h3>
             <p>
-                We believe in minimalism. We do not collect any personal data that is not strictly necessary for the app's functionality.
-                <ul>
-                    <li>Device Information (Model, OS version).</li>
-                    <li>Usage Data (Crash logs, performance metrics).</li>
-                </ul>
+                By downloading, installing, or using TAM, you agree to be bound by these Terms of Service. 
+                If you do not agree to these terms, you must not use the application.
             </p>
 
-            <h3>3. Contact Us</h3>
-            <p>If you have any questions about this privacy policy, please contact us at: contact@thesater.com</p>
+            <h3>2. Description of Service</h3>
+            <p>
+                TAM is a productivity application that utilizes RPG (Role-Playing Game) mechanics to help users manage tasks and improve focus. 
+                Services include, but are not limited to:
+            </p>
+            <ul>
+                <li><strong>Focus Timers:</strong> Concentration tools with ambient audio and haptic feedback.</li>
+                <li><strong>RPG Progression:</strong> Virtual XP, skill trees, and stat tracking (FOC, SOL, NRG).</li>
+                <li><strong>Voice Vault:</strong> Encrypted local storage for audio logs and "Soul Echoes".</li>
+            </ul>
+
+            <h3>3. User Accounts & Data</h3>
+            <ul>
+                <li><strong>Profile Names:</strong> Users may customize their profile name to reflect their hero persona.</li>
+                <li><strong>Local Storage:</strong> Currently, TAM stores most data locally on your device to ensure privacy and speed.</li>
+                <li><strong>Responsibility:</strong> You are responsible for maintaining the security of your device and the data contained within the app.</li>
+            </ul>
+
+            <h3>4. Intellectual Property Rights</h3>
+            <ul>
+                <li><strong>Ownership:</strong> All content, including but not limited to the SATER brand, the TAM logo, code, graphics, and ambient sounds, is the exclusive property of Omar Abu Abbass and SATER Studio.</li>
+                <li><strong>License:</strong> We grant you a personal, non-exclusive, non-transferable license to use the app for personal, non-commercial productivity purposes.</li>
+            </ul>
+
+            <h3>5. Virtual Progress & Rewards</h3>
+            <ul>
+                <li><strong>XP and Stats:</strong> Experience points (XP) and character attributes (FOC, SOL, NRG) are virtual rewards intended for motivation and entertainment only.</li>
+                <li><strong>No Real-World Value:</strong> These virtual rewards have no monetary value and cannot be exchanged for real-world currency or goods.</li>
+            </ul>
+
+            <h3>6. Monetization & Future Updates</h3>
+            <ul>
+                <li><strong>Current Phase:</strong> TAM is currently launched as a Free-to-Play Early Access application.</li>
+                <li><strong>Future Changes:</strong> SATER Studio reserves the right to introduce a "One-Time Purchase" model or premium features in future updates to support ongoing development and sustainability.</li>
+            </ul>
+
+            <h3>7. User Conduct</h3>
+            <p>You agree not to:</p>
+            <ul>
+                <li>Decompile, reverse engineer, or attempt to extract the source code of TAM.</li>
+                <li>Use the application for any illegal or unauthorized purposes.</li>
+                <li>Exploit bugs or use external tools to artificially inflate XP or stats.</li>
+            </ul>
+
+            <h3>8. Limitation of Liability</h3>
+            <p>
+                TAM is provided on an "AS IS" and "AS AVAILABLE" basis. SATER Studio and Omar Abu Abbass shall not be liable for any 
+                data loss, device malfunction, or productivity interruptions resulting from the use of the application.
+            </p>
+
+            <h3>9. Changes to Terms</h3>
+            <p>
+                We reserve the right to modify these terms at any time. Continued use of the app after changes are posted constitutes your acceptance of the new terms.
+            </p>
+
+            <h3>10. Contact Information</h3>
+            <p>For questions regarding these Terms, please contact SATER_ via our official channels.</p>
         </div>
 
         <a href="../apps.html" class="back-btn">← Back to Apps</a>
