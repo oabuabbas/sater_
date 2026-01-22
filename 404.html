@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATER_ | 404 Void</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <style>
+        :root { 
+            --bg-color: #F2EFE5; 
+            --text-color: #0E182A; 
+            --error-color: #C0392B; /* أحمر داكن للخطأ */
+        }
+        
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Space Mono', monospace; margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; text-align: center; overflow: hidden;
+        }
+
+        /* تأثير التشويش على الخلفية */
+        body::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: -1;
+        }
+
+        /* رقم 404 الضخم */
+        .error-code {
+            font-family: 'Cinzel', serif; font-size: 8rem; margin: 0; line-height: 1;
+            font-weight: 700; position: relative; color: var(--text-color);
+            animation: glitch 1s infinite;
+        }
+
+        /* رسالة الخطأ */
+        .error-msg {
+            font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px;
+            margin-top: 20px; opacity: 0.8;
+        }
+
+        .tech-details {
+            font-size: 0.8rem; margin-top: 10px; opacity: 0.5; font-family: 'Space Mono';
+            border-top: 1px solid rgba(14,24,42,0.2); display: inline-block; padding-top: 10px;
+        }
+
+        /* زر العودة */
+        .home-btn {
+            margin-top: 50px; padding: 15px 40px; border: 1px solid var(--text-color);
+            color: var(--text-color); text-decoration: none; text-transform: uppercase;
+            letter-spacing: 2px; transition: all 0.3s; font-family: 'Cinzel', serif;
+        }
+
+        .home-btn:hover {
+            background-color: var(--text-color); color: var(--bg-color);
+        }
+
+        /* Glitch Animation Keyframes */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .error-code { font-size: 5rem; }
+            .error-msg { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="error-code">404</h1>
+        
+        <div class="error-msg">Signal Lost</div>
+        
+        <div class="tech-details">
+            Error: Coordinates Null <br>
+            Sector: Unknown
+        </div>
+        
+        <br>
+
+        <a href="/" class="home-btn">Realign Signal</a>
+    </div>
+
+</body>
+</html>
