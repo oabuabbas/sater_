@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SATER_ | Code Lab</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
     <style>
-        /* SATER_ Visual Identity: Midnight Blue & Retro Terminal */
+        /* تعريف ألوان هوية سطر من الشعار */
         :root {
-            --bg-color: #050A14; /* Midnight Blue */
-            --text-color: #E6E6E6; /* Off-white */
-            --accent-color: #4AF626; /* Retro Terminal Green (Optional) or stick to White */
+            --bg-color: #F4F4F0; /* لون الخلفية البيج الفاتح */
+            --text-color: #0C162D; /* اللون الكحلي الداكن للنص */
+            --scanline-color: rgba(0, 0, 0, 0.05); /* لون خطوط المسح الشفافة */
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Courier New', Courier, monospace; /* Monospace for coding feel */
             height: 100vh;
             margin: 0;
             display: flex;
@@ -24,50 +28,64 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
+            position: relative; /* ضروري لتأثير الخلفية */
+        }
+
+        /* تأثير خطوط الشاشة القديمة (CRT Scanlines) */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--scanline-color),
+                var(--scanline-color) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none; /* لضمان عدم تأثيره على النقر */
+            z-index: 1;
         }
 
         .container {
+            position: relative;
+            z-index: 2; /* ليكون المحتوى فوق خطوط الخلفية */
             padding: 20px;
         }
 
-        h1 {
-            font-size: 4rem; /* Big Pixel Art feel */
+        /* العنوان الرئيسي SATER_ */
+        h1.main-title {
+            font-family: 'Press Start 2P', cursive; /* خط بكسلي عريض */
+            font-size: 4rem; 
             margin: 0;
+            text-transform: uppercase;
             letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        /* المؤشر الوامض _ */
+        .cursor {
+            display: inline-block;
+            color: var(--text-color);
+            animation: blink 1s step-end infinite;
+        }
+
+        /* العنوان الفرعي CODE LAB */
+        p.sub-title {
+            font-family: 'VT323', monospace; /* خط بكسلي أنحف وأطول */
+            font-size: 2rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        .cursor {
-            display: inline-block;
-            width: 20px;
-            height: 5px;
-            background-color: var(--text-color);
-            animation: blink 1s infinite;
-            margin-left: 5px;
-            vertical-align: middle;
-        }
-
-        p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-top: 10px;
-        }
-
-        .tagline {
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 50px;
-            border-top: 1px solid #333;
-            padding-top: 20px;
-            width: 100%;
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Glitch Animation for text (Simple hover effect) */
+        /* تأثير وميض بسيط عند التحويم على الشعار */
         .glitch-hover:hover {
-            text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+            opacity: 0.8;
+            text-shadow: 2px 2px 0px rgba(12, 22, 45, 0.2);
         }
 
         @keyframes blink {
@@ -75,23 +93,19 @@
             50% { opacity: 0; }
         }
 
-        /* Mobile Adjustments */
+        /* تعديلات للموبايل */
         @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
+            h1.main-title { font-size: 2.5rem; }
+            p.sub-title { font-size: 1.5rem; margin-top: 15px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="glitch-hover">SATER<span class="cursor">_</span></h1>
+        <h1 class="main-title glitch-hover">SATER<span class="cursor">_</span></h1>
         
-        <p>THE CODE BEGINS HERE.</p>
-
-        <div class="tagline">
-            [ RTL > LTR ]<br>
-            System Online.
-        </div>
+        <p class="sub-title">CODE LAB</p>
     </div>
 
 </body>
