@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATER_ | Page</title>
+    <title>SATER_ | The Origin</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* نفس الهوية البصرية */
-        :root { --bg-color: #F2EFE5; --text-color: #0E182A; }
+        :root { --bg-color: #F2EFE5; --text-color: #0E182A; --accent-color: #8B4513; /* لون بني صدئ للعراقة */ }
+        
         body {
             background-color: var(--bg-color); color: var(--text-color);
             font-family: 'Space Mono', monospace; margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            overflow-x: hidden; /* لمنع التمرير الأفقي بسبب تأثيرات الحركة */
         }
+
+        /* ملمس الخلفية */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
@@ -24,7 +27,7 @@
         }
 
         /* القائمة */
-        nav { padding: 40px 0; text-align: center; }
+        nav { padding: 40px 0; text-align: center; width: 100%; z-index: 10; }
         nav a {
             text-decoration: none; color: var(--text-color); font-size: 0.9rem;
             margin: 0 15px; text-transform: uppercase; letter-spacing: 1px;
@@ -33,26 +36,90 @@
         nav a:hover { opacity: 0.6; }
         nav a.current { font-weight: 700; border-bottom: 2px solid var(--text-color); }
 
-        /* منطقة المحتوى */
-        .content-area {
-            width: 80%; max-width: 800px;
-            margin-top: 50px; text-align: left;
-            opacity: 0; animation: fadeIn 1s ease-out 0.5s forwards;
+        /* حاوية المحتوى الرئيسية */
+        .about-container {
+            width: 85%; max-width: 1000px; margin-top: 60px; padding-bottom: 100px;
         }
 
-        h1.page-title {
-            font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 10px;
-            text-transform: uppercase; letter-spacing: 5px;
+        /* الهيرو - العنوان الرئيسي */
+        .hero-title {
+            text-align: center; margin-bottom: 100px;
+            opacity: 0; animation: slideUpFade 1.2s ease-out 0.3s forwards;
+        }
+        h1.main-header {
+            font-family: 'Cinzel', serif; font-size: 4rem; margin: 0;
+            text-transform: uppercase; letter-spacing: 10px; line-height: 1.1;
+        }
+        span.sub-header {
+            display: block; margin-top: 20px; font-size: 1rem; letter-spacing: 3px;
+            opacity: 0.7; font-family: 'Cinzel', serif;
         }
 
-        p.description { line-height: 1.6; opacity: 0.8; }
+        /* كتل السرد القصصي */
+        .narrative-block {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 120px; opacity: 0; /* مخفي للبدء */
+            transition: all 1s ease-out; /* نعومة الحركة عند التمرير */
+        }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        @media (max-width: 600px) {
-            nav { padding: 20px 0; }
-            nav a { margin: 0 8px; font-size: 0.75rem; }
-            h1.page-title { font-size: 2rem; }
+        /* تنسيق النصوص في الكتل */
+        .text-content { width: 45%; }
+        .Narrative-title {
+            font-family: 'Cinzel', serif; font-size: 2rem; margin-bottom: 25px;
+            letter-spacing: 3px; position: relative;
+        }
+        .narrative-desc {
+            font-size: 1rem; line-height: 1.8; opacity: 0.9;
+        }
+        .highlight { color: var(--accent-color); font-weight: 700; }
+
+        /* العناصر البصرية الجانبية (Abstract Visuals) */
+        .visual-content {
+            width: 40%; display: flex; justify-content: center; align-items: center;
+            font-family: 'Cinzel', serif; font-size: 5rem; opacity: 0.1; color: var(--text-color);
+        }
+
+        /* الفواصل الأنيقة */
+        .separator {
+            text-align: center; font-size: 2rem; margin: 80px 0;
+            opacity: 0.3; font-family: 'Cinzel', serif; animation: breathe 3s infinite;
+        }
+
+        /* قسم المؤسس */
+        .architect-section {
+            text-align: center; margin-top: 150px; padding: 60px;
+            border: 1px solid rgba(14,24,42,0.1); position: relative;
+            opacity: 0; /* مخفي للبدء */
+        }
+        .architect-title {
+            font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 5px; margin-bottom: 30px;
+        }
+        .architect-name {
+            font-family: 'Cinzel', serif; font-size: 3rem; letter-spacing: 8px; margin: 20px 0; font-weight: 700;
+        }
+
+        /* Animations */
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; }
+        }
+
+        /* كلاسات الجافاسكريبت للحركة عند التمرير */
+        .fade-in-up { opacity: 1; transform: translateY(0); }
+        .hidden-up { opacity: 0; transform: translateY(60px); }
+
+        /* استجابة الموبايل */
+        @media (max-width: 800px) {
+            h1.main-header { font-size: 2.8rem; letter-spacing: 5px; }
+            .narrative-block { flex-direction: column; text-align: center; margin-bottom: 80px; }
+            .text-content, .visual-content { width: 100%; }
+            .visual-content { display: none; /* إخفاء العناصر البصرية على الموبايل للتبسيط */ }
+            .Narrative-title { font-size: 1.8rem; }
+            .architect-section { padding: 30px; }
+            .architect-name { font-size: 2.2rem; letter-spacing: 4px; }
         }
     </style>
 </head>
@@ -60,19 +127,88 @@
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="apps.html">Apps</a> 
+        <a href="apps.html">Apps</a>
         <a href="games.html">Games</a>
         <a href="about.html" class="current">About</a>
         <a href="more.html">More</a>
     </nav>
 
-    <div class="content-area">
-        <h1 class="page-title">Apps_</h1>
-        <p class="description">
-            [ Under Construction ] <br><br>
-            Innovative tools built from scratch. Developing the future of utility software.
-        </p>
+    <div class="about-container">
+        
+        <div class="hero-title">
+            <h1 class="main-header">The Origin Story</h1>
+            <span class="sub-header">Philosophy Code & Concrete</span>
+        </div>
+
+        <div class="narrative-block hidden-up" style="flex-direction: row-reverse;">
+            <div class="text-content">
+                <h2 class="Narrative-title">I. The Genesis</h2>
+                <p class="narrative-desc">
+                    In an era of digital noise and cluttered interfaces, SATER_ was born from a necessity for <span class="highlight">silence</span>. 
+                    We realized that modern software had lost its way, prioritizing engagement over utility. 
+                    We exist to correct that course. We don't just build apps; we craft digital artifacts designed to respect human attention.
+                </p>
+            </div>
+            <div class="visual-content">I</div>
+        </div>
+
+        <div class="separator">_</div>
+
+        <div class="narrative-block hidden-up">
+            <div class="text-content">
+                <h2 class="Narrative-title">II. The Doctrine</h2>
+                <p class="narrative-desc">
+                    "Not LTR to RTL, but RTL to LTR." <br>
+                    This is not merely about text direction. It is a statement of intent. 
+                    To start from the Right (RTL) is to honor the <span class="highlight">Origin</span>, the authentic, and the foundational wisdom. 
+                    To move toward the Left (LTR) is to embrace the <span class="highlight">Future</span>, the universal, and the modern structure. 
+                    SATER is the bridge connecting ancient depth with futuristic execution.
+                </p>
+            </div>
+            <div class="visual-content">II</div>
+        </div>
+
+        <div class="separator">_</div>
+
+        <div class="narrative-block hidden-up" style="flex-direction: row-reverse;">
+            <div class="text-content">
+                <h2 class="Narrative-title">III. The Craft</h2>
+                <p class="narrative-desc">
+                    We believe utility should be beautiful, and beauty must be functional. 
+                    Our code is minimalist not solely for speed, but for clarity of purpose. Every pixel and every function is kept only if it serves the user's ultimate goal. 
+                    It is <span class="highlight">Code as Art</span>.
+                </p>
+            </div>
+            <div class="visual-content">III</div>
+        </div>
+
+        <div class="architect-section hidden-up">
+            <span class="architect-title">The Architect</span>
+            <h2 class="architect-name">Omar Abu Abbass</h2>
+            <p class="narrative-desc" style="max-width: 600px; margin: 0 auto;">
+                Driven by an obsession with structure and narrative, Omar founded SATER_ to define a new standard for digital craftsmanship. 
+                Where others see a screen, he sees a canvas for functional legends.
+            </p>
+        </div>
+
     </div>
+
+    <script>
+        // وظيفة للتحقق من وصول العنصر لمجال الرؤية
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    entry.target.classList.remove('hidden-up');
+                }
+            });
+        }, { threshold: 0.2 }); // يبدأ الانيميشن عندما يظهر 20% من العنصر
+
+        // تطبيق المراقب على جميع العناصر المخفية
+        document.querySelectorAll('.hidden-up').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>
