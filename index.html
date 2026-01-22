@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATER_ | Code Lab</title>
+    <title>SATER_ | Origin</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
 
     <style>
-        /* تعريف ألوان هوية سطر من الشعار */
         :root {
-            --bg-color: #F4F4F0; /* لون الخلفية البيج الفاتح */
-            --text-color: #0C162D; /* اللون الكحلي الداكن للنص */
-            --scanline-color: rgba(0, 0, 0, 0.05); /* لون خطوط المسح الشفافة */
+            /* الألوان الجديدة: كريمي دافئ وكحلي ملكي */
+            --bg-color: #F2EFE5;  /* Deep Cream / Antique White */
+            --text-color: #0E182A; /* Royal Midnight Blue */
+            --accent-color: #8B4513; /* (اختياري) لون بني خفيف جداً للزخرفة */
         }
 
         body {
@@ -28,10 +28,9 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
-            position: relative; /* ضروري لتأثير الخلفية */
         }
 
-        /* تأثير خطوط الشاشة القديمة (CRT Scanlines) */
+        /* إضافة ملمس خفيف جداً (Grain) للخلفية لزيادة الفخامة */
         body::before {
             content: "";
             position: absolute;
@@ -39,73 +38,76 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                to bottom,
-                var(--scanline-color),
-                var(--scanline-color) 1px,
-                transparent 1px,
-                transparent 3px
-            );
-            pointer-events: none; /* لضمان عدم تأثيره على النقر */
-            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
             position: relative;
-            z-index: 2; /* ليكون المحتوى فوق خطوط الخلفية */
+            z-index: 1;
             padding: 20px;
         }
 
-        /* العنوان الرئيسي SATER_ */
-        h1.main-title {
-            font-family: 'Press Start 2P', cursive; /* خط بكسلي عريض */
-            font-size: 4rem; 
+        /* تنسيق اسم SATER_ */
+        h1.brand-name {
+            font-family: 'Cinzel', serif; /* خط ذو عراقة وهيبة */
+            font-size: 5rem; /* حجم ضخم */
+            font-weight: 700;
+            letter-spacing: 10px; /* تباعد أحرف لزيادة الفخامة */
             margin: 0;
+            line-height: 1.2;
             text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 1;
         }
 
-        /* المؤشر الوامض _ */
+        /* تنسيق المؤشر _ */
         .cursor {
+            font-weight: 400;
             display: inline-block;
-            color: var(--text-color);
-            animation: blink 1s step-end infinite;
+            animation: breathe 2s infinite ease-in-out; /* حركة تنفس هادئة */
         }
 
-        /* العنوان الفرعي CODE LAB */
-        p.sub-title {
-            font-family: 'VT323', monospace; /* خط بكسلي أنحف وأطول */
-            font-size: 2rem;
-            margin-top: 20px;
+        /* تنسيق الرؤية (النص السفلي) */
+        .vision-text {
+            font-family: 'Space Mono', monospace; /* خط تقني نظيف للتباين */
+            font-size: 0.85rem;
+            margin-top: 40px;
+            color: var(--text-color);
+            opacity: 0.7;
             letter-spacing: 2px;
             text-transform: uppercase;
+            border-top: 1px solid rgba(14, 24, 42, 0.2); /* خط فاصل خفيف */
+            padding-top: 20px;
+            display: inline-block;
         }
 
-        /* تأثير وميض بسيط عند التحويم على الشعار */
-        .glitch-hover:hover {
-            opacity: 0.8;
-            text-shadow: 2px 2px 0px rgba(12, 22, 45, 0.2);
-        }
-
-        @keyframes blink {
+        /* حركة ناعمة للمؤشر */
+        @keyframes breathe {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            50% { opacity: 0.2; }
         }
 
-        /* تعديلات للموبايل */
+        /* تكييف للموبايل */
         @media (max-width: 600px) {
-            h1.main-title { font-size: 2.5rem; }
-            p.sub-title { font-size: 1.5rem; margin-top: 15px; }
+            h1.brand-name { 
+                font-size: 2.8rem; 
+                letter-spacing: 5px;
+            }
+            .vision-text {
+                font-size: 0.7rem;
+                width: 80%;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="main-title glitch-hover">SATER<span class="cursor">_</span></h1>
+        <h1 class="brand-name">SATER<span class="cursor">_</span></h1>
         
-        <p class="sub-title">CODE LAB</p>
+        <div class="vision-text">
+            Not LTR to RTL <br> But RTL to LTR
+        </div>
     </div>
 
 </body>
