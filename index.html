@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SATER_ | Origin</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #F2EFE5;  /* لون كريمي عتيق */
-            --text-color: #0E182A; /* كحلي ملكي */
+            --bg-color: #F2EFE5;
+            --text-color: #0E182A;
         }
 
         body {
@@ -26,114 +25,142 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
-            perspective: 1000px; /* ضروري لتأثير العمق */
+            perspective: 1000px;
         }
 
-        /* ملمس الورق القديم */
         body::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
         }
 
+        /* --- تنسيق القائمة (Navigation) الجديد --- */
+        nav {
+            position: absolute;
+            top: 40px;
+            z-index: 10;
+            opacity: 0; /* مخفي للبداية */
+            animation: fadeIn 1s ease-out 1.5s forwards; /* يظهر بعد الشعار */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            margin: 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+        
+        /* الخط الصغير تحت الرابط عند التحويم */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--text-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            font-weight: 700;
+            border-bottom: 2px solid var(--text-color);
+        }
+
+        /* --- باقي التنسيقات القديمة --- */
         .container {
             position: relative;
             z-index: 1;
             padding: 20px;
-            /* حالة البداية قبل الانيميشن (مخفي وبالأسفل) */
             opacity: 0;
             transform: translateY(50px);
             animation: slideUpFade 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        /* الشعار الفخم */
         h1.brand-name {
             font-family: 'Cinzel', serif;
-            font-size: 5.5rem; /* تكبير الخط قليلاً */
+            font-size: 5.5rem;
             font-weight: 700;
             letter-spacing: 12px;
             margin: 0;
             line-height: 1.1;
             text-transform: uppercase;
-            text-shadow: 20px 20px 60px rgba(0,0,0,0.05); /* ظل ناعم جداً للعمق */
-            transition: transform 0.1s ease-out; /* نعومة حركة الماوس */
+            text-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+            transition: transform 0.1s ease-out;
         }
 
-        /* المؤشر _ */
         .cursor {
             font-weight: 400;
             display: inline-block;
             animation: breathe 2.5s infinite ease-in-out;
         }
 
-        /* الرؤية أسفل الشعار */
         .vision-text {
             font-family: 'Space Mono', monospace;
             font-size: 0.9rem;
             margin-top: 40px;
             color: var(--text-color);
-            opacity: 0; /* مخفي ليبدأ بعد الشعار */
+            opacity: 0;
             letter-spacing: 3px;
             text-transform: uppercase;
             border-top: 1px solid rgba(14, 24, 42, 0.15);
             padding-top: 25px;
             display: inline-block;
             transition: transform 0.1s ease-out;
-            
-            /* انيميشن خاص للنص السفلي يظهر بعد الشعار */
             animation: fadeIn 1s ease-out 1s forwards; 
         }
 
-        /* تعريف الحركات (Keyframes) */
-        
-        /* حركة الصعود للأعلى */
         @keyframes slideUpFade {
-            0% {
-                opacity: 0;
-                transform: translateY(80px); /* يبدأ من الأسفل */
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0); /* يستقر في مكانه */
-            }
+            0% { opacity: 0; transform: translateY(80px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* حركة التنفس للمؤشر */
         @keyframes breathe {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.3; transform: scale(0.95); }
         }
 
-        /* ظهور النص الفرعي */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 0.7; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* الموبايل */
         @media (max-width: 600px) {
-            h1.brand-name { 
-                font-size: 2.8rem; 
-                letter-spacing: 5px;
-            }
-            .vision-text {
-                font-size: 0.7rem;
-                width: 90%;
-            }
+            h1.brand-name { font-size: 2.8rem; letter-spacing: 5px; }
+            .vision-text { font-size: 0.7rem; width: 90%; }
+            nav { top: 20px; width: 100%; display: flex; justify-content: center; flex-wrap: wrap;}
+            nav a { margin: 0 8px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="scene">
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="apps.html">Apps</a>
+        <a href="games.html">Games</a>
+        <a href="about.html">About</a>
+        <a href="more.html">More</a>
+    </nav>
+
+    <div class="container">
         <h1 class="brand-name">SATER<span class="cursor">_</span></h1>
-        
         <div class="vision-text">
             Not LTR to RTL <br> But RTL to LTR
         </div>
@@ -141,18 +168,11 @@
 
     <script>
         document.addEventListener('mousemove', (e) => {
-            const container = document.querySelector('.container');
             const title = document.querySelector('.brand-name');
             const sub = document.querySelector('.vision-text');
-            
-            // حساب موضع الماوس بالنسبة لمنتصف الشاشة
             const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
             const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-
-            // تطبيق الحركة (الشعار يتحرك والظل يتحرك عكسه)
             title.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
-            
-            // النص السفلي يتحرك بسرعة أبطأ ليعطي عمقاً (Parallax)
             sub.style.transform = `translate(${xAxis * 0.5}px, ${yAxis * 0.5}px)`;
         });
     </script>
