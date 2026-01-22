@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATER_ | Code Lab</title>
+    <style>
+        /* SATER_ Visual Identity: Midnight Blue & Retro Terminal */
+        :root {
+            --bg-color: #050A14; /* Midnight Blue */
+            --text-color: #E6E6E6; /* Off-white */
+            --accent-color: #4AF626; /* Retro Terminal Green (Optional) or stick to White */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace; /* Monospace for coding feel */
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4rem; /* Big Pixel Art feel */
+            margin: 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 20px;
+            height: 5px;
+            background-color: var(--text-color);
+            animation: blink 1s infinite;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Glitch Animation for text (Simple hover effect) */
+        .glitch-hover:hover {
+            text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="glitch-hover">SATER<span class="cursor">_</span></h1>
+        
+        <p>THE CODE BEGINS HERE.</p>
+
+        <div class="tagline">
+            [ RTL > LTR ]<br>
+            System Online.
+        </div>
+    </div>
+
+</body>
+</html>
