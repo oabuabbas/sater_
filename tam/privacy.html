@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATER_ | Legal</title>
+    <title>SATER_ | TAM Privacy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,14 +18,12 @@
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
 
-        /* الملمس الخلفي */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none; z-index: -1;
         }
 
-        /* القائمة */
         nav { padding: 40px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(14,24,42,0.1); }
         nav a {
             text-decoration: none; color: var(--text-color); font-size: 0.8rem;
@@ -34,13 +32,11 @@
         }
         nav a:hover { opacity: 1; }
 
-        /* حاوية النص القانوني */
         .legal-container {
             width: 85%; max-width: 800px; margin-top: 50px; margin-bottom: 80px;
             text-align: left; opacity: 0; animation: fadeIn 0.8s ease-out 0.2s forwards;
         }
 
-        /* العناوين */
         h1.doc-title {
             font-family: 'Cinzel', serif; font-size: 2.5rem; margin: 0;
             text-transform: uppercase; letter-spacing: 3px;
@@ -51,15 +47,16 @@
             opacity: 0.5; margin-top: 10px; margin-bottom: 50px; text-transform: uppercase;
         }
 
-        /* تنسيق النصوص */
         .legal-text h3 {
             font-family: 'Cinzel', serif; font-size: 1.2rem; margin-top: 40px;
             border-bottom: 1px solid rgba(14,24,42,0.1); padding-bottom: 10px;
         }
 
-        .legal-text p, .legal-text ul {
-            font-size: 0.9rem; line-height: 1.7; opacity: 0.9; margin-bottom: 20px;
-        }
+        .legal-text p { font-size: 0.9rem; line-height: 1.7; opacity: 0.9; margin-bottom: 20px; }
+        
+        .legal-text ul { list-style-type: square; padding-left: 20px; opacity: 0.9; line-height: 1.7; }
+        .legal-text li { margin-bottom: 15px; }
+        .legal-text strong { font-weight: 700; color: var(--text-color); }
 
         .back-btn {
             display: inline-block; margin-top: 40px; padding: 15px 30px;
@@ -83,30 +80,55 @@
 
     <div class="legal-container">
         <h1 class="doc-title">Privacy Policy</h1>
-        
         <h2 class="app-name">For Application: TAM</h2>
 
         <div class="legal-text">
-            <p>Last Updated: January 2026</p>
+            <p><strong>Effective Date:</strong> January 10, 2026</p>
 
             <h3>1. Introduction</h3>
             <p>
-                Welcome to SATER_. We respect your privacy and are committed to protecting your personal data. 
-                This privacy policy will inform you as to how we look after your personal data when you use our application 
-                and tell you about your privacy rights.
+                Welcome to TAM, a productivity RPG developed by SATER Studio. We are committed to protecting your privacy while you embark on your hero's journey.
             </p>
 
-            <h3>2. Data We Collect</h3>
+            <h3>2. Local-First Data Philosophy</h3>
+            <p>TAM operates on a local-first basis.</p>
+            <ul>
+                <li><strong>No PII Collection:</strong> We do not collect, store, or transmit Personal Identifiable Information (PII) to external servers.</li>
+                <li><strong>Local Storage:</strong> Your tasks, XP, levels, and RPG stats (FOC, SOL, NRG) are stored exclusively on your device's local database.</li>
+            </ul>
+
+            <h3>3. Permissions & Their Purpose</h3>
+            <p>To provide the full RPG experience, TAM requires the following permissions:</p>
+            <ul>
+                <li><strong>RECORD_AUDIO (Soul Echoes / Voice Vault):</strong> Used only to allow you to record voice notes. These recordings stay on your device and are never uploaded.</li>
+                <li><strong>POST_NOTIFICATIONS:</strong> Used to display the "Golden Icon" (Crown) in your status bar during focus sessions and to notify you of victories.</li>
+                <li><strong>VIBRATE:</strong> Used for haptic feedback (Double-Pulse) to celebrate task completion and session ends.</li>
+            </ul>
+
+            <h3>4. PDF Export & Storage Access</h3>
+            <p>TAM requests storage access for the sole purpose of:</p>
+            <ul>
+                <li><strong>SaterPdfExporter:</strong> Allowing you to generate and save productivity reports as PDF files directly to your device.</li>
+            </ul>
+
+            <h3>5. Third-Party Libraries</h3>
             <p>
-                We believe in minimalism. We do not collect any personal data that is not strictly necessary for the app's functionality.
-                <ul>
-                    <li>Device Information (Model, OS version).</li>
-                    <li>Usage Data (Crash logs, performance metrics).</li>
-                </ul>
+                We use standard, trusted Flutter libraries (such as flutter_local_notifications and audioplayers).
+            </p>
+            <ul>
+                <li><strong>No Analytics/Ads:</strong> This initial version of TAM does not use third-party advertising or tracking SDKs.</li>
+            </ul>
+
+            <h3>6. Children’s Privacy</h3>
+            <p>
+                TAM is a tool for productivity. We do not knowingly collect data from children under 13.
             </p>
 
-            <h3>3. Contact Us</h3>
-            <p>If you have any questions about this privacy policy, please contact us at: contact@thesater.com</p>
+            <h3>7. Contact Information</h3>
+            <p>
+                For any inquiries regarding your privacy or the SATER_ ecosystem, contact founder Omar Abu Abbass at: 
+                <a href="mailto:omarabuabbas29@gmail.com" style="color: inherit; font-weight: bold;">omarabuabbas29@gmail.com</a>
+            </p>
         </div>
 
         <a href="../apps.html" class="back-btn">← Back to Apps</a>
