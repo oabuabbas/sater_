@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATER_ | KHAMEN Official</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { 
+            --bg-color: #F2EFE5; 
+            --text-color: #0E182A; 
+            --accent-color: #8B0000; /* أحمر داكن (Dark Red) يعكس "الساحة" والغموض */
+        }
+        
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Space Mono', monospace; margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        /* ملمس الخلفية */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: -1;
+        }
+
+        /* القائمة */
+        nav { padding: 30px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(14,24,42,0.1); }
+        nav a {
+            text-decoration: none; color: var(--text-color); font-size: 0.8rem;
+            margin: 0 10px; text-transform: uppercase; letter-spacing: 1px;
+            opacity: 0.6; transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+
+        /* الهيرو سكشن */
+        .hero-section {
+            text-align: center; padding: 80px 20px;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        h1.main-title {
+            font-family: 'Cinzel', serif; font-size: 3.5rem; margin: 0;
+            text-transform: uppercase; letter-spacing: 5px; color: var(--text-color);
+        }
+        
+        h2.subtitle {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; margin-top: 15px;
+            letter-spacing: 3px; color: var(--accent-color); font-weight: 700;
+        }
+
+        p.intro-text {
+            max-width: 650px; margin: 30px auto; line-height: 1.6; font-size: 0.95rem; opacity: 0.9;
+        }
+
+        .status-badge {
+            display: inline-block; padding: 8px 16px; border: 1px solid var(--text-color);
+            font-size: 0.7rem; text-transform: uppercase; margin-top: 20px; letter-spacing: 1px;
+            margin-right: 10px;
+        }
+
+        /* الأقسام (Pillars) */
+        .pillar-section {
+            width: 85%; max-width: 900px; margin: 60px 0;
+        }
+
+        .section-header {
+            font-family: 'Cinzel', serif; font-size: 2rem; border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px; margin-bottom: 30px; display: inline-block;
+        }
+
+        .feature-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.5); padding: 25px; border-left: 3px solid var(--text-color);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+
+        .feature-card h3 {
+            font-family: 'Cinzel', serif; margin-top: 0; font-size: 1.1rem; letter-spacing: 1px;
+            color: var(--text-color);
+        }
+
+        .feature-card ul { padding-left: 20px; margin-top: 15px; }
+        .feature-card li { margin-bottom: 10px; font-size: 0.85rem; line-height: 1.5; }
+        .feature-card strong { color: var(--accent-color); }
+
+        /* المواصفات التقنية */
+        .tech-list {
+            list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .tech-item { border: 1px solid rgba(14,24,42,0.1); padding: 15px; font-size: 0.8rem; }
+        .tech-label { display: block; font-weight: 700; margin-bottom: 5px; opacity: 0.5; text-transform: uppercase; }
+
+        /* اقتباس المطور */
+        .vision-quote {
+            text-align: center; padding: 60px 20px; background: var(--text-color); color: var(--bg-color);
+            width: 100%; margin-top: 50px;
+        }
+        .quote-text {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto;
+            font-style: italic; letter-spacing: 1px;
+        }
+        .quote-author { display: block; margin-top: 20px; font-size: 0.8rem; opacity: 0.7; font-family: 'Space Mono'; }
+
+        /* الفوتر */
+        .footer-links {
+            padding: 40px 0; text-align: center; width: 100%; font-size: 0.75rem; opacity: 0.6;
+        }
+        .footer-links a { color: var(--text-color); text-decoration: none; margin: 0 10px; border-bottom: 1px dotted var(--text-color); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 700px) {
+            h1.main-title { font-size: 2.5rem; letter-spacing: 3px; }
+            .tech-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../apps.html">Apps</a>
+    </nav>
+
+    <div class="hero-section">
+        <h1 class="main-title">KHAMEN</h1>
+        <h2 class="subtitle">The Social Arena</h2>
+        <p class="intro-text">
+            Unmask the Truth. Master the Chaos. <br><br>
+            KHAMEN is the heartbeat of every gathering. Built by SATER Studio, 
+            it transforms awkward silences into electric battlefields of wit and deception. 
+            The ultimate digital moderator for the real world.
+        </p>
+        <div class="status-badge">Version 1.0.0 Global Launch</div>
+        <div class="status-badge" style="border-color: var(--accent-color); color: var(--accent-color);">Live on Google Play</div>
+    </div>
+
+    <div class="pillar-section">
+        <div class="section-header">The Core Pillars</div>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>A. The Spy Protocol</h3>
+                <p style="font-size: 0.8rem; opacity: 0.7;">(Bra Al-Salfa)</p>
+                <ul>
+                    <li><strong>Deception Engine:</strong> One player is the "Spy". The rest must identify them without revealing the truth.</li>
+                    <li><strong>Interrogation:</strong> A unique phase forcing pressing questions to heat up suspicion.</li>
+                    <li><strong>Tactical Voting:</strong> Choose Secret Voting (Anonymity) or Public Voting (Chaos).</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>B. The Oracle Suite</h3>
+                <p>Let fate decide when you cannot.</p>
+                <ul>
+                    <li><strong>Wheel of Destiny:</strong> Customizable spin wheel to settle arguments.</li>
+                    <li><strong>Cosmic Dice & Coin:</strong> High-fidelity 3D randomization.</li>
+                    <li><strong>Spin The Bottle:</strong> Classic mechanic reimagined for the digital age.</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>C. Mind Games</h3>
+                <p>Test your team's synergy.</p>
+                <ul>
+                    <li><strong>Word Guessing:</strong> Test vocabulary and speed under pressure.</li>
+                    <li><strong>More:</strong> New arenas coming soon.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="pillar-section">
+        <div class="section-header">Technical Specs</div>
+        <ul class="tech-list">
+            <li class="tech-item">
+                <span class="tech-label">Developer</span>
+                SATER Studio / Omar Abu Abbass
+            </li>
+            <li class="tech-item">
+                <span class="tech-label">Platform</span>
+                Native Android (Universal AAB)
+            </li>
+            <li class="tech-item">
+                <span class="tech-label">Identity</span>
+                SATER Minimalist (Clean & Dark)
+            </li>
+            <li class="tech-item">
+                <span class="tech-label">Monetization</span>
+                Free-to-Play (Non-intrusive Ads)
+            </li>
+            <li class="tech-item">
+                <span class="tech-label">Security</span>
+                IARC Compliant Global Rating
+            </li>
+        </ul>
+    </div>
+
+    <div class="vision-quote">
+        <p class="quote-text">
+            "KHAMEN was built on a simple promise: technology should bring us together, not drive us apart. 
+            It is a tool designed to spark laughter, debate, and human connection in a room full of screens."
+        </p>
+        <span class="quote-author">— SATER Studio</span>
+    </div>
+
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <br><br>
+        SATER_ | Code Lab
+    </div>
+
+</body>
+</html>
