@@ -8,110 +8,92 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
         :root { 
-            --bg-color: #F2EFE5; 
-            --text-color: #0E182A; 
-            --game-accent: #27AE60; /* أخضر للإشارة للنجاح */
-            --game-fail: #C0392B; /* أحمر للفشل */
+            --bg-color: #050505; 
+            --text-color: #00FF41; /* Hacker Green */
+            --accent-color: #008F11;
+            --fail-color: #FF0033;
+            --scanline-color: rgba(0, 0, 0, 0.5);
         }
         
         body {
             background-color: var(--bg-color); color: var(--text-color);
             font-family: 'Space Mono', monospace; margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
-            overflow-x: hidden; user-select: none; /* منع تحديد النص أثناء اللعب */
+            overflow-x: hidden; user-select: none;
         }
 
-        /* ملمس الخلفية */
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: -1;
+        /* تأثير CRT والشاشة القديمة */
+        body::after {
+            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999; background-size: 100% 2px, 3px 100%; pointer-events: none;
         }
 
-        nav { padding: 40px 0; text-align: center; width: 100%; z-index: 10; }
+        nav { padding: 30px 0; text-align: center; width: 100%; z-index: 10; border-bottom: 1px solid #333; }
         nav a {
-            text-decoration: none; color: var(--text-color); font-size: 0.9rem;
+            text-decoration: none; color: #888; font-size: 0.8rem;
             margin: 0 15px; text-transform: uppercase; letter-spacing: 1px;
-            opacity: 0.6; transition: opacity 0.3s;
+            transition: 0.3s;
         }
-        nav a:hover { opacity: 1; }
-        nav a.current { font-weight: 700; border-bottom: 2px solid var(--text-color); }
+        nav a:hover { color: var(--text-color); text-shadow: 0 0 5px var(--text-color); }
+        nav a.current { color: var(--text-color); font-weight: 700; border-bottom: 1px solid var(--text-color); }
 
-        /* حاوية الصفحة */
-        .container {
-            width: 90%; max-width: 800px; text-align: center; margin-top: 40px;
-        }
+        .container { width: 90%; max-width: 800px; text-align: center; margin-top: 40px; z-index: 5; position: relative; }
 
-        /* النص العظيم */
         h1.page-title {
-            font-family: 'Cinzel', serif; font-size: 3rem; margin: 0 0 20px 0;
-            text-transform: uppercase; letter-spacing: 5px;
+            font-family: 'Cinzel', serif; font-size: 3.5rem; margin: 0 0 10px 0;
+            text-transform: uppercase; letter-spacing: 8px; color: var(--text-color);
+            text-shadow: 0 0 10px var(--accent-color);
         }
+
         p.intro-text {
-            max-width: 600px; margin: 0 auto 60px auto; line-height: 1.6; opacity: 0.8;
+            max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6; opacity: 0.8; font-size: 0.9rem;
         }
 
-        /* --- منطقة اللعبة (Mini-Game) --- */
-        .game-area {
-            background: rgba(14, 24, 42, 0.05); border: 2px solid var(--text-color);
-            padding: 40px; margin: 0 auto 60px auto; max-width: 500px;
-            position: relative; overflow: hidden;
+        /* --- حاوية اللعبة --- */
+        .game-wrapper {
+            position: relative; padding: 20px; border: 1px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1); background: #000;
+            max-width: 600px; margin: 0 auto;
         }
 
-        .game-status {
-            font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 20px;
-            min-height: 1.5em; letter-spacing: 2px;
+        canvas {
+            background: #111; border: 1px solid #333; display: block; margin: 0 auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* شريط اللعبة */
-        .game-bar-container {
-            width: 100%; height: 30px; background: #ddd; position: relative;
-            margin-bottom: 30px; border-radius: 4px; overflow: hidden;
+        .game-ui {
+            display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 2px;
         }
 
-        /* المنطقة المستهدفة (Target Zone) */
-        .target-zone {
-            position: absolute; top: 0; bottom: 0; left: 40%; width: 20%;
-            background: rgba(39, 174, 96, 0.3); border-left: 2px solid var(--game-accent);
-            border-right: 2px solid var(--game-accent); z-index: 1;
-        }
-
-        /* المؤشر المتحرك */
-        .cursor-bar {
-            position: absolute; top: 0; bottom: 0; width: 4px; background: var(--text-color);
-            left: 0; z-index: 2;
-        }
-
-        /* زر التفاعل */
         .action-btn {
-            background: var(--text-color); color: var(--bg-color); border: none;
-            padding: 15px 40px; font-family: 'Space Mono', monospace; font-size: 1rem;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-            transition: transform 0.1s;
+            background: transparent; color: var(--text-color); border: 1px solid var(--text-color);
+            padding: 15px 50px; font-family: 'Space Mono', monospace; font-size: 1.2rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 3px; margin-top: 20px;
+            transition: 0.2s; position: relative; overflow: hidden;
         }
-        .action-btn:active { transform: scale(0.95); }
+        .action-btn:hover { background: var(--text-color); color: #000; box-shadow: 0 0 15px var(--text-color); }
+        .action-btn:active { transform: scale(0.98); }
 
-        /* قسم الانتظار (Teaser) */
-        .coming-soon {
-            border-top: 1px solid rgba(14,24,42,0.1); padding-top: 50px; opacity: 0.7;
-        }
-        .coming-soon h3 { font-family: 'Cinzel', serif; letter-spacing: 3px; }
-        .loading-dots::after {
-            content: ' .'; animation: dots 2s steps(5, end) infinite;
+        /* تذييل الصفحة */
+        .footer-note {
+            margin-top: 50px; opacity: 0.5; font-size: 0.7rem; border-top: 1px solid #333; padding-top: 20px;
         }
 
-        @keyframes dots {
-            0%, 20% { content: ' .'; }
-            40% { content: ' ..'; }
-            60% { content: ' ...'; }
-            80%, 100% { content: ' ....'; }
+        /* تأثير الغليتش للنص */
+        .glitch-text { animation: glitch 3s infinite; }
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 0 red, -2px 0 0 blue; }
+            5% { text-shadow: 0 0 0; }
+            100% { text-shadow: 0 0 0; }
         }
 
     </style>
-    <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
 
@@ -119,111 +101,210 @@
         <a href="index.html">Home</a>
         <a href="apps.html">Apps</a>
         <a href="games.html" class="current">Games</a>
-        <a href="about.html">About</a>
-        <a href="more.html">More</a>
     </nav>
 
     <div class="container">
-        
-        <h1 class="page-title">The Arena</h1>
+        <h1 class="page-title glitch-text">The Arena</h1>
         <p class="intro-text">
-            We don't just build distractions; we forge digital battlefields. 
-            The major titles are currently being tempered in the dark. 
-            Until they emerge, keep your reflexes sharp here.
+            System: <span style="color:red">UNSECURED</span>. Protocol: Decrypt to access core data.
+            <br>Tap [DECRYPT] when the signal aligns with the green zone.
         </p>
 
-        <div class="game-area">
-            <div class="game-status" id="statusText">SYSTEM LOCKED</div>
-            
-            <div class="game-bar-container">
-                <div class="target-zone" id="target"></div>
-                <div class="cursor-bar" id="cursor"></div>
+        <div class="game-wrapper">
+            <div class="game-ui">
+                <span id="scoreDisplay">Level: 01</span>
+                <span id="highScoreDisplay">Record: 00</span>
             </div>
-
-            <button class="action-btn" id="lockBtn" onclick="attemptUnlock()">DECRYPT</button>
-            <p style="font-size: 0.7rem; margin-top: 15px; opacity: 0.5;">Score: <span id="score">0</span></p>
+            
+            <canvas id="gameCanvas" width="500" height="300"></canvas>
+            
+            <button class="action-btn" id="actionBtn">DECRYPT</button>
         </div>
 
-        <div class="coming-soon">
-            <h3>Major Titles Inbound</h3>
-            <p>Project C.O.R (Chess of Realms) is compiling<span class="loading-dots"></span></p>
-            <p style="font-size: 0.8rem;">Expect Chaos.</p>
+        <div class="footer-note">
+            // PROJECT C.O.R (Chess of Realms) > COMPILING... <br>
+            // STATUS: CLASSIFIED
         </div>
-
     </div>
 
     <script>
-        const cursor = document.getElementById('cursor');
-        const statusText = document.getElementById('statusText');
-        const scoreEl = document.getElementById('score');
-        let position = 0;
-        let direction = 1;
-        let speed = 1.5;
-        let gameActive = true;
-        let score = 0;
-        let animationFrame;
+        // --- Game Engine ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const btn = document.getElementById('actionBtn');
+        const scoreEl = document.getElementById('scoreDisplay');
+        const highScoreEl = document.getElementById('highScoreDisplay');
 
-        // Game Loop (Animation)
-        function animate() {
-            if (!gameActive) return;
+        // Audio Context (Simple Beeps)
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
 
-            position += speed * direction;
-            
-            // Bounce off walls
-            if (position >= 100 || position <= 0) {
-                direction *= -1;
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            if (type === 'hit') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+            } else if (type === 'miss') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.3);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
             }
-
-            cursor.style.left = position + '%';
-            animationFrame = requestAnimationFrame(animate);
         }
 
-        // Action Logic
-        function attemptUnlock() {
-            if (!gameActive) {
-                // Reset Game
-                resetGame();
+        // State
+        let level = 1;
+        let highScore = localStorage.getItem('arenaHighScore') || 0;
+        let gameState = 'PLAYING'; // PLAYING, GAMEOVER
+        
+        // Entity: Cursor
+        let cursor = { x: 0, width: 4, speed: 3, dir: 1 };
+        
+        // Entity: Target Zone
+        let target = { x: 0, width: 100 }; // Width shrinks every level
+
+        // Particles System
+        let particles = [];
+
+        function initGame() {
+            highScoreEl.innerText = `Record: ${highScore < 10 ? '0' + highScore : highScore}`;
+            resetLevel();
+        }
+
+        function resetLevel() {
+            gameState = 'PLAYING';
+            cursor.x = 0;
+            cursor.dir = 1;
+            // Target becomes smaller and moves randomly
+            target.width = Math.max(20, 150 - (level * 10)); 
+            target.x = Math.random() * (canvas.width - target.width);
+            cursor.speed = 2 + (level * 0.5); // Speed increases
+            
+            scoreEl.innerText = `Level: ${level < 10 ? '0' + level : level}`;
+            btn.innerText = "DECRYPT";
+            btn.style.borderColor = "#00FF41";
+            btn.style.color = "#00FF41";
+        }
+
+        function createParticles(x, color) {
+            for(let i=0; i<10; i++) {
+                particles.push({
+                    x: x, y: canvas.height/2,
+                    vx: (Math.random() - 0.5) * 10,
+                    vy: (Math.random() - 0.5) * 10,
+                    life: 1.0, color: color
+                });
+            }
+        }
+
+        function update() {
+            if (gameState !== 'PLAYING') return;
+
+            // Move Cursor
+            cursor.x += cursor.speed * cursor.dir;
+
+            // Bounce
+            if (cursor.x <= 0 || cursor.x >= canvas.width) {
+                cursor.dir *= -1;
+            }
+
+            // Particles Logic
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx; p.y += p.vy;
+                p.life -= 0.05;
+                if(p.life <= 0) particles.splice(i, 1);
+            }
+        }
+
+        function draw() {
+            // Clear Screen
+            ctx.fillStyle = '#111';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Grid (Cyberpunk Style)
+            ctx.strokeStyle = '#222';
+            ctx.lineWidth = 1;
+            for(let i=0; i<canvas.width; i+=40) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
+            for(let i=0; i<canvas.height; i+=40) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(canvas.width,i); ctx.stroke(); }
+
+            // Draw Target Zone
+            ctx.fillStyle = 'rgba(0, 255, 65, 0.2)';
+            ctx.fillRect(target.x, 0, target.width, canvas.height);
+            ctx.strokeStyle = '#00FF41';
+            ctx.strokeRect(target.x, 0, target.width, canvas.height);
+
+            // Draw Cursor
+            ctx.fillStyle = '#fff';
+            ctx.shadowBlur = 10; ctx.shadowColor = '#fff';
+            ctx.fillRect(cursor.x - 2, 0, 4, canvas.height);
+            ctx.shadowBlur = 0;
+
+            // Draw Particles
+            particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.life;
+                ctx.fillRect(p.x, p.y, 3, 3);
+                ctx.globalAlpha = 1.0;
+            });
+
+            // Center Line
+            ctx.fillStyle = '#333';
+            ctx.fillRect(0, canvas.height/2 - 1, canvas.width, 2);
+
+            requestAnimationFrame(loop);
+        }
+
+        function loop() {
+            update();
+            draw();
+        }
+
+        // Action Handler
+        btn.addEventListener('click', () => {
+            if (gameState === 'GAMEOVER') {
+                level = 1;
+                resetLevel();
                 return;
             }
 
-            // Check Win Condition
-            // Target is between 40% and 60%
-            if (position >= 40 && position <= 60) {
-                // WIN
-                score++;
-                speed += 0.5; // Make it faster
-                statusText.innerText = "ACCESS GRANTED";
-                statusText.style.color = "var(--game-accent)";
-                scoreEl.innerText = score;
-                
-                // Visual Flash
-                document.querySelector('.game-bar-container').style.background = "#fff";
-                setTimeout(() => document.querySelector('.game-bar-container').style.background = "#ddd", 100);
-
+            // Hit Detection
+            // Cursor width logic handled visually
+            if (cursor.x >= target.x && cursor.x <= target.x + target.width) {
+                // HIT!
+                playSound('hit');
+                createParticles(cursor.x, '#00FF41');
+                level++;
+                if(level > highScore) {
+                    highScore = level;
+                    localStorage.setItem('arenaHighScore', highScore);
+                    highScoreEl.innerText = `Record: ${highScore < 10 ? '0' + highScore : highScore}`;
+                }
+                resetLevel();
             } else {
-                // LOSE
-                gameActive = false;
-                statusText.innerText = "ACCESS DENIED";
-                statusText.style.color = "var(--game-fail)";
-                document.getElementById('lockBtn').innerText = "RETRY";
-                cancelAnimationFrame(animationFrame);
+                // MISS!
+                playSound('miss');
+                createParticles(cursor.x, '#FF0033');
+                gameState = 'GAMEOVER';
+                btn.innerText = "SYSTEM FAILURE // RETRY";
+                btn.style.borderColor = "red";
+                btn.style.color = "red";
+                scoreEl.innerText = "FATAL ERROR";
             }
-        }
+        });
 
-        function resetGame() {
-            gameActive = true;
-            position = 0;
-            score = 0;
-            speed = 1.5;
-            scoreEl.innerText = score;
-            statusText.innerText = "SYSTEM LOCKED";
-            statusText.style.color = "var(--text-color)";
-            document.getElementById('lockBtn').innerText = "DECRYPT";
-            animate();
-        }
-
-        // Start Game
-        animate();
+        // Start
+        initGame();
+        loop();
 
     </script>
 
