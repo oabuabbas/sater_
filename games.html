@@ -11,12 +11,14 @@
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
+        /* --- SATER_ CORE IDENTITY --- */
         :root { 
-            --bg-color: #050505; 
-            --text-color: #00FF41; /* Hacker Green */
-            --accent-color: #008F11;
-            --fail-color: #FF0033;
-            --scanline-color: rgba(0, 0, 0, 0.5);
+            --bg-color: #F2EFE5; 
+            --text-color: #0E182A; 
+            /* ألوان اللعبة الجديدة لتتناسب مع الهوية الرصينة */
+            --game-accent: #2E8B57; /* أخضر زمردي أنيق للنجاح */
+            --game-fail: #C0392B; /* أحمر قاني للفشل */
+            --panel-bg: rgba(14, 24, 42, 0.05); /* خلفية خفيفة لمنطقة اللعب */
         }
         
         body {
@@ -26,72 +28,72 @@
             overflow-x: hidden; user-select: none;
         }
 
-        /* تأثير CRT والشاشة القديمة */
-        body::after {
-            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 999; background-size: 100% 2px, 3px 100%; pointer-events: none;
+        /* ملمس الخلفية الأصلي */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: -1;
         }
 
-        nav { padding: 30px 0; text-align: center; width: 100%; z-index: 10; border-bottom: 1px solid #333; }
+        nav { padding: 30px 0; text-align: center; width: 100%; z-index: 10; border-bottom: 1px solid rgba(14,24,42,0.1); }
         nav a {
-            text-decoration: none; color: #888; font-size: 0.8rem;
+            text-decoration: none; color: var(--text-color); font-size: 0.8rem;
             margin: 0 15px; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s;
+            opacity: 0.6; transition: opacity 0.3s;
         }
-        nav a:hover { color: var(--text-color); text-shadow: 0 0 5px var(--text-color); }
-        nav a.current { color: var(--text-color); font-weight: 700; border-bottom: 1px solid var(--text-color); }
+        nav a:hover { opacity: 1; }
+        nav a.current { font-weight: 700; border-bottom: 2px solid var(--text-color); opacity: 1; }
 
         .container { width: 90%; max-width: 800px; text-align: center; margin-top: 40px; z-index: 5; position: relative; }
 
         h1.page-title {
-            font-family: 'Cinzel', serif; font-size: 3.5rem; margin: 0 0 10px 0;
+            font-family: 'Cinzel', serif; font-size: 3.5rem; margin: 0 0 15px 0;
             text-transform: uppercase; letter-spacing: 8px; color: var(--text-color);
-            text-shadow: 0 0 10px var(--accent-color);
         }
 
         p.intro-text {
             max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6; opacity: 0.8; font-size: 0.9rem;
         }
 
-        /* --- حاوية اللعبة --- */
+        /* --- ADVANCED GAME UI (Blended Style) --- */
         .game-wrapper {
-            position: relative; padding: 20px; border: 1px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1); background: #000;
-            max-width: 600px; margin: 0 auto;
+            background: var(--panel-bg);
+            border: 2px solid var(--text-color);
+            padding: 30px;
+            max-width: 600px; margin: 0 auto 40px auto;
+            position: relative;
         }
 
+        .game-header-ui {
+            display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 2px; font-family: 'Cinzel', serif; color: var(--text-color);
+        }
+        .accent-text { color: var(--game-accent); font-weight: 700; }
+
+        /* الكانفاس هو شاشة اللعبة المتطورة */
         canvas {
-            background: #111; border: 1px solid #333; display: block; margin: 0 auto;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
-
-        .game-ui {
-            display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.8rem;
-            text-transform: uppercase; letter-spacing: 2px;
+            background: #EAE7DD; /* لون بيج أغمق قليلاً للتباين داخل اللعبة */
+            border: 1px solid rgba(14, 24, 42, 0.2);
+            display: block; margin: 0 auto;
+            /* إزالة الظلال النيون للحفاظ على الستايل النظيف */
         }
 
         .action-btn {
-            background: transparent; color: var(--text-color); border: 1px solid var(--text-color);
-            padding: 15px 50px; font-family: 'Space Mono', monospace; font-size: 1.2rem;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 3px; margin-top: 20px;
-            transition: 0.2s; position: relative; overflow: hidden;
+            background: var(--text-color); color: var(--bg-color); border: none;
+            padding: 15px 50px; font-family: 'Space Mono', monospace; font-size: 1.1rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 3px; margin-top: 25px;
+            transition: 0.2s; position: relative; overflow: hidden; font-weight: 700;
         }
-        .action-btn:hover { background: var(--text-color); color: #000; box-shadow: 0 0 15px var(--text-color); }
-        .action-btn:active { transform: scale(0.98); }
+        .action-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .action-btn:active { transform: scale(0.98) translateY(0); }
 
         /* تذييل الصفحة */
         .footer-note {
-            margin-top: 50px; opacity: 0.5; font-size: 0.7rem; border-top: 1px solid #333; padding-top: 20px;
+            margin-top: 50px; opacity: 0.6; font-size: 0.75rem; border-top: 1px solid rgba(14,24,42,0.1); padding-top: 20px;
+            font-family: 'Space Mono'; text-transform: uppercase; letter-spacing: 1px;
         }
-
-        /* تأثير الغليتش للنص */
-        .glitch-text { animation: glitch 3s infinite; }
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 0 red, -2px 0 0 blue; }
-            5% { text-shadow: 0 0 0; }
-            100% { text-shadow: 0 0 0; }
-        }
+        .loading-dots::after { content: ' .'; animation: dots 2s steps(5, end) infinite; }
+        @keyframes dots { 0%, 20% { content: ' .'; } 40% { content: ' ..'; } 60% { content: ' ...'; } 80%, 100% { content: ' ....'; } }
 
     </style>
 </head>
@@ -101,45 +103,61 @@
         <a href="index.html">Home</a>
         <a href="apps.html">Apps</a>
         <a href="games.html" class="current">Games</a>
+        <a href="about.html">About</a>
+        <a href="more.html">More</a>
     </nav>
 
     <div class="container">
-        <h1 class="page-title glitch-text">The Arena</h1>
+        <h1 class="page-title">The Arena</h1>
         <p class="intro-text">
-            System: <span style="color:red">UNSECURED</span>. Protocol: Decrypt to access core data.
-            <br>Tap [DECRYPT] when the signal aligns with the green zone.
+            We forge digital battlefields. The major titles are compiling in the dark.
+            Until they emerge, keep your reflexes sharp in this decryption protocol.
+            <br><br>
+            <strong>Objective:</strong> Align the signal.
         </p>
 
         <div class="game-wrapper">
-            <div class="game-ui">
+            <div class="game-header-ui">
                 <span id="scoreDisplay">Level: 01</span>
                 <span id="highScoreDisplay">Record: 00</span>
             </div>
             
-            <canvas id="gameCanvas" width="500" height="300"></canvas>
+            <canvas id="gameCanvas" width="500" height="250"></canvas>
             
-            <button class="action-btn" id="actionBtn">DECRYPT</button>
+            <button class="action-btn" id="actionBtn">DECRYPT SIGNAL</button>
         </div>
 
         <div class="footer-note">
-            // PROJECT C.O.R (Chess of Realms) > COMPILING... <br>
-            // STATUS: CLASSIFIED
+            // PROJECT C.O.R (Chess of Realms) > STATUS: COMPILING<span class="loading-dots"></span> <br>
+            EXPECT CHAOS.
         </div>
     </div>
 
     <script>
-        // --- Game Engine ---
+        // --- Advanced Game Engine (Canvas + Audio) ---
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const btn = document.getElementById('actionBtn');
         const scoreEl = document.getElementById('scoreDisplay');
         const highScoreEl = document.getElementById('highScoreDisplay');
 
-        // Audio Context (Simple Beeps)
+        // تعريف الألوان من CSS لاستخدامها في الجافاسكريبت
+        const style = getComputedStyle(document.body);
+        const colorText = style.getPropertyValue('--text-color').trim();
+        const colorAccent = style.getPropertyValue('--game-accent').trim();
+        const colorFail = style.getPropertyValue('--game-fail').trim();
+
+        // --- Audio System (Web Audio API) ---
+        // صوتيات احترافية بسيطة بدون الحاجة لملفات خارجية
         const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioCtx = new AudioContext();
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) audioCtx = new AudioContext();
+        }
 
         function playSound(type) {
+            initAudio();
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
@@ -147,33 +165,33 @@
             gainNode.connect(audioCtx.destination);
 
             if (type === 'hit') {
-                osc.type = 'square';
-                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+                // صوت نجاح "رقمي" دقيق
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.1); // C6
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.15);
             } else if (type === 'miss') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.3);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                // صوت فشل "منخفض"
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.2);
             }
         }
 
-        // State
+        // --- Game State ---
         let level = 1;
         let highScore = localStorage.getItem('arenaHighScore') || 0;
         let gameState = 'PLAYING'; // PLAYING, GAMEOVER
         
-        // Entity: Cursor
-        let cursor = { x: 0, width: 4, speed: 3, dir: 1 };
-        
-        // Entity: Target Zone
-        let target = { x: 0, width: 100 }; // Width shrinks every level
-
-        // Particles System
-        let particles = [];
+        // Entities
+        let cursor = { x: 0, width: 4, speed: 0, dir: 1 };
+        let target = { x: 0, width: 0 };
+        let particles = []; // مصفوفة للجزيئات المتطايرة
 
         function initGame() {
             highScoreEl.innerText = `Record: ${highScore < 10 ? '0' + highScore : highScore}`;
@@ -184,23 +202,26 @@
             gameState = 'PLAYING';
             cursor.x = 0;
             cursor.dir = 1;
-            // Target becomes smaller and moves randomly
-            target.width = Math.max(20, 150 - (level * 10)); 
-            target.x = Math.random() * (canvas.width - target.width);
-            cursor.speed = 2 + (level * 0.5); // Speed increases
             
-            scoreEl.innerText = `Level: ${level < 10 ? '0' + level : level}`;
-            btn.innerText = "DECRYPT";
-            btn.style.borderColor = "#00FF41";
-            btn.style.color = "#00FF41";
+            // صعوبة ديناميكية: الهدف يصغر والمؤشر يسرع
+            target.width = Math.max(30, 160 - (level * 8)); 
+            target.x = Math.random() * (canvas.width - target.width);
+            cursor.speed = 2.5 + (level * 0.4); 
+            
+            scoreEl.innerHTML = `Level: <span class="accent-text">${level < 10 ? '0' + level : level}</span>`;
+            btn.innerText = "DECRYPT SIGNAL";
+            btn.style.backgroundColor = colorText;
+            btn.style.color = "var(--bg-color)";
         }
 
-        function createParticles(x, color) {
-            for(let i=0; i<10; i++) {
+        // نظام الجزيئات (Particles System)
+        function createParticles(x, y, color) {
+            for(let i=0; i<15; i++) {
                 particles.push({
-                    x: x, y: canvas.height/2,
-                    vx: (Math.random() - 0.5) * 10,
-                    vy: (Math.random() - 0.5) * 10,
+                    x: x, y: y,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: (Math.random() - 0.5) * 8,
+                    size: Math.random() * 3 + 1,
                     life: 1.0, color: color
                 });
             }
@@ -209,56 +230,56 @@
         function update() {
             if (gameState !== 'PLAYING') return;
 
-            // Move Cursor
+            // تحريك المؤشر
             cursor.x += cursor.speed * cursor.dir;
-
-            // Bounce
+            // الارتداد من الحواف
             if (cursor.x <= 0 || cursor.x >= canvas.width) {
                 cursor.dir *= -1;
             }
 
-            // Particles Logic
+            // تحديث الجزيئات
             for (let i = particles.length - 1; i >= 0; i--) {
                 let p = particles[i];
                 p.x += p.vx; p.y += p.vy;
-                p.life -= 0.05;
+                p.life -= 0.04;
                 if(p.life <= 0) particles.splice(i, 1);
             }
         }
 
         function draw() {
-            // Clear Screen
-            ctx.fillStyle = '#111';
+            // مسح الشاشة (بلون بيج داكن قليلاً للتباين)
+            ctx.fillStyle = '#EAE7DD';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw Grid (Cyberpunk Style)
-            ctx.strokeStyle = '#222';
+            // رسم خطوط شبكة خفيفة جداً (Grid)
+            ctx.strokeStyle = 'rgba(14, 24, 42, 0.05)';
             ctx.lineWidth = 1;
-            for(let i=0; i<canvas.width; i+=40) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
-            for(let i=0; i<canvas.height; i+=40) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(canvas.width,i); ctx.stroke(); }
+            for(let i=0; i<canvas.width; i+=50) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
 
-            // Draw Target Zone
-            ctx.fillStyle = 'rgba(0, 255, 65, 0.2)';
+            // رسم المنطقة المستهدفة (Target Zone) - شفافة
+            // تحويل لون الـ accent إلى rgba للشفافية
+            ctx.fillStyle = 'rgba(46, 139, 87, 0.3)'; // نفس لون game-accent لكن شفاف
             ctx.fillRect(target.x, 0, target.width, canvas.height);
-            ctx.strokeStyle = '#00FF41';
+            ctx.strokeStyle = colorAccent;
+            ctx.lineWidth = 2;
             ctx.strokeRect(target.x, 0, target.width, canvas.height);
 
-            // Draw Cursor
-            ctx.fillStyle = '#fff';
-            ctx.shadowBlur = 10; ctx.shadowColor = '#fff';
+            // رسم المؤشر (Cursor)
+            ctx.fillStyle = colorText;
             ctx.fillRect(cursor.x - 2, 0, 4, canvas.height);
-            ctx.shadowBlur = 0;
 
-            // Draw Particles
+            // رسم الجزيئات (Particles)
             particles.forEach(p => {
                 ctx.fillStyle = p.color;
                 ctx.globalAlpha = p.life;
-                ctx.fillRect(p.x, p.y, 3, 3);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
                 ctx.globalAlpha = 1.0;
             });
 
-            // Center Line
-            ctx.fillStyle = '#333';
+            // خط المنتصف الجمالي
+            ctx.fillStyle = 'rgba(14, 24, 42, 0.1)';
             ctx.fillRect(0, canvas.height/2 - 1, canvas.width, 2);
 
             requestAnimationFrame(loop);
@@ -269,20 +290,22 @@
             draw();
         }
 
-        // Action Handler
+        // التحكم بالزر
         btn.addEventListener('click', () => {
+            initAudio(); // تفعيل الصوت عند أول ضغطة (للسياسات الأمنية للمتصفحات)
+            
             if (gameState === 'GAMEOVER') {
                 level = 1;
                 resetLevel();
                 return;
             }
 
-            // Hit Detection
-            // Cursor width logic handled visually
+            // التحقق من الإصابة
+            // نعتبر الإصابة صحيحة إذا كان مركز المؤشر داخل منطقة الهدف
             if (cursor.x >= target.x && cursor.x <= target.x + target.width) {
-                // HIT!
+                // HIT! (نجاح)
                 playSound('hit');
-                createParticles(cursor.x, '#00FF41');
+                createParticles(cursor.x, canvas.height/2, colorAccent); // جزيئات خضراء
                 level++;
                 if(level > highScore) {
                     highScore = level;
@@ -291,18 +314,18 @@
                 }
                 resetLevel();
             } else {
-                // MISS!
+                // MISS! (فشل)
                 playSound('miss');
-                createParticles(cursor.x, '#FF0033');
+                createParticles(cursor.x, canvas.height/2, colorFail); // جزيئات حمراء
                 gameState = 'GAMEOVER';
-                btn.innerText = "SYSTEM FAILURE // RETRY";
-                btn.style.borderColor = "red";
-                btn.style.color = "red";
-                scoreEl.innerText = "FATAL ERROR";
+                btn.innerText = "SIGNAL LOST // RETRY";
+                btn.style.backgroundColor = colorFail;
+                btn.style.color = "#fff";
+                scoreEl.innerHTML = "Status: <span style='color: var(--game-fail)'>FAILED</span>";
             }
         });
 
-        // Start
+        // بدء اللعبة
         initGame();
         loop();
 
