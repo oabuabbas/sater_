@@ -8,12 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
         :root { 
-            --bg-color: #F2EFE5; 
-            --text-color: #0E182A; 
-            --accent-color: #3498DB; /* أزرق سماوي خفيف (Light Blue) */
+            /* هوية KHAMEN: أسود وأزرق سماوي */
+            --bg-color: #0E182A; /* أزرق داكن جداً يميل للسواد */
+            --text-color: #E0E0E0; 
+            --accent-color: #3498DB; /* الأزرق السماوي المميز */
+            --panel-bg: rgba(52, 152, 219, 0.05);
         }
         
         body {
@@ -30,13 +33,13 @@
         }
 
         /* القائمة */
-        nav { padding: 30px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(14,24,42,0.1); }
+        nav { padding: 30px 0; text-align: center; width: 100%; border-bottom: 1px solid rgba(52, 152, 219, 0.2); }
         nav a {
             text-decoration: none; color: var(--text-color); font-size: 0.8rem;
             margin: 0 10px; text-transform: uppercase; letter-spacing: 1px;
             opacity: 0.6; transition: opacity 0.3s;
         }
-        nav a:hover { opacity: 1; }
+        nav a:hover { opacity: 1; color: var(--accent-color); }
 
         /* الهيرو سكشن */
         .hero-section {
@@ -46,12 +49,13 @@
 
         h1.main-title {
             font-family: 'Cinzel', serif; font-size: 3.5rem; margin: 0;
-            text-transform: uppercase; letter-spacing: 5px; color: var(--text-color);
+            text-transform: uppercase; letter-spacing: 5px; color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(52, 152, 219, 0.3); /* توهج أزرق */
         }
         
         h2.subtitle {
             font-family: 'Cinzel', serif; font-size: 1.2rem; margin-top: 15px;
-            letter-spacing: 3px; color: var(--accent-color); font-weight: 700;
+            letter-spacing: 3px; color: var(--text-color); font-weight: 400; opacity: 0.8;
         }
 
         p.intro-text {
@@ -59,9 +63,10 @@
         }
 
         .status-badge {
-            display: inline-block; padding: 8px 16px; border: 1px solid var(--text-color);
+            display: inline-block; padding: 8px 16px; border: 1px solid var(--accent-color);
             font-size: 0.7rem; text-transform: uppercase; margin-top: 20px; letter-spacing: 1px;
-            margin-right: 10px;
+            margin-right: 10px; color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
         }
 
         /* الأقسام (Pillars) */
@@ -71,7 +76,7 @@
 
         .section-header {
             font-family: 'Cinzel', serif; font-size: 2rem; border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px; margin-bottom: 30px; display: inline-block;
+            padding-bottom: 10px; margin-bottom: 30px; display: inline-block; color: var(--accent-color);
         }
 
         .feature-grid {
@@ -79,37 +84,41 @@
         }
 
         .feature-card {
-            background: rgba(255,255,255,0.5); padding: 25px; border-left: 3px solid var(--text-color);
-            transition: transform 0.3s;
+            background: var(--panel-bg); padding: 25px; border-left: 3px solid var(--text-color);
+            transition: transform 0.3s, border-color 0.3s;
         }
-        .feature-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+        .feature-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent-color); 
+            background: rgba(52, 152, 219, 0.1);
+        }
 
         .feature-card h3 {
             font-family: 'Cinzel', serif; margin-top: 0; font-size: 1.1rem; letter-spacing: 1px;
-            color: var(--text-color);
+            color: var(--accent-color);
         }
 
         .feature-card ul { padding-left: 20px; margin-top: 15px; }
-        .feature-card li { margin-bottom: 10px; font-size: 0.85rem; line-height: 1.5; }
+        .feature-card li { margin-bottom: 10px; font-size: 0.85rem; line-height: 1.5; opacity: 0.85; }
         .feature-card strong { color: var(--accent-color); }
 
         /* المواصفات التقنية */
         .tech-list {
             list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
         }
-        .tech-item { border: 1px solid rgba(14,24,42,0.1); padding: 15px; font-size: 0.8rem; }
-        .tech-label { display: block; font-weight: 700; margin-bottom: 5px; opacity: 0.5; text-transform: uppercase; }
+        .tech-item { border: 1px solid rgba(255,255,255,0.1); padding: 15px; font-size: 0.8rem; }
+        .tech-label { display: block; font-weight: 700; margin-bottom: 5px; opacity: 0.7; text-transform: uppercase; color: var(--accent-color); }
 
         /* اقتباس المطور */
         .vision-quote {
-            text-align: center; padding: 60px 20px; background: var(--text-color); color: var(--bg-color);
-            width: 100%; margin-top: 50px;
+            text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.05); 
+            width: 100%; margin-top: 50px; border-top: 1px solid var(--accent-color); border-bottom: 1px solid var(--accent-color);
         }
         .quote-text {
             font-family: 'Cinzel', serif; font-size: 1.2rem; line-height: 1.6; max-width: 700px; margin: 0 auto;
-            font-style: italic; letter-spacing: 1px;
+            font-style: italic; letter-spacing: 1px; color: var(--text-color);
         }
-        .quote-author { display: block; margin-top: 20px; font-size: 0.8rem; opacity: 0.7; font-family: 'Space Mono'; }
+        .quote-author { display: block; margin-top: 20px; font-size: 0.8rem; opacity: 0.7; font-family: 'Space Mono'; color: var(--accent-color); }
 
         /* الفوتر */
         .footer-links {
@@ -124,7 +133,6 @@
             .tech-list { grid-template-columns: 1fr; }
         }
     </style>
-    <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
 
