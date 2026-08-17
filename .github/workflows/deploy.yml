@@ -27,7 +27,9 @@ jobs:
           node-version: 22
           cache: npm
 
-      - run: npm ci
+      # Only the build needs installing. playwright-core is a dev dependency for
+      # the local layout gate and has no business running in a deploy.
+      - run: npm ci --omit=dev
       - run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
