@@ -1,0 +1,49 @@
+---
+/**
+ * A band: the only element allowed to repaint the palette. Children read
+ * --bg / --fg / --fg-dim / --edge / --accent and never name a colour.
+ */
+
+interface Props {
+  tone?: "base" | "raised";
+  /** Remove the inner column so a child can run full-bleed. */
+  flush?: boolean;
+  as?: "section" | "div" | "header" | "footer";
+  class?: string;
+  id?: string;
+  labelledby?: string;
+}
+
+const {
+  tone = "base",
+  flush = false,
+  as: Tag = "section",
+  class: className,
+  id,
+  labelledby,
+} = Astro.props;
+---
+
+<Tag id={id} aria-labelledby={labelledby} class:list={["band", `band-${tone}`, className]}>
+  <div class:list={["inner", { flush }]}>
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  .band {
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  .inner {
+    width: var(--col);
+    margin-inline: auto;
+    padding-block: var(--band);
+  }
+
+  .inner.flush {
+    width: 100%;
+    padding-block: 0;
+  }
+</style>

@@ -1,0 +1,171 @@
+---
+import { Image } from "astro:assets";
+import Band from "~/components/Band.astro";
+import PageHead from "~/components/PageHead.astro";
+import { tools, type Locale } from "~/data/products";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+/** Product and legal pages are English-only routes carried over from the old site. */
+const legacy = (product: (typeof tools)[number], page: "" | "privacy" | "terms") =>
+  product.legacyPath ? `${product.legacyPath}${page}` : undefined;
+---
+
+<PageHead title={t("tools.title" as UIKey)} lede={t("tools.lede" as UIKey)} />
+
+<Band tone="raised">
+  <ul class="list">
+    {
+      tools.map((product) => (
+        <li class="row" style={`--accent:${product.accent};--ground:${product.ground}`}>
+          <span class:list={["art", product.art]}>
+            <Image src={product.icon} alt={`${product.name} icon`} width={440} height={440} />
+          </span>
+
+          <div class="body">
+            <div class="head">
+              <h2>{product.name}</h2>
+              {product.root && (
+                <span class="root" lang="ar">
+                  <bdi>{product.root}</bdi>
+                </span>
+              )}
+              <span class="status label">{t(`status.${product.status}` as UIKey)}</span>
+            </div>
+
+            <p class="tagline">{product.tagline[locale]}</p>
+            {product.gloss && <p class="gloss">{product.gloss[locale]}</p>}
+
+            <p class="links label">
+              <a href={legacy(product, "")}>{t("tools.page" as UIKey)}</a>
+              <a href={legacy(product, "privacy")}>{t("tools.privacy" as UIKey)}</a>
+              {product.slug !== "zill" && (
+                <a href={legacy(product, "terms")}>{t("tools.terms" as UIKey)}</a>
+              )}
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Band>
+
+<style>
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-8);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: calc(var(--u) * 20) minmax(0, 1fr);
+    gap: var(--s-6);
+    align-items: start;
+    padding-block-end: var(--s-8);
+    border-block-end: var(--hair) solid var(--edge);
+  }
+
+  .list li:last-child {
+    border-block-end: 0;
+    padding-block-end: 0;
+  }
+
+  .art {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    background: var(--ground);
+    border-radius: var(--radius-art);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 var(--hair) rgb(128 128 128 / 0.28);
+  }
+
+  .art.full :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .art.inset :global(img) {
+    width: 66%;
+    height: 66%;
+    object-fit: contain;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-2);
+    flex-wrap: wrap;
+  }
+
+  h2 {
+    font-size: var(--step-4);
+    line-height: var(--lead-tight);
+  }
+
+  .root {
+    font-family: var(--arabic);
+    font-weight: var(--w-bold);
+    font-size: var(--step-3);
+    color: var(--accent);
+  }
+
+  .status {
+    color: var(--fg-dim);
+  }
+
+  .tagline {
+    font-size: var(--step-lede);
+  }
+
+  .gloss {
+    color: var(--fg-dim);
+  }
+
+  .links {
+    display: flex;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+    margin-block-start: var(--s-2);
+    max-inline-size: none;
+  }
+
+  .links a {
+    color: var(--fg-dim);
+    border-block-end: var(--hair) solid var(--edge);
+    padding-block-end: 2px;
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .links a:hover {
+    color: var(--accent);
+    border-block-end-color: var(--accent);
+  }
+
+  @media (max-width: 720px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-3);
+    }
+
+    .art {
+      inline-size: calc(var(--u) * 16);
+    }
+  }
+</style>

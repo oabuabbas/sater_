@@ -1,0 +1,20 @@
+---
+import Band from "~/components/Band.astro";
+import PageHead from "~/components/PageHead.astro";
+import GameFeature from "~/components/GameFeature.astro";
+import { games, type Locale } from "~/data/products";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<PageHead title={t("play.title" as UIKey)} lede={t("play.lede" as UIKey)} />
+
+<Band tone="raised">
+  {games.map((game) => <GameFeature game={game} locale={locale} />)}
+</Band>

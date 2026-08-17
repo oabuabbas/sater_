@@ -1,0 +1,468 @@
+{
+ "tam-privacy": {
+  "title": "Privacy Policy",
+  "app": "For Application: TAM",
+  "blocks": [
+   {
+    "t": "p",
+    "v": "Effective Date: January 10, 2026"
+   },
+   {
+    "t": "h",
+    "v": "1. Introduction"
+   },
+   {
+    "t": "p",
+    "v": "Welcome to TAM, a productivity RPG developed by SATER Studio. We are committed to protecting your privacy while you embark on your hero's journey."
+   },
+   {
+    "t": "h",
+    "v": "2. Local-First Data Philosophy"
+   },
+   {
+    "t": "p",
+    "v": "TAM operates on a local-first basis."
+   },
+   {
+    "t": "ul",
+    "v": [
+     "No PII Collection: We do not collect, store, or transmit Personal Identifiable Information (PII) to external servers.",
+     "Local Storage: Your tasks, XP, levels, and RPG stats (FOC, SOL, NRG) are stored exclusively on your device's local database."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "3. Permissions & Their Purpose"
+   },
+   {
+    "t": "p",
+    "v": "To provide the full RPG experience, TAM requires the following permissions:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "RECORD_AUDIO (Soul Echoes / Voice Vault): Used only to allow you to record voice notes. These recordings stay on your device and are never uploaded.",
+     "POST_NOTIFICATIONS: Used to display the \"Golden Icon\" (Crown) in your status bar during focus sessions and to notify you of victories.",
+     "VIBRATE: Used for haptic feedback (Double-Pulse) to celebrate task completion and session ends."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "4. PDF Export & Storage Access"
+   },
+   {
+    "t": "p",
+    "v": "TAM requests storage access for the sole purpose of:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "SaterPdfExporter: Allowing you to generate and save productivity reports as PDF files directly to your device."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "5. Third-Party Libraries"
+   },
+   {
+    "t": "p",
+    "v": "We use standard, trusted Flutter libraries (such as flutter_local_notifications and audioplayers)."
+   },
+   {
+    "t": "ul",
+    "v": [
+     "No Analytics/Ads: This initial version of TAM does not use third-party advertising or tracking SDKs."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "6. Children’s Privacy"
+   },
+   {
+    "t": "p",
+    "v": "TAM is a tool for productivity. We do not knowingly collect data from children under 13."
+   },
+   {
+    "t": "h",
+    "v": "7. Contact Information"
+   },
+   {
+    "t": "p",
+    "v": "For any inquiries regarding your privacy or the SATER_ ecosystem, contact us at: beatnabytna@gmail.com"
+   }
+  ]
+ },
+ "tam-terms": {
+  "title": "Terms of Service",
+  "app": "For Application: TAM",
+  "blocks": [
+   {
+    "t": "p",
+    "v": "Last Updated: January 11, 2026"
+   },
+   {
+    "t": "p",
+    "v": "Welcome to TAM. By using our application, you agree to the following terms provided by SATER Studio. Please read them carefully as they govern your journey as a Hero within our ecosystem."
+   },
+   {
+    "t": "h",
+    "v": "1. Acceptance of Terms"
+   },
+   {
+    "t": "p",
+    "v": "By downloading, installing, or using TAM, you agree to be bound by these Terms of Service. If you do not agree to these terms, you must not use the application."
+   },
+   {
+    "t": "h",
+    "v": "2. Description of Service"
+   },
+   {
+    "t": "p",
+    "v": "TAM is a productivity application that utilizes RPG (Role-Playing Game) mechanics to help users manage tasks and improve focus. Services include, but are not limited to:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Focus Timers: Concentration tools with ambient audio and haptic feedback.",
+     "RPG Progression: Virtual XP, skill trees, and stat tracking (FOC, SOL, NRG).",
+     "Voice Vault: Encrypted local storage for audio logs and \"Soul Echoes\"."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "3. User Accounts & Data"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Profile Names: Users may customize their profile name to reflect their hero persona.",
+     "Local Storage: Currently, TAM stores most data locally on your device to ensure privacy and speed.",
+     "Responsibility: You are responsible for maintaining the security of your device and the data contained within the app."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "4. Intellectual Property Rights"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Ownership: All content, including but not limited to the SATER brand, the TAM logo, code, graphics, and ambient sounds, is the exclusive property of Omar Abu Abbass and SATER Studio.",
+     "License: We grant you a personal, non-exclusive, non-transferable license to use the app for personal, non-commercial productivity purposes."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "5. Virtual Progress & Rewards"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "XP and Stats: Experience points (XP) and character attributes (FOC, SOL, NRG) are virtual rewards intended for motivation and entertainment only.",
+     "No Real-World Value: These virtual rewards have no monetary value and cannot be exchanged for real-world currency or goods."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "6. Monetization & Future Updates"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Current Phase: TAM is currently launched as a Free-to-Play Early Access application.",
+     "Future Changes: SATER Studio reserves the right to introduce a \"One-Time Purchase\" model or premium features in future updates to support ongoing development and sustainability."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "7. User Conduct"
+   },
+   {
+    "t": "p",
+    "v": "You agree not to:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Decompile, reverse engineer, or attempt to extract the source code of TAM.",
+     "Use the application for any illegal or unauthorized purposes.",
+     "Exploit bugs or use external tools to artificially inflate XP or stats."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "8. Limitation of Liability"
+   },
+   {
+    "t": "p",
+    "v": "TAM is provided on an \"AS IS\" and \"AS AVAILABLE\" basis. SATER Studio and Omar Abu Abbass shall not be liable for any data loss, device malfunction, or productivity interruptions resulting from the use of the application."
+   },
+   {
+    "t": "h",
+    "v": "9. Changes to Terms"
+   },
+   {
+    "t": "p",
+    "v": "We reserve the right to modify these terms at any time. Continued use of the app after changes are posted constitutes your acceptance of the new terms."
+   },
+   {
+    "t": "h",
+    "v": "10. Contact Information"
+   },
+   {
+    "t": "p",
+    "v": "For questions regarding these Terms, please contact SATER_ via our official channels."
+   }
+  ]
+ },
+ "khamen-privacy": {
+  "title": "Privacy Policy",
+  "app": "For Application: KHAMEN",
+  "blocks": [
+   {
+    "t": "p",
+    "v": "Last Updated: January 31, 2026"
+   },
+   {
+    "t": "p",
+    "v": "SATER built the KHAMEN app as a Free app. This SERVICE is provided by SATER at no cost and is intended for use as is. This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service."
+   },
+   {
+    "t": "h",
+    "v": "1. Information Collection and Use"
+   },
+   {
+    "t": "p",
+    "v": "For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way."
+   },
+   {
+    "t": "p",
+    "v": "However, the app does use third-party services that may collect information used to identify you. Link to privacy policy of third-party service providers used by the app:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Google Play Services",
+     "AdMob"
+    ]
+   },
+   {
+    "t": "h",
+    "v": "2. Log Data"
+   },
+   {
+    "t": "p",
+    "v": "I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics."
+   },
+   {
+    "t": "h",
+    "v": "3. Device Sensors Data"
+   },
+   {
+    "t": "p",
+    "v": "The app requires access to your device's sensors (specifically the Accelerometer and Gyroscope) to function properly. This sensor data is used solely for gameplay mechanics (to detect motion and orientation during the game). This data is processed in real-time on your device and is never recorded, stored, or transmitted to any server."
+   },
+   {
+    "t": "h",
+    "v": "4. Advertising"
+   },
+   {
+    "t": "p",
+    "v": "We use Google AdMob to display ads. AdMob may use your device's Advertising ID to serve personalized ads based on your interests. You can opt-out of personalized advertising by visiting your device settings (Google > Ads > Opt out of Ads Personalization)."
+   },
+   {
+    "t": "h",
+    "v": "5. Children’s Privacy"
+   },
+   {
+    "t": "p",
+    "v": "These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do necessary actions."
+   },
+   {
+    "t": "h",
+    "v": "6. Changes to This Privacy Policy"
+   },
+   {
+    "t": "p",
+    "v": "I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page."
+   },
+   {
+    "t": "h",
+    "v": "7. Contact Us"
+   },
+   {
+    "t": "p",
+    "v": "If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at: beatnabytna@gmail.com"
+   }
+  ]
+ },
+ "khamen-terms": {
+  "title": "Terms of Service",
+  "app": "For Application: KHAMEN",
+  "blocks": [
+   {
+    "t": "p",
+    "v": "Last Updated: January 22, 2026"
+   },
+   {
+    "t": "p",
+    "v": "Welcome to KHAMEN. By using our application, you agree to the following terms provided by SATER. Please read them carefully as they govern your experience within our social gaming arena."
+   },
+   {
+    "t": "h",
+    "v": "1. Acceptance of Terms"
+   },
+   {
+    "t": "p",
+    "v": "By downloading, installing, or using KHAMEN, you agree to be bound by these Terms of Service. If you do not agree to these terms, you must not use the application."
+   },
+   {
+    "t": "h",
+    "v": "2. Description of Service"
+   },
+   {
+    "t": "p",
+    "v": "KHAMEN is a social entertainment application designed to facilitate party games and decision-making processes. Services include, but are not limited to:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "The Spy (Bra Al-Salfa): A social deduction game engine involving topic generation and role assignment.",
+     "Voting Systems: Tools for secret and public voting to resolve game rounds.",
+     "Decision Tools: Randomized utilities including Spin the Wheel, Dice Rolling, and Coin Flipping.",
+     "Party Games: Interactive modules like \"Spin the Bottle\" and \"Word Guessing\"."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "3. User Data & Privacy"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Local Processing: Game data (such as player names and scores) is processed locally on your device for the duration of the session.",
+     "Ad Data: KHAMEN is an ad-supported application. We use Google AdMob to display advertisements. By using the app, you acknowledge that third-party partners may collect device identifiers (Advertising ID) to provide personalized or non-personalized ads, in accordance with our Privacy Policy."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "4. Intellectual Property Rights"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Ownership: All content, including but not limited to the SATER brand, the KHAMEN logo, source code, game mechanics, UI design, and graphics, is the exclusive property of SATER.",
+     "License: We grant you a personal, non-exclusive, non-transferable license to use the app for personal, non-commercial entertainment purposes."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "5. Social Interactions & Responsibility"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "User Conduct: KHAMEN is a tool for social interaction. SATER is not responsible for arguments, disputes, or interpersonal conflicts that may arise during gameplay (e.g., during \"The Spy\" accusations or \"Truth or Dare\" challenges).",
+     "Content Usage: Users are responsible for how they utilize the \"Truth or Dare\" or \"Custom Input\" features. We encourage a safe and respectful gaming environment."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "6. Monetization & Third-Party Links"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Advertising: This service is provided at no cost and is supported by advertisements.",
+     "Third-Party Content: The application may contain links to third-party websites or services (via ads) that are not owned or controlled by SATER. We assume no responsibility for the content, privacy policies, or practices of any third-party websites."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "7. Prohibited Activities"
+   },
+   {
+    "t": "p",
+    "v": "You agree not to:"
+   },
+   {
+    "t": "ul",
+    "v": [
+     "Decompile, reverse engineer, or attempt to extract the source code of KHAMEN.",
+     "Use the application to harass, abuse, or harm others.",
+     "Use automated tools to manipulate voting results or game outcomes."
+    ]
+   },
+   {
+    "t": "h",
+    "v": "8. Limitation of Liability"
+   },
+   {
+    "t": "p",
+    "v": "KHAMEN is provided on an \"AS IS\" and \"AS AVAILABLE\" basis. SATER shall not be liable for any device malfunction, data loss, or indirect damages resulting from the use of the application or reliance on its decision-making tools."
+   },
+   {
+    "t": "h",
+    "v": "9. Changes to Terms"
+   },
+   {
+    "t": "p",
+    "v": "We reserve the right to modify these terms at any time. Continued use of the app after changes are posted constitutes your acceptance of the new terms."
+   },
+   {
+    "t": "h",
+    "v": "10. Contact Information"
+   },
+   {
+    "t": "p",
+    "v": "For questions regarding these Terms, please contact SATER via our official channels or at our developer email."
+   }
+  ]
+ },
+ "zill-privacy": {
+  "title": "Privacy Policy",
+  "app": "For Application: ZILL",
+  "blocks": [
+   {
+    "t": "p",
+    "v": "Last Updated: February 2026"
+   },
+   {
+    "t": "p",
+    "v": "ZILL operates with a Local-First Philosophy. We believe your travel data belongs to you."
+   },
+   {
+    "t": "h",
+    "v": "1. Location Data (Local Processing)"
+   },
+   {
+    "t": "p",
+    "v": "To calculate sun angles relative to your vehicle, ZILL requires access to your device's location (GPS). Crucially, this data is processed locally on your device in real-time. We do not transmit, store, or sell your location history to any external servers. The mathematical calculations happen instantly on your phone."
+   },
+   {
+    "t": "h",
+    "v": "2. Data Collection"
+   },
+   {
+    "t": "p",
+    "v": "We do not collect personal identifiable information (PII). The app functions as a standalone utility tool."
+   },
+   {
+    "t": "h",
+    "v": "3. Third-Party Services"
+   },
+   {
+    "t": "p",
+    "v": "The app may use standard Google Play Services for core functionality, subject to their own privacy policies."
+   },
+   {
+    "t": "h",
+    "v": "4. Contact"
+   },
+   {
+    "t": "p",
+    "v": "Questions? Contact SATER Studio at: beatnabytna@gmail.com"
+   }
+  ]
+ }
+}

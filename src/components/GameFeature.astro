@@ -1,0 +1,170 @@
+---
+/**
+ * A game, shown as the game rather than as an icon. Studio Chairman has real
+ * captures and Behind The Badge has its brand plate; both are used at a size
+ * where you can actually read them. Neither game appeared on the old site at all.
+ */
+
+import { Image } from "astro:assets";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+import type { Game, Locale } from "~/data/products";
+
+interface Props {
+  game: Game;
+  locale: Locale;
+}
+
+const { game, locale } = Astro.props;
+const t = useTranslations(locale);
+const statusKey = `status.${game.status}` as UIKey;
+---
+
+<article class="feature" style={`--accent:${game.accent};--ground:${game.ground}`}>
+  <div class="copy">
+    <span class:list={["mark", game.art]} aria-hidden="true">
+      <Image src={game.icon} alt="" width={192} height={192} />
+    </span>
+    <h3 class="name">{game.name}</h3>
+    <p class="tagline">{game.tagline[locale]}</p>
+    <p class="blurb">{game.blurb[locale]}</p>
+    <span class="status label">{t(statusKey)}</span>
+  </div>
+
+  {
+    game.shots && (
+      <div class="shots">
+        {game.shots.map((shot, i) => (
+          <Image
+            src={shot}
+            alt={`${game.name} screenshot ${i + 1}`}
+            width={300}
+            height={533}
+            loading="lazy"
+          />
+        ))}
+      </div>
+    )
+  }
+
+  {
+    game.wide && (
+      <div class="wide">
+        <Image src={game.wide} alt={`${game.name} brand plate`} width={420} height={420} loading="lazy" />
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s-6);
+    align-items: center;
+    padding-block: var(--s-8);
+    border-block-start: var(--hair) solid var(--edge);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    align-items: flex-start;
+  }
+
+  .mark {
+    display: grid;
+    place-items: center;
+    inline-size: calc(var(--u) * 9);
+    block-size: calc(var(--u) * 9);
+    background: var(--ground);
+    border-radius: var(--radius-card);
+    margin-block-end: var(--s-1);
+    overflow: hidden;
+  }
+
+  .mark.full :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mark.inset :global(img) {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+  }
+
+  .name {
+    font-size: var(--step-4);
+    line-height: var(--lead-tight);
+  }
+
+  .tagline {
+    font-size: var(--step-lede);
+    color: var(--accent);
+  }
+
+  .blurb {
+    color: var(--fg-dim);
+  }
+
+  .status {
+    margin-block-start: var(--s-2);
+    color: var(--fg-dim);
+  }
+
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-2);
+    align-items: start;
+  }
+
+  .shots :global(img) {
+    width: 100%;
+    height: auto;
+    border: var(--hair) solid var(--edge);
+    border-radius: var(--radius-card);
+  }
+
+  /* Matched to the height of the screenshot strip opposite, so the two games
+     carry equal weight instead of the one with a brand plate dominating. */
+  .wide {
+    display: grid;
+    place-items: center;
+    background: var(--ground);
+    border-radius: var(--radius-card);
+    aspect-ratio: 16 / 10;
+  }
+
+  .wide :global(img) {
+    width: min(56%, 260px);
+    height: auto;
+  }
+
+  @media (max-width: 900px) {
+    .feature {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-4);
+    }
+  }
+
+  /* Three phone captures in three columns on a phone are unreadable. Below
+     this width the strip scrolls instead, at a size where the UI is legible. */
+  @media (max-width: 620px) {
+    .shots {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-block-end: var(--s-1);
+    }
+
+    .shots :global(img) {
+      flex: none;
+      width: min(62vw, 240px);
+      scroll-snap-align: start;
+    }
+  }
+</style>

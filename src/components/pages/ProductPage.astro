@@ -1,0 +1,170 @@
+---
+/**
+ * A product's own page, kept at the URL the store listing already points at.
+ */
+
+import { Image } from "astro:assets";
+import Band from "~/components/Band.astro";
+import { tools, type Locale } from "~/data/products";
+import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
+
+interface Props {
+  slug: string;
+  locale: Locale;
+}
+
+const { slug, locale } = Astro.props;
+const product = tools.find((p) => p.slug === slug);
+if (!product) throw new Error(`unknown product: ${slug}`);
+
+const t = useTranslations(locale);
+const hasTerms = slug !== "zill"; // ZILL never shipped a terms page
+---
+
+<Band tone="base" class="head">
+  <div class="grid" style={`--accent:${product.accent};--ground:${product.ground}`}>
+    <span class:list={["art", product.art]}>
+      <Image src={product.icon} alt={`${product.name} icon`} width={440} height={440} loading="eager" />
+    </span>
+
+    <div class="copy">
+      <p class="back label">
+        <a href={localizePath("/tools", locale)}>&larr; {t("tools.title" as UIKey)}</a>
+      </p>
+      <div class="title">
+        <h1>{product.name}</h1>
+        {product.root && <span class="root" lang="ar"><bdi>{product.root}</bdi></span>}
+      </div>
+      <p class="tagline">{product.tagline[locale]}</p>
+      {product.gloss && <p class="gloss">{product.gloss[locale]}</p>}
+      <p class="status label">{t(`status.${product.status}` as UIKey)}</p>
+    </div>
+  </div>
+</Band>
+
+<Band tone="raised">
+  <p class="links label">
+    <a href={`/${slug}/privacy`}>{t("tools.privacy" as UIKey)}</a>
+    {hasTerms && <a href={`/${slug}/terms`}>{t("tools.terms" as UIKey)}</a>}
+  </p>
+</Band>
+
+<style>
+  .head :global(.inner) {
+    padding-block: var(--s-14) var(--s-10);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: calc(var(--u) * 24) minmax(0, 1fr);
+    gap: var(--s-8);
+    align-items: center;
+  }
+
+  .art {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    background: var(--ground);
+    border-radius: var(--radius-art);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 var(--hair) rgb(128 128 128 / 0.28);
+  }
+
+  .art.full :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .art.inset :global(img) {
+    width: 66%;
+    height: 66%;
+    object-fit: contain;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    align-items: flex-start;
+  }
+
+  .back {
+    margin: 0 0 var(--s-1);
+  }
+
+  .back a {
+    color: var(--fg-dim);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .back a:hover {
+    color: var(--fg);
+  }
+
+  .title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-2);
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    font-size: var(--step-hero);
+    line-height: var(--lead-tight);
+  }
+
+  .root {
+    font-family: var(--arabic);
+    font-weight: var(--w-bold);
+    font-size: var(--step-4);
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-size: var(--step-lede);
+  }
+
+  .gloss {
+    color: var(--fg-dim);
+  }
+
+  .status {
+    color: var(--accent);
+    margin-block-start: var(--s-1);
+  }
+
+  .links {
+    display: flex;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+    max-inline-size: none;
+    margin: 0;
+  }
+
+  .links a {
+    color: var(--fg-dim);
+    border-block-end: var(--hair) solid var(--edge);
+    padding-block-end: 3px;
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .links a:hover {
+    color: var(--fg);
+    border-block-end-color: var(--fg);
+  }
+
+  @media (max-width: 760px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-4);
+    }
+
+    .art {
+      inline-size: calc(var(--u) * 18);
+    }
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+import "~/styles/tokens.css";
+import "~/styles/base.css";
+import Nav from "~/components/Nav.astro";
+import Footer from "~/components/Footer.astro";
+import { dir, useTranslations, localizePath, type UIKey } from "~/i18n/ui";
+import type { Locale } from "~/data/products";
+
+interface Props {
+  locale: Locale;
+  /** Page title without the brand — the layout appends it. */
+  title: string;
+  description?: string;
+  /** Path with no locale prefix, e.g. "/tools". Drives the language switch. */
+  path: string;
+}
+
+const { locale, title, description, path } = Astro.props;
+const t = useTranslations(locale);
+
+const site = Astro.site ?? new URL("https://thesater.com");
+const canonical = new URL(localizePath(path, locale), site);
+
+// The old site wrote these as Markdown links inside href attributes, so the
+// fonts never loaded and every shared link rendered without an image. Absolute
+// URLs, built from Astro.site, are the fix.
+const ogImage = new URL("/cover.png", site);
+const pageTitle = `${t("site.name" as UIKey)}_ | ${title}`;
+const desc = description ?? t("site.description" as UIKey);
+---
+
+<!doctype html>
+<html lang={locale} dir={dir[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/* Applies the stored theme before first paint. Anything later flashes. */}
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("sater-theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        /* private mode — fall back to the system preference */
+      }
+    </script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical.href} />
+
+    <link rel="alternate" hreflang="en" href={new URL(localizePath(path, "en"), site).href} />
+    <link rel="alternate" hreflang="ar" href={new URL(localizePath(path, "ar"), site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(localizePath(path, "en"), site).href} />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SATER" />
+    <meta property="og:locale" content={locale === "ar" ? "ar_JO" : "en_US"} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:image" content={ogImage.href} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImage.href} />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f3f0" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#17171a" />
+
+    <link
+      rel="preload"
+      href="/fonts/cairo-800.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/cairo-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{t("nav.skip" as UIKey)}</a>
+    <Nav locale={locale} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} path={path} />
+  </body>
+</html>

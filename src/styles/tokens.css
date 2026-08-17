@@ -1,0 +1,163 @@
+/* ============================================================
+   SATER — design tokens
+   The single source of truth. Nothing else declares a colour, a
+   size or a space.
+
+   The studio ships loud, mismatched product art — glossy blue,
+   neon gold, brass, orange. A site with its own accent colour
+   fights all of it. So this one has none: the shell is a quiet
+   surface in either theme, and each section borrows the accent
+   of whatever product it is showing.
+   ============================================================ */
+
+:root {
+  /* ---------- module ---------- */
+  --u: 8px;
+  --hair: 1px;
+  /* App icons are drawn with a corner radius; framing them in hard
+     squares crops the silhouette the store actually shows. */
+  --radius-art: calc(var(--u) * 2.75);
+  --radius-card: calc(var(--u) * 1.5);
+
+  --s-1: calc(var(--u) * 1);
+  --s-2: calc(var(--u) * 2);
+  --s-3: calc(var(--u) * 3);
+  --s-4: calc(var(--u) * 4);
+  --s-6: calc(var(--u) * 6);
+  --s-8: calc(var(--u) * 8);
+  --s-10: calc(var(--u) * 10);
+  --s-14: calc(var(--u) * 14);
+  --s-20: calc(var(--u) * 20);
+
+  --gutter: clamp(var(--s-3), 5vw, var(--s-10));
+  --band: clamp(var(--s-10), 12vh, var(--s-20));
+
+  /* ---------- surfaces ----------
+     Light is the default declaration so the un-stamped document is
+     never left without a palette. Neutrals carry a slight warm bias
+     so neither theme reads as clinical or grim. */
+  --surface-0: #f4f3f0;
+  --surface-1: #ebeae6;
+  --surface-2: #ffffff;
+  --line: #dad8d3;
+  --line-soft: #e5e3de;
+
+  --text: #17171a;
+  --text-dim: #5c5a56;
+  --text-faint: #8a8783;
+
+  /* Fixed regardless of theme — these belong to the mark, not the page. */
+  --ink: #0b0e12;
+  --paper: #f4f4f2;
+
+  /* No accent of its own; a product frame sets one. */
+  --accent: var(--text);
+
+  --bg: var(--surface-0);
+  --fg: var(--text);
+  --fg-dim: var(--text-dim);
+  --edge: var(--line);
+
+  /* ---------- type ---------- */
+  --sans: "Plex Sans", "Plex Arabic", system-ui, sans-serif;
+  --arabic: "Plex Arabic", "Plex Sans", system-ui, sans-serif;
+  --mono: "Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: 1.375rem;
+  --step-3: 1.75rem;
+  --step-4: 2.25rem;
+  --step-5: 3rem;
+  --step-6: 4rem;
+
+  --step-lede: clamp(var(--step-1), 2.2vw, var(--step-2));
+  --step-head: clamp(var(--step-3), 4.4vw, var(--step-5));
+  --step-hero: clamp(var(--step-4), 7.4vw, var(--step-6));
+
+  /* Leading is a base times one scale. Arabic overrides the scale alone —
+     overriding leading values individually is how display lines collided
+     here once already. Any new leading token derives from this. */
+  --lead-scale: 1;
+  --lead-tight: calc(1.08 * var(--lead-scale));
+  --lead-head: calc(1.22 * var(--lead-scale));
+  --lead-body: calc(1.6 * var(--lead-scale));
+
+  --track-display: -0.022em;
+  --track-label: 0.15em;
+
+  --w-regular: 400;
+  --w-medium: 600;
+  --w-bold: 700;
+
+  /* ---------- layout ---------- */
+  --measure: 62ch;
+  --col: min(1240px, 100% - var(--gutter) * 2);
+
+  /* ---------- motion ---------- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}
+
+/* Dark. Redefined for the system default (nothing stamped) and again for an
+   explicit choice, so the toggle wins in both directions. Warmed and lifted
+   off pure black — a near-black shell with cool greys reads as gloom. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface-0: #17171a;
+    --surface-1: #1e1e23;
+    --surface-2: #26262c;
+    --line: #34343c;
+    --line-soft: #26262c;
+
+    --text: #f2f1ef;
+    --text-dim: #a8a5a1;
+    --text-faint: #7b7873;
+  }
+}
+
+:root[data-theme="dark"] {
+  --surface-0: #17171a;
+  --surface-1: #1e1e23;
+  --surface-2: #26262c;
+  --line: #34343c;
+  --line-soft: #26262c;
+
+  --text: #f2f1ef;
+  --text-dim: #a8a5a1;
+  --text-faint: #7b7873;
+}
+
+/* Arabic: more leading, no negative tracking (it collides joined letters),
+   and no letter-spacing on labels (it breaks joining outright). Applied per
+   element so an Arabic word inside an English page is corrected too. */
+[lang="ar"],
+[dir="rtl"] {
+  --lead-scale: 1.24;
+  --track-display: 0;
+  --track-label: 0;
+}
+
+/* ---------- bands ----------
+   A band is the only thing allowed to repaint the palette. Children read the
+   semantic tokens and never name a colour, which is what lets both themes and
+   both languages run through one set of components. */
+.band-base {
+  --bg: var(--surface-0);
+  --fg: var(--text);
+  --fg-dim: var(--text-dim);
+  --edge: var(--line);
+}
+
+.band-raised {
+  --bg: var(--surface-1);
+  --fg: var(--text);
+  --fg-dim: var(--text-dim);
+  --edge: var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 0ms;
+  }
+}

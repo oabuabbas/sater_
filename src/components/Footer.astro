@@ -1,0 +1,58 @@
+---
+import Logo from "~/components/Logo.astro";
+import { useTranslations, localizePath, localeName, type UIKey } from "~/i18n/ui";
+import type { Locale } from "~/data/products";
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const t = useTranslations(locale);
+const other: Locale = locale === "en" ? "ar" : "en";
+const year = new Date().getFullYear();
+---
+
+<footer class="foot band-raised">
+  <div class="inner">
+    <Logo variant="mark" height={40} />
+    <p class="line label">{t("footer.rights" as UIKey)}</p>
+    <p class="line label tabular">{year}</p>
+    <a class="line label lang" href={localizePath(path, other)} lang={other} hreflang={other}>
+      {localeName[other]}
+    </a>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: var(--bg);
+    color: var(--fg);
+    border-block-start: var(--hair) solid var(--edge);
+  }
+
+  .inner {
+    width: var(--col);
+    margin-inline: auto;
+    padding-block: var(--s-8);
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+  }
+
+  .line {
+    margin: 0;
+    color: var(--fg-dim);
+  }
+
+  .lang {
+    margin-inline-start: auto;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .lang:hover {
+    color: var(--fg);
+  }
+</style>

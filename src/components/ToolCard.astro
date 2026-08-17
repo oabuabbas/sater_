@@ -1,0 +1,137 @@
+---
+/**
+ * One shipped tool. The frame is identical for every product and only the
+ * artwork inside differs — the studio owns two icon families (flat house marks
+ * and glossy store icons) and the site reconciles them by framing, not by
+ * restyling. The card sets --accent from the product's own art, which is where
+ * all of this page's colour comes from.
+ */
+
+import { Image } from "astro:assets";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+import type { Locale, Product } from "~/data/products";
+
+interface Props {
+  product: Product;
+  locale: Locale;
+}
+
+const { product, locale } = Astro.props;
+const t = useTranslations(locale);
+const statusKey = `status.${product.status}` as UIKey;
+
+const Tag = product.legacyPath ? "a" : "article";
+---
+
+<Tag
+  class="card"
+  href={product.legacyPath}
+  style={`--accent:${product.accent};--ground:${product.ground}`}
+>
+  <span class:list={["art", product.art]}>
+    <Image src={product.icon} alt={`${product.name} icon`} width={440} height={440} loading="eager" />
+  </span>
+
+  <span class="meta">
+    <span class="head">
+      <h3 class="name">{product.name}</h3>
+      {product.root && <span class="root" lang="ar"><bdi>{product.root}</bdi></span>}
+    </span>
+    <span class="tagline">{product.tagline[locale]}</span>
+    {product.gloss && <span class="gloss">{product.gloss[locale]}</span>}
+    <span class="status label">{t(statusKey)}</span>
+  </span>
+</Tag>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    background: var(--surface-2);
+    border-radius: var(--radius-card);
+    border: var(--hair) solid var(--edge);
+    color: var(--fg);
+    transition:
+      border-color var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+
+  a.card:hover,
+  a.card:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* The artwork sits on the ground it was drawn for, so a glossy store icon
+     and a flat house mark both read correctly in the same row. */
+  .art {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    background: var(--ground);
+    border-radius: var(--radius-art);
+    overflow: hidden;
+    /* A neutral translucent ring rather than --edge: the grounds range from
+       white (ZILL) to near-black (TAM), and a themed border either vanishes
+       into the light ones or glows on the dark ones. */
+    box-shadow: inset 0 0 0 var(--hair) rgb(128 128 128 / 0.28);
+  }
+
+  /* A finished app icon owns its own background and fills the frame. Inset it
+     and its anti-aliased edge sits on a near-identical ground, which reads as
+     a stray hairline border. */
+  .art.full :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .art.inset :global(img) {
+    width: 66%;
+    height: 66%;
+    object-fit: contain;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    flex: 1;
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-2);
+    flex-wrap: wrap;
+  }
+
+  .name {
+    font-size: var(--step-2);
+    line-height: var(--lead-tight);
+  }
+
+  .root {
+    font-family: var(--arabic);
+    font-weight: var(--w-bold);
+    font-size: var(--step-2);
+    color: var(--accent);
+    line-height: var(--lead-tight);
+  }
+
+  .tagline {
+    color: var(--fg);
+  }
+
+  .gloss {
+    color: var(--fg-dim);
+    font-size: 0.9375rem;
+  }
+
+  .status {
+    margin-block-start: var(--s-2);
+    color: var(--accent);
+  }
+</style>

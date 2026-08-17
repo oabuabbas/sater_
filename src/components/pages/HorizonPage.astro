@@ -1,0 +1,75 @@
+---
+import Band from "~/components/Band.astro";
+import PageHead from "~/components/PageHead.astro";
+import { horizon, type Locale } from "~/data/products";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<PageHead title={t("horizon.title" as UIKey)} lede={t("horizon.lede" as UIKey)} />
+
+<Band tone="raised">
+  <ol class="list">
+    {
+      horizon.map((item) => (
+        <li>
+          <span class="code label">{item.code}</span>
+          <h2>{item.name}</h2>
+          <p class="blurb">{item.blurb[locale]}</p>
+          <p class="tags label">{item.tags.join(" · ")}</p>
+        </li>
+      ))
+    }
+  </ol>
+</Band>
+
+<style>
+  .list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list li {
+    display: grid;
+    grid-template-columns: calc(var(--u) * 14) minmax(0, 1fr);
+    gap: var(--s-2) var(--s-6);
+    padding-block: var(--s-6);
+    border-block-start: var(--hair) solid var(--edge);
+    align-items: baseline;
+  }
+
+  .code {
+    color: var(--fg-dim);
+    grid-row: span 3;
+  }
+
+  h2 {
+    font-size: var(--step-3);
+    line-height: var(--lead-tight);
+  }
+
+  .blurb {
+    color: var(--fg-dim);
+  }
+
+  .tags {
+    color: var(--fg-dim);
+  }
+
+  @media (max-width: 620px) {
+    .list li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-1);
+    }
+
+    .code {
+      grid-row: auto;
+    }
+  }
+</style>

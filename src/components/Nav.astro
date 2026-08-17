@@ -1,0 +1,128 @@
+---
+import Logo from "~/components/Logo.astro";
+import ThemeToggle from "~/components/ThemeToggle.astro";
+import { navItems, useTranslations, localizePath, localeName, type UIKey } from "~/i18n/ui";
+import type { Locale } from "~/data/products";
+
+interface Props {
+  locale: Locale;
+  /** Unprefixed path of the current page. */
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const t = useTranslations(locale);
+const other: Locale = locale === "en" ? "ar" : "en";
+const normalise = (p: string) => (p === "/" ? "/" : p.replace(/\/$/, ""));
+const current = normalise(path);
+---
+
+<header class="bar band-raised">
+  <div class="inner">
+    <a class="home" href={localizePath("/", locale)}>
+      <Logo variant="wordmark" locale={locale} height={26} title={t("nav.home" as UIKey)} />
+    </a>
+
+    <nav aria-label={t("nav.aria" as UIKey)}>
+      <ul class="items label">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={localizePath(item.path, locale)}
+                aria-current={normalise(item.path) === current ? "page" : undefined}
+              >
+                {t(item.key)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="tail">
+      <a class="lang label" href={localizePath(path, other)} lang={other} hreflang={other}>
+        <span class="visually-hidden">{t("footer.lang" as UIKey)}: </span>{localeName[other]}
+      </a>
+      <ThemeToggle label={t("theme.toggle" as UIKey)} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .bar {
+    background: var(--bg);
+    color: var(--fg);
+    border-block-end: var(--hair) solid var(--edge);
+  }
+
+  .inner {
+    width: var(--col);
+    margin-inline: auto;
+    padding-block: var(--s-3);
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+  }
+
+  .home {
+    display: inline-flex;
+    color: var(--fg);
+  }
+
+  nav {
+    margin-inline-start: auto;
+  }
+
+  .items {
+    display: flex;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+
+  .items a {
+    color: var(--fg-dim);
+    padding-block-end: 2px;
+    border-block-end: 2px solid transparent;
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .items a:hover {
+    color: var(--fg);
+  }
+
+  .items a[aria-current="page"] {
+    color: var(--fg);
+    border-block-end-color: var(--fg);
+  }
+
+  .tail {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .lang {
+    color: var(--fg-dim);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .lang:hover {
+    color: var(--fg);
+  }
+
+  @media (max-width: 720px) {
+    nav {
+      margin-inline-start: 0;
+      order: 3;
+      width: 100%;
+    }
+
+    .tail {
+      margin-inline-start: auto;
+    }
+  }
+</style>
