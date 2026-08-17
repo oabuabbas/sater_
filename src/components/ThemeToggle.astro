@@ -1,0 +1,69 @@
+---
+/**
+ * Light / dark switch. The stored choice is applied by an inline script in
+ * Base.astro before first paint; this only flips it afterwards.
+ */
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<button class="toggle" type="button" data-theme-toggle aria-label={label} title={label}>
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+    <path d="M8 1.75 A6.25 6.25 0 0 1 8 14.25 Z" fill="currentColor"></path>
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+
+  function current(): "light" | "dark" {
+    const stamped = root.getAttribute("data-theme");
+    if (stamped === "light" || stamped === "dark") return stamped;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
+    btn.addEventListener("click", () => {
+      const next = current() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("sater-theme", next);
+      } catch {
+        /* private mode — the choice just will not persist */
+      }
+    });
+  }
+</script>
+
+<style>
+  .toggle {
+    display: inline-grid;
+    place-items: center;
+    inline-size: calc(var(--u) * 4);
+    block-size: calc(var(--u) * 4);
+    padding: 0;
+    border: var(--hair) solid var(--edge);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--fg-dim);
+    cursor: pointer;
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .toggle:hover {
+    color: var(--fg);
+    border-color: var(--fg-dim);
+  }
+
+  .toggle svg {
+    inline-size: calc(var(--u) * 2);
+    block-size: calc(var(--u) * 2);
+  }
+</style>

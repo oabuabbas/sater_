@@ -1,0 +1,55 @@
+---
+import Band from "~/components/Band.astro";
+import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
+import type { Locale } from "~/data/products";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<Band tone="base" class="nf">
+  <p class="code label">404</p>
+  <h1>{t("notfound.title" as UIKey)}</h1>
+  <p class="body">{t("notfound.body" as UIKey)}</p>
+  <a class="back label" href={localizePath("/", locale)}>{t("notfound.back" as UIKey)}</a>
+</Band>
+
+<style>
+  .nf :global(.inner) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    align-items: flex-start;
+    padding-block: var(--s-20);
+  }
+
+  .code {
+    color: var(--fg-dim);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: var(--step-head);
+    line-height: var(--lead-tight);
+  }
+
+  .body {
+    color: var(--fg-dim);
+    font-size: var(--step-lede);
+  }
+
+  .back {
+    margin-block-start: var(--s-2);
+    border-block-end: var(--hair) solid var(--edge);
+    padding-block-end: 3px;
+    transition: border-color var(--dur) var(--ease);
+  }
+
+  .back:hover {
+    border-block-end-color: var(--fg);
+  }
+</style>

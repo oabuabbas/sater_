@@ -1,0 +1,126 @@
+---
+/**
+ * A legacy legal document, rendered through the current layout.
+ *
+ * The wording is lifted verbatim from the pages that shipped with the apps —
+ * these URLs are linked from the Play Store listings, so the text must not
+ * drift. Only the typography around it changes.
+ */
+
+import Band from "~/components/Band.astro";
+import legal from "~/data/legal.json";
+import { localizePath, useTranslations, type UIKey } from "~/i18n/ui";
+import { tools, type Locale } from "~/data/products";
+
+interface Block {
+  t: "h" | "p" | "ul";
+  v: string | string[];
+}
+
+interface Props {
+  /** e.g. "tam-privacy" */
+  doc: keyof typeof legal;
+  locale: Locale;
+}
+
+const { doc, locale } = Astro.props;
+const t = useTranslations(locale);
+const d = legal[doc] as { title: string; app: string; blocks: Block[] };
+const slug = doc.split("-")[0];
+const product = tools.find((p) => p.slug === slug);
+---
+
+<Band tone="base" class="head">
+  <p class="app label">{d.app}</p>
+  <h1>{d.title}</h1>
+  <p class="back label">
+    <a href={localizePath("/tools", locale)}>&larr; {t("tools.title" as UIKey)}</a>
+  </p>
+</Band>
+
+<Band tone="raised">
+  <article class="doc" style={product ? `--accent:${product.accent}` : undefined}>
+    {
+      d.blocks.map((b) =>
+        b.t === "h" ? (
+          <h2>{b.v as string}</h2>
+        ) : b.t === "p" ? (
+          <p>{b.v as string}</p>
+        ) : (
+          <ul>
+            {(b.v as string[]).map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        ),
+      )
+    }
+  </article>
+</Band>
+
+<style>
+  .head :global(.inner) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    align-items: flex-start;
+    padding-block: var(--s-14) var(--s-8);
+  }
+
+  .app {
+    color: var(--fg-dim);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: var(--step-head);
+    line-height: var(--lead-tight);
+  }
+
+  .back {
+    margin: var(--s-1) 0 0;
+  }
+
+  .back a {
+    color: var(--fg-dim);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .back a:hover {
+    color: var(--fg);
+  }
+
+  .doc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    max-inline-size: 68ch;
+  }
+
+  .doc h2 {
+    font-size: var(--step-2);
+    line-height: var(--lead-head);
+    margin-block-start: var(--s-4);
+  }
+
+  .doc h2:first-child {
+    margin-block-start: 0;
+  }
+
+  .doc p {
+    color: var(--fg-dim);
+    max-inline-size: none;
+  }
+
+  .doc ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    padding-inline-start: var(--s-3);
+    border-inline-start: 2px solid var(--edge);
+  }
+
+  .doc li {
+    color: var(--fg-dim);
+  }
+</style>

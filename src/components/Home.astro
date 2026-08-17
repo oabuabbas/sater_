@@ -1,0 +1,240 @@
+---
+/**
+ * The homepage, written once and rendered by both / and /ar/. Nothing here
+ * branches on locale beyond a string lookup — that is the test this direction
+ * was chosen to pass.
+ */
+
+import Band from "~/components/Band.astro";
+import ToolCard from "~/components/ToolCard.astro";
+import GameFeature from "~/components/GameFeature.astro";
+import { tools, games, horizon, type Locale } from "~/data/products";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<Band tone="base" class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow label">{t("site.descriptor" as UIKey)}</p>
+      <h1 class="claim">
+        {t("hero.claim.a" as UIKey)}<br />{t("hero.claim.b" as UIKey)}
+      </h1>
+      <p class="lede">{t("hero.lede" as UIKey)}</p>
+    </div>
+
+    <dl class="facts">
+      <div>
+        <dt class="n tabular">{String(tools.length).padStart(2, "0")}</dt>
+        <dd class="label">{t("hero.fact.shipped" as UIKey)}</dd>
+      </div>
+      <div>
+        <dt class="n tabular">{String(games.length).padStart(2, "0")}</dt>
+        <dd class="label">{t("hero.fact.build" as UIKey)}</dd>
+      </div>
+      <div>
+        <dt class="n tabular">{String(horizon.length).padStart(2, "0")}</dt>
+        <dd class="label">{t("hero.fact.research" as UIKey)}</dd>
+      </div>
+    </dl>
+  </div>
+
+  <p class="doctrine label">{t("site.doctrine" as UIKey)}</p>
+</Band>
+
+<Band tone="raised" labelledby="tools-head">
+  <header class="sec">
+    <h2 id="tools-head">{t("tools.head" as UIKey)}</h2>
+    <p class="note">{t("tools.note" as UIKey)}</p>
+  </header>
+  <div class="grid">
+    {tools.map((product) => <ToolCard product={product} locale={locale} />)}
+  </div>
+</Band>
+
+<Band tone="base" labelledby="games-head">
+  <header class="sec">
+    <h2 id="games-head">{t("games.head" as UIKey)}</h2>
+    <p class="note">{t("games.note" as UIKey)}</p>
+  </header>
+  {games.map((game) => <GameFeature game={game} locale={locale} />)}
+</Band>
+
+<Band tone="raised" labelledby="horizon-head">
+  <header class="sec">
+    <h2 id="horizon-head">{t("horizon.head" as UIKey)}</h2>
+    <p class="note">{t("horizon.note" as UIKey)}</p>
+  </header>
+  <ol class="horizon">
+    {
+      horizon.map((item) => (
+        <li>
+          <span class="code label">{item.code}</span>
+          <h3 class="h-name">{item.name}</h3>
+          <p class="h-blurb">{item.blurb[locale]}</p>
+          <p class="tags label">{item.tags.join(" · ")}</p>
+        </li>
+      ))
+    }
+  </ol>
+</Band>
+
+<style>
+  /* ---------- hero ---------- */
+  .hero :global(.inner) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-8);
+  }
+
+  /* Two columns so the claim is composed against something rather than
+     trailing off into empty page. The counts are read from the data, so they
+     cannot drift from what is actually on the page. */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-8);
+    align-items: end;
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    align-items: flex-start;
+  }
+
+  .facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    margin: 0;
+    padding-inline-start: var(--s-4);
+    border-inline-start: var(--hair) solid var(--edge);
+  }
+
+  .facts div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .facts .n {
+    font-size: var(--step-4);
+    font-weight: var(--w-bold);
+    line-height: var(--lead-tight);
+    letter-spacing: var(--track-display);
+  }
+
+  .facts dd {
+    margin: 0;
+    color: var(--fg-dim);
+  }
+
+  @media (max-width: 820px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-6);
+    }
+
+    .facts {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--s-6);
+      padding-inline-start: 0;
+      padding-block-start: var(--s-3);
+      border-inline-start: 0;
+      border-block-start: var(--hair) solid var(--edge);
+    }
+  }
+
+  .eyebrow {
+    color: var(--fg-dim);
+    margin: 0;
+  }
+
+  .claim {
+    font-size: var(--step-hero);
+    line-height: var(--lead-tight);
+    max-inline-size: 18ch;
+  }
+
+  .lede {
+    font-size: var(--step-lede);
+    color: var(--fg-dim);
+    max-inline-size: 52ch;
+  }
+
+  .doctrine {
+    color: var(--fg-dim);
+    margin: 0;
+    padding-block-start: var(--s-3);
+    border-block-start: var(--hair) solid var(--edge);
+    /* The rule closes the hero, so it runs the full column. Without this the
+       base p { max-inline-size: var(--measure) } cuts it off a third of the
+       way across. */
+    max-inline-size: none;
+  }
+
+  /* ---------- section headers ---------- */
+  .sec {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    margin-block-end: var(--s-6);
+  }
+
+  .sec h2 {
+    font-size: var(--step-head);
+    line-height: var(--lead-head);
+  }
+
+  .note {
+    color: var(--fg-dim);
+  }
+
+  /* ---------- tools ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+    gap: var(--s-3);
+  }
+
+  /* ---------- horizon ---------- */
+  .horizon {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+    gap: var(--s-6);
+  }
+
+  .horizon li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    padding-inline-start: var(--s-3);
+    border-inline-start: 2px solid var(--edge);
+  }
+
+  .code {
+    color: var(--fg-dim);
+  }
+
+  .h-name {
+    font-size: var(--step-2);
+  }
+
+  .h-blurb {
+    color: var(--fg-dim);
+  }
+
+  .tags {
+    color: var(--fg-dim);
+    margin-block-start: var(--s-1);
+  }
+</style>

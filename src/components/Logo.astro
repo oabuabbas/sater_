@@ -1,0 +1,56 @@
+---
+/**
+ * The mark. Concept A: the initial seen running out into an extended stroke —
+ * the studio's first letter and a line, in one shape.
+ *
+ * Masters are imported raw so the SVG is inlined and inherits currentColor;
+ * an <img> could not be recoloured per band.
+ */
+
+import wordmark from "~/assets/brand/wordmark.svg?raw";
+import wordmarkAr from "~/assets/brand/wordmark-ar.svg?raw";
+import mark from "~/assets/brand/mark.svg?raw";
+import type { Locale } from "~/data/products";
+
+interface Props {
+  variant?: "wordmark" | "mark";
+  locale?: Locale;
+  /** Rendered height in px; width follows the master's aspect. */
+  height?: number;
+  title?: string;
+  class?: string;
+}
+
+const { variant = "wordmark", locale = "en", height = 28, title, class: className } = Astro.props;
+
+const source =
+  variant === "mark" ? mark : locale === "ar" ? wordmarkAr : wordmark;
+
+// The cut is a <mask>, so every inlined copy needs its own ids — the nav and
+// the footer both render a logo, and duplicate ids make the second one resolve
+// against the first mask.
+const uid = Math.random().toString(36).slice(2, 8);
+
+const svg = source
+  .replace(/<svg/, `<svg style="height:${height}px;width:auto" ${title ? 'role="img"' : 'aria-hidden="true"'}`)
+  .replace(/id="([^"]+)"/g, (_, id) => `id="${id}-${uid}"`)
+  .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${id}-${uid})`)
+  .replace(/>\s*$/, ">");
+---
+
+<span class:list={["logo", className]}>
+  {title && <span class="visually-hidden">{title}</span>}
+  <Fragment set:html={svg} />
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    color: inherit;
+  }
+
+  .logo :global(svg) {
+    display: block;
+    fill: currentColor;
+  }
+</style>

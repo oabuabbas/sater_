@@ -1,0 +1,41 @@
+---
+/**
+ * The opening band of an inner page: title, lede, and a rule. Shared so every
+ * page opens at the same rhythm without restating the spacing.
+ */
+
+import Band from "~/components/Band.astro";
+
+interface Props {
+  title: string;
+  lede: string;
+  id?: string;
+}
+
+const { title, lede, id = "page-head" } = Astro.props;
+---
+
+<Band tone="base" class="head" labelledby={id}>
+  <h1 id={id}>{title}</h1>
+  <p class="lede">{lede}</p>
+</Band>
+
+<style>
+  .head :global(.inner) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-block: var(--s-14) var(--s-10);
+  }
+
+  h1 {
+    font-size: var(--step-hero);
+    line-height: var(--lead-tight);
+  }
+
+  .lede {
+    font-size: var(--step-lede);
+    color: var(--fg-dim);
+    max-inline-size: 54ch;
+  }
+</style>
