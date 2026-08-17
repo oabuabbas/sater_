@@ -25,7 +25,7 @@ const canonical = new URL(localizePath(path, locale), site);
 // fonts never loaded and every shared link rendered without an image. Absolute
 // URLs, built from Astro.site, are the fix.
 const ogImage = new URL("/cover.png", site);
-const pageTitle = `${t("site.name" as UIKey)}_ | ${title}`;
+const pageTitle = `${t("site.name" as UIKey)} — ${title}`;
 const desc = description ?? t("site.description" as UIKey);
 ---
 
