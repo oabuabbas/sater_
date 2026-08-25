@@ -1,6 +1,9 @@
 ---
 import Base from "~/layouts/Base.astro";
 import Band from "~/components/Band.astro";
+import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
+import { games } from "~/data/products";
+import { useTranslations, type UIKey } from "~/i18n/ui";
 
 interface Frontmatter {
   title: string;
@@ -14,6 +17,14 @@ interface Frontmatter {
 }
 
 const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
+const chairman = games.find((game) => game.slug === "studio-chairman");
+if (!chairman) throw new Error("Studio Chairman product data is missing");
+const t = useTranslations("en");
+const current = frontmatter.path.endsWith("/terms") ? "terms" : "privacy";
+const line: ProductLineItem[] = [
+  { label: t("tools.privacy" as UIKey), href: chairman.privacyPath, current: current === "privacy" },
+  { label: t("tools.terms" as UIKey), href: chairman.termsPath, current: current === "terms" },
+];
 ---
 
 <Base
@@ -32,6 +43,12 @@ const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
       <div><dt>Applies to</dt><dd>{frontmatter.applies_to}</dd></div>
     </dl>
     <p class="back label"><a href="/play/">&larr; Studio Chairman</a></p>
+    <ProductLine
+      label={`Studio Chairman — ${t("tools.line" as UIKey)}`}
+      status={chairman.status}
+      statusLabel={t(`status.${chairman.status}` as UIKey)}
+      items={line}
+    />
   </Band>
 
   <Band tone="raised">
@@ -56,6 +73,7 @@ const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
   .legal-head .facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--s-2); }
   .legal-head .facts dt { color: var(--fg); }
   .legal-head .facts dd { margin: 0; }
+  .legal-head .product-line { inline-size: min(100%, 36rem); margin-block-start: var(--s-3); }
 
   .markdown-legal { display: flex; flex-direction: column; gap: var(--s-3); max-inline-size: 74ch; }
   .markdown-legal > h1, .markdown-legal > p:first-of-type, .markdown-legal > hr:first-of-type { display: none; }

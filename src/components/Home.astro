@@ -6,6 +6,7 @@
  */
 
 import Band from "~/components/Band.astro";
+import Logo from "~/components/Logo.astro";
 import ToolCard from "~/components/ToolCard.astro";
 import GameFeature from "~/components/GameFeature.astro";
 import { tools, games, horizon, type Locale } from "~/data/products";
@@ -17,6 +18,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useTranslations(locale);
+const path = ["idea", "code", "form", "product"] as const;
 ---
 
 <Band tone="base" class="hero">
@@ -43,6 +45,21 @@ const t = useTranslations(locale);
         <dd class="label">{t("hero.fact.research" as UIKey)}</dd>
       </div>
     </dl>
+  </div>
+
+  <div class="origin">
+    <span class="origin-mark" aria-hidden="true"><Logo variant="mark" height={42} /></span>
+    <ol class="origin-path" aria-label={t("hero.path.aria" as UIKey)}>
+      {
+        path.map((stage, index) => (
+          <li>
+            <span class="node" aria-hidden="true"></span>
+            <span class="step label tabular">{String(index + 1).padStart(2, "0")}</span>
+            <span class="stage">{t(`hero.path.${stage}` as UIKey)}</span>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 
   <p class="doctrine label">{t("site.doctrine" as UIKey)}</p>
@@ -171,6 +188,78 @@ const t = useTranslations(locale);
     max-inline-size: 52ch;
   }
 
+  .origin {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .origin-mark {
+    display: grid;
+    place-items: center;
+    inline-size: calc(var(--u) * 8);
+    block-size: calc(var(--u) * 8);
+    color: var(--fg);
+    border: var(--hair) solid var(--edge);
+    border-radius: 50%;
+    background: var(--bg);
+    z-index: 1;
+  }
+
+  .origin-path {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--s-2);
+  }
+
+  .origin-path::before {
+    content: "";
+    position: absolute;
+    inset-inline: calc(var(--s-2) * -1) var(--s-2);
+    inset-block-start: 7px;
+    block-size: 2px;
+    background: var(--fg);
+    transform-origin: left center;
+    animation: write-line 900ms var(--ease) both;
+  }
+
+  .origin-path li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .node {
+    inline-size: 16px;
+    block-size: 16px;
+    border: 2px solid var(--fg);
+    border-radius: 50%;
+    background: var(--bg);
+    z-index: 1;
+  }
+
+  .step {
+    color: var(--fg-dim);
+    margin-block-start: var(--s-1);
+  }
+
+  .stage {
+    font-weight: var(--w-medium);
+  }
+
+  @keyframes write-line {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  :global([dir="rtl"]) .origin-path::before {
+    transform-origin: right center;
+  }
+
   .doctrine {
     color: var(--fg-dim);
     margin: 0;
@@ -180,6 +269,32 @@ const t = useTranslations(locale);
        base p { max-inline-size: var(--measure) } cuts it off a third of the
        way across. */
     max-inline-size: none;
+  }
+
+  @media (max-width: 620px) {
+    .origin {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-2);
+    }
+
+    .origin-mark {
+      inline-size: calc(var(--u) * 7);
+      block-size: calc(var(--u) * 7);
+    }
+
+    .origin-path::before {
+      inset-inline-start: var(--s-2);
+    }
+
+    .stage {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .origin-path::before {
+      animation: none;
+    }
   }
 
   /* ---------- section headers ---------- */

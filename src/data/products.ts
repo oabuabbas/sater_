@@ -33,6 +33,8 @@ export interface Product {
   /** Why that word — the reason the name was chosen. */
   gloss?: Record<Locale, string>;
   tagline: Record<Locale, string>;
+  /** The product's own interpretation of the studio's first-line idea. */
+  lineStory?: Record<Locale, string>;
   status: Status;
   /** Sampled from the artwork; becomes --accent inside this product's frame. */
   accent: string;
@@ -46,6 +48,8 @@ export interface Product {
    */
   art: "full" | "inset";
   icon: ImageMetadata;
+  /** Public store listing. Only present once the product is actually shipped. */
+  storeUrl?: string;
   /** Detail page carried over from the old site — linked from the store. */
   legacyPath?: string;
 }
@@ -63,11 +67,16 @@ export const tools: Product[] = [
       en: "A task manager that ends at one word.",
       ar: "مدير مهام ينتهي عند كلمة واحدة.",
     },
+    lineStory: {
+      en: "The line begins with a task, and ends with one word: done.",
+      ar: "يبدأ السطر بمهمة، وينتهي بكلمة واحدة: تَمّ.",
+    },
     status: "live",
     accent: "#CBA83D",
     ground: "#232323",
     art: "full",
     icon: tamIcon,
+    storeUrl: "https://play.google.com/store/apps/details?id=com.sater.tam_app",
     legacyPath: "/tam/",
   },
   {
@@ -82,11 +91,16 @@ export const tools: Product[] = [
       en: "A party game that asks how well you know the room.",
       ar: "لعبة تسأل: كم تعرف من حولك حقاً؟",
     },
+    lineStory: {
+      en: "One line becomes a prompt; everyone around it becomes the game.",
+      ar: "يصير سطر واحد سؤالاً، ويصبح كل من حوله جزءاً من اللعبة.",
+    },
     status: "live",
     accent: "#4E9BD6",
     ground: "#2F6DA6",
     art: "full",
     icon: khamenIcon,
+    storeUrl: "https://play.google.com/store/apps/details?id=com.sater.khamen.khamen_codes",
     legacyPath: "/khamen/",
   },
   {
@@ -101,11 +115,16 @@ export const tools: Product[] = [
       en: "A solar compass that puts you on the shaded side.",
       ar: "بوصلة شمسية تضعك في الجهة الظليلة.",
     },
+    lineStory: {
+      en: "A line between sun and shade tells you where to stand.",
+      ar: "سطر بين الشمس والظل يخبرك أين تقف.",
+    },
     status: "live",
     accent: "#F5861D",
     ground: "#FFFFFF",
     art: "full",
     icon: zillIcon,
+    storeUrl: "https://play.google.com/store/apps/details?id=com.sater.zill",
     legacyPath: "/zill/",
   },
 ];
@@ -197,3 +216,9 @@ export const horizon: HorizonItem[] = [
     tags: ["Game"],
   },
 ];
+
+export const studioLinks = {
+  play: "https://play.google.com/store/apps/dev?id=8826020229333303149",
+  youtube: "https://www.youtube.com/@SATER_Studio",
+  facebook: "https://web.facebook.com/saterstudio",
+} as const;

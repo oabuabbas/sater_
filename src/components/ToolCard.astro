@@ -8,6 +8,7 @@
  */
 
 import { Image } from "astro:assets";
+import StatusBadge from "~/components/StatusBadge.astro";
 import { useTranslations, type UIKey } from "~/i18n/ui";
 import type { Locale, Product } from "~/data/products";
 
@@ -39,7 +40,7 @@ const Tag = product.legacyPath ? "a" : "article";
     </span>
     <span class="tagline">{product.tagline[locale]}</span>
     {product.gloss && <span class="gloss">{product.gloss[locale]}</span>}
-    <span class="status label">{t(statusKey)}</span>
+    <StatusBadge status={product.status} label={t(statusKey)} />
   </span>
 </Tag>
 
@@ -130,8 +131,7 @@ const Tag = product.legacyPath ? "a" : "article";
     font-size: 0.9375rem;
   }
 
-  .status {
+  .meta :global(.status-badge) {
     margin-block-start: var(--s-2);
-    color: var(--accent);
   }
 </style>

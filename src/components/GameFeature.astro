@@ -6,6 +6,8 @@
  */
 
 import { Image } from "astro:assets";
+import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
+import StatusBadge from "~/components/StatusBadge.astro";
 import { useTranslations, type UIKey } from "~/i18n/ui";
 import type { Game, Locale } from "~/data/products";
 
@@ -17,6 +19,10 @@ interface Props {
 const { game, locale } = Astro.props;
 const t = useTranslations(locale);
 const statusKey = `status.${game.status}` as UIKey;
+const line: ProductLineItem[] = [
+  ...(game.privacyPath ? [{ label: t("tools.privacy" as UIKey), href: game.privacyPath }] : []),
+  ...(game.termsPath ? [{ label: t("tools.terms" as UIKey), href: game.termsPath }] : []),
+];
 ---
 
 <article class="feature" style={`--accent:${game.accent};--ground:${game.ground}`}>
@@ -27,11 +33,18 @@ const statusKey = `status.${game.status}` as UIKey;
     <h3 class="name">{game.name}</h3>
     <p class="tagline">{game.tagline[locale]}</p>
     <p class="blurb">{game.blurb[locale]}</p>
-    <div class="meta label">
-      <span class="status">{t(statusKey)}</span>
-      {game.privacyPath && <a href={game.privacyPath}>{t("tools.privacy" as UIKey)}</a>}
-      {game.termsPath && <a href={game.termsPath}>{t("tools.terms" as UIKey)}</a>}
-    </div>
+    {
+      line.length > 0 ? (
+        <ProductLine
+          label={`${game.name} — ${t("tools.line" as UIKey)}`}
+          status={game.status}
+          statusLabel={t(statusKey)}
+          items={line}
+        />
+      ) : (
+        <StatusBadge status={game.status} label={t(statusKey)} />
+      )
+    }
   </div>
 
   {
@@ -113,25 +126,9 @@ const statusKey = `status.${game.status}` as UIKey;
     color: var(--fg-dim);
   }
 
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2);
+  .copy :global(.product-line),
+  .copy :global(.status-badge) {
     margin-block-start: var(--s-2);
-    color: var(--fg-dim);
-  }
-
-  .meta a {
-    border-block-end: var(--hair) solid var(--edge);
-    padding-block-end: 2px;
-    transition:
-      color var(--dur) var(--ease),
-      border-color var(--dur) var(--ease);
-  }
-
-  .meta a:hover {
-    color: var(--accent);
-    border-block-end-color: var(--accent);
   }
 
   .shots {

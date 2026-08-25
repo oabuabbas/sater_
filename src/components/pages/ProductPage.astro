@@ -5,6 +5,7 @@
 
 import { Image } from "astro:assets";
 import Band from "~/components/Band.astro";
+import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
 import { tools, type Locale } from "~/data/products";
 import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
 
@@ -19,6 +20,12 @@ if (!product) throw new Error(`unknown product: ${slug}`);
 
 const t = useTranslations(locale);
 const hasTerms = slug !== "zill"; // ZILL never shipped a terms page
+const line: ProductLineItem[] = [
+  { label: t("tools.store" as UIKey), href: product.storeUrl, external: true },
+  { label: t("tools.page" as UIKey), current: true },
+  { label: t("tools.privacy" as UIKey), href: `/${slug}/privacy` },
+  ...(hasTerms ? [{ label: t("tools.terms" as UIKey), href: `/${slug}/terms` }] : []),
+];
 ---
 
 <Band tone="base" class="head">
@@ -37,16 +44,27 @@ const hasTerms = slug !== "zill"; // ZILL never shipped a terms page
       </div>
       <p class="tagline">{product.tagline[locale]}</p>
       {product.gloss && <p class="gloss">{product.gloss[locale]}</p>}
-      <p class="status label">{t(`status.${product.status}` as UIKey)}</p>
     </div>
   </div>
 </Band>
 
 <Band tone="raised">
-  <p class="links label">
-    <a href={`/${slug}/privacy`}>{t("tools.privacy" as UIKey)}</a>
-    {hasTerms && <a href={`/${slug}/terms`}>{t("tools.terms" as UIKey)}</a>}
-  </p>
+  <div class="product-origin" style={`--accent:${product.accent}`}>
+    {
+      product.lineStory && (
+        <div class="line-story">
+          <p class="label">{t("tools.firstline" as UIKey)}</p>
+          <p>{product.lineStory[locale]}</p>
+        </div>
+      )
+    }
+    <ProductLine
+      label={`${product.name} — ${t("tools.line" as UIKey)}`}
+      status={product.status}
+      statusLabel={t(`status.${product.status}` as UIKey)}
+      items={line}
+    />
+  </div>
 </Band>
 
 <style>
@@ -130,31 +148,27 @@ const hasTerms = slug !== "zill"; // ZILL never shipped a terms page
     color: var(--fg-dim);
   }
 
-  .status {
-    color: var(--accent);
-    margin-block-start: var(--s-1);
-  }
-
-  .links {
+  .product-origin {
     display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+  }
+
+  .line-story {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) minmax(0, 3fr);
     gap: var(--s-4);
-    flex-wrap: wrap;
-    max-inline-size: none;
-    margin: 0;
+    align-items: start;
+    padding-inline-start: var(--s-3);
+    border-inline-start: 3px solid var(--accent);
   }
 
-  .links a {
-    color: var(--fg-dim);
-    border-block-end: var(--hair) solid var(--edge);
-    padding-block-end: 3px;
-    transition:
-      color var(--dur) var(--ease),
-      border-color var(--dur) var(--ease);
+  .line-story .label {
+    color: var(--accent);
   }
 
-  .links a:hover {
-    color: var(--fg);
-    border-block-end-color: var(--fg);
+  .line-story p:last-child {
+    font-size: var(--step-lede);
   }
 
   @media (max-width: 760px) {
@@ -165,6 +179,11 @@ const hasTerms = slug !== "zill"; // ZILL never shipped a terms page
 
     .art {
       inline-size: calc(var(--u) * 18);
+    }
+
+    .line-story {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-1);
     }
   }
 </style>

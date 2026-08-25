@@ -1,0 +1,57 @@
+---
+import type { Status } from "~/data/products";
+
+interface Props {
+  status: Status;
+  label: string;
+}
+
+const { status, label } = Astro.props;
+---
+
+<span class:list={["status-badge", status, "label"]}>
+  <span class="dot" aria-hidden="true"></span>
+  {label}
+</span>
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    inline-size: max-content;
+    padding: 5px 9px;
+    border: var(--hair) solid var(--edge);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--fg-dim);
+    white-space: nowrap;
+  }
+
+  .status-badge.live {
+    color: var(--fg);
+    border-color: color-mix(in srgb, var(--accent) 58%, var(--edge));
+    background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+  }
+
+  .dot {
+    inline-size: 7px;
+    block-size: 7px;
+    border-radius: 50%;
+    background: var(--fg-dim);
+  }
+
+  .live .dot {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent);
+    animation: live-breathe 2.4s var(--ease) infinite;
+  }
+
+  @keyframes live-breathe {
+    50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 4%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live .dot { animation: none; }
+  }
+</style>

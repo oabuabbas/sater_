@@ -19,9 +19,9 @@ export const ui = {
   en: {
     "site.name": "SATER",
     "site.descriptor": "Independent studio — Amman, Jordan",
-    "site.doctrine": "Not LTR to RTL — RTL to LTR",
+    "site.doctrine": "The line is not the result — it is the first deliberate move.",
     "site.description":
-      "SATER is an independent studio in Amman building software worth keeping — no dark patterns, no bloat, nothing that ships before it is finished.",
+      "Everything starts with a line. SATER is an independent studio in Amman turning ideas, code and form into software worth keeping.",
 
     "nav.index": "Index",
     "nav.tools": "Tools",
@@ -32,10 +32,15 @@ export const ui = {
     "nav.skip": "Skip to content",
     "nav.home": "SATER — home",
 
-    "hero.claim.a": "We build the software",
-    "hero.claim.b": "we wanted to use.",
+    "hero.claim.a": "Everything starts",
+    "hero.claim.b": "with a line.",
     "hero.lede":
-      "No dark patterns, no bloat, no engagement traps. Every app ships when it is actually finished.",
+      "An idea is written on a line. Code lives on lines. A drawing begins with one. SATER turns that first line into finished software worth keeping.",
+    "hero.path.aria": "From the first line to a finished product",
+    "hero.path.idea": "Idea",
+    "hero.path.code": "Code",
+    "hero.path.form": "Form",
+    "hero.path.product": "Product",
     "hero.fact.shipped": "On the store",
     "hero.fact.build": "Games",
     "hero.fact.research": "In research",
@@ -62,6 +67,9 @@ export const ui = {
     "tools.privacy": "Privacy",
     "tools.terms": "Terms",
     "tools.page": "Product page",
+    "tools.store": "Google Play",
+    "tools.line": "Follow the product line",
+    "tools.firstline": "Its first line",
 
     "play.title": "Play",
     "play.lede": "Longer work — simulations deep enough that a season, or a decade, plays differently every time.",
@@ -73,7 +81,12 @@ export const ui = {
     "studio.founder.role": "Founder",
     "studio.founder.name": "Omar Abu Abbass",
     "studio.doctrine.head": "On the name",
-    "studio.doctrine.body": "SATER is سطر — a line of written text. The studio is named in Arabic and its work ships in English, because that is the direction the work travels: from where it is made to whoever needs it.",
+    "studio.doctrine.body": "SATER is سطر: the first visible unit of an idea. A sentence starts on a line; code lives on lines; a drawing declares itself with its first stroke. The name is a reminder to begin clearly, then build until that line becomes a finished thing.",
+    "studio.links.head": "Find SATER",
+    "studio.links.note": "The studio, its releases, and the work around them.",
+    "studio.links.play": "Google Play studio",
+    "studio.links.youtube": "YouTube",
+    "studio.links.facebook": "Facebook",
 
     "horizon.title": "Horizon",
     "horizon.lede": "Research, hardware and one board game. None of these are products yet, and some never will be.",
@@ -86,9 +99,9 @@ export const ui = {
   ar: {
     "site.name": "سطر",
     "site.descriptor": "استوديو مستقل — عمّان، الأردن",
-    "site.doctrine": "لا من اليسار إلى اليمين — بل من اليمين إلى اليسار",
+    "site.doctrine": "السطر ليس النتيجة — بل أول حركة مقصودة.",
     "site.description":
-      "سطر استوديو مستقل في عمّان يبني برمجيات تستحق البقاء — بلا حيل ولا ترهّل، ولا شيء يُنشر قبل أن يكتمل.",
+      "كل شيء يبدأ من سطر. استوديو مستقل في عمّان يحوّل الفكرة والكود والشكل إلى برمجيات تستحق البقاء.",
 
     "nav.index": "الفهرس",
     "nav.tools": "الأدوات",
@@ -99,9 +112,14 @@ export const ui = {
     "nav.skip": "تخطَّ إلى المحتوى",
     "nav.home": "سطر — الرئيسية",
 
-    "hero.claim.a": "نبني البرمجيات",
-    "hero.claim.b": "التي أردنا استخدامها.",
-    "hero.lede": "بلا حيل ولا ترهّل ولا مصائد إدمان. وكل تطبيق يُنشر حين يكتمل فعلاً.",
+    "hero.claim.a": "كل شيء يبدأ",
+    "hero.claim.b": "من سطر.",
+    "hero.lede": "تُكتب الفكرة في سطر، ويعيش الكود في أسطر، وتبدأ الرسمة من خطّ أول. في سطر نحول تلك البداية إلى برمجيات مكتملة تستحق البقاء.",
+    "hero.path.aria": "من السطر الأول إلى منتج مكتمل",
+    "hero.path.idea": "فكرة",
+    "hero.path.code": "كود",
+    "hero.path.form": "شكل",
+    "hero.path.product": "منتج",
     "hero.fact.shipped": "على المتجر",
     "hero.fact.build": "ألعاب",
     "hero.fact.research": "قيد البحث",
@@ -128,6 +146,9 @@ export const ui = {
     "tools.privacy": "الخصوصية",
     "tools.terms": "الشروط",
     "tools.page": "صفحة المنتج",
+    "tools.store": "Google Play",
+    "tools.line": "اتبع سطر المنتج",
+    "tools.firstline": "سطره الأول",
 
     "play.title": "الألعاب",
     "play.lede": "عمل أطول نفَساً — محاكاة عميقة بما يكفي ليختلف الموسم، أو العقد، في كل مرة.",
@@ -139,7 +160,12 @@ export const ui = {
     "studio.founder.role": "المؤسس",
     "studio.founder.name": "عمر أبو عباس",
     "studio.doctrine.head": "عن الاسم",
-    "studio.doctrine.body": "سطر: صفٌّ من الكتابة. الاستوديو مُسمّى بالعربية وعمله يُنشر بالإنجليزية، لأن هذا هو اتجاه سير العمل: من حيث يُصنع إلى من يحتاجه.",
+    "studio.doctrine.body": "سطر هو أول شكل ظاهر للفكرة: تبدأ الجملة من سطر، ويعيش الكود في أسطر، وتعلن الرسمة عن نفسها بخطّها الأول. الاسم تذكير بأن نبدأ بوضوح، ثم نبني حتى يصبح ذلك السطر شيئاً مكتملاً.",
+    "studio.links.head": "اعثر على سطر",
+    "studio.links.note": "الاستوديو، وإصداراته، والعمل الذي يدور حولها.",
+    "studio.links.play": "استوديو Google Play",
+    "studio.links.youtube": "يوتيوب",
+    "studio.links.facebook": "فيسبوك",
 
     "horizon.title": "الأفق",
     "horizon.lede": "بحث وعتاد ولعبة لوحية. لا شيء منها منتَج بعد، وبعضها لن يكون.",

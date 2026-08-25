@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Band from "~/components/Band.astro";
 import PageHead from "~/components/PageHead.astro";
+import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
 import { tools, type Locale } from "~/data/products";
 import { useTranslations, type UIKey } from "~/i18n/ui";
 
@@ -15,6 +16,15 @@ const t = useTranslations(locale);
 /** Product and legal pages are English-only routes carried over from the old site. */
 const legacy = (product: (typeof tools)[number], page: "" | "privacy" | "terms") =>
   product.legacyPath ? `${product.legacyPath}${page}` : undefined;
+
+const productLine = (product: (typeof tools)[number]): ProductLineItem[] => [
+  { label: t("tools.store" as UIKey), href: product.storeUrl, external: true },
+  { label: t("tools.page" as UIKey), href: legacy(product, "") },
+  { label: t("tools.privacy" as UIKey), href: legacy(product, "privacy") },
+  ...(product.slug === "zill"
+    ? []
+    : [{ label: t("tools.terms" as UIKey), href: legacy(product, "terms") }]),
+];
 ---
 
 <PageHead title={t("tools.title" as UIKey)} lede={t("tools.lede" as UIKey)} />
@@ -36,19 +46,25 @@ const legacy = (product: (typeof tools)[number], page: "" | "privacy" | "terms")
                   <bdi>{product.root}</bdi>
                 </span>
               )}
-              <span class="status label">{t(`status.${product.status}` as UIKey)}</span>
             </div>
 
             <p class="tagline">{product.tagline[locale]}</p>
             {product.gloss && <p class="gloss">{product.gloss[locale]}</p>}
+            {
+              product.lineStory && (
+                <p class="line-story">
+                  <span class="label">{t("tools.firstline" as UIKey)}</span>
+                  {product.lineStory[locale]}
+                </p>
+              )
+            }
 
-            <p class="links label">
-              <a href={legacy(product, "")}>{t("tools.page" as UIKey)}</a>
-              <a href={legacy(product, "privacy")}>{t("tools.privacy" as UIKey)}</a>
-              {product.slug !== "zill" && (
-                <a href={legacy(product, "terms")}>{t("tools.terms" as UIKey)}</a>
-              )}
-            </p>
+            <ProductLine
+              label={`${product.name} — ${t("tools.line" as UIKey)}`}
+              status={product.status}
+              statusLabel={t(`status.${product.status}` as UIKey)}
+              items={productLine(product)}
+            />
           </div>
         </li>
       ))
@@ -124,10 +140,6 @@ const legacy = (product: (typeof tools)[number], page: "" | "privacy" | "terms")
     color: var(--accent);
   }
 
-  .status {
-    color: var(--fg-dim);
-  }
-
   .tagline {
     font-size: var(--step-lede);
   }
@@ -136,26 +148,24 @@ const legacy = (product: (typeof tools)[number], page: "" | "privacy" | "terms")
     color: var(--fg-dim);
   }
 
-  .links {
-    display: flex;
-    gap: var(--s-3);
-    flex-wrap: wrap;
-    margin-block-start: var(--s-2);
-    max-inline-size: none;
-  }
-
-  .links a {
+  .line-story {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--s-2);
+    margin-block-start: var(--s-1);
+    padding-inline-start: var(--s-2);
+    border-inline-start: 2px solid var(--accent);
     color: var(--fg-dim);
-    border-block-end: var(--hair) solid var(--edge);
-    padding-block-end: 2px;
-    transition:
-      color var(--dur) var(--ease),
-      border-color var(--dur) var(--ease);
   }
 
-  .links a:hover {
+  .line-story .label {
     color: var(--accent);
-    border-block-end-color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .body :global(.product-line) {
+    margin-block-start: var(--s-2);
   }
 
   @media (max-width: 720px) {

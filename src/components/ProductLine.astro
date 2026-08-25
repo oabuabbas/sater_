@@ -1,0 +1,126 @@
+---
+import StatusBadge from "~/components/StatusBadge.astro";
+import type { Status } from "~/data/products";
+
+export interface ProductLineItem {
+  label: string;
+  href?: string;
+  external?: boolean;
+  current?: boolean;
+}
+
+interface Props {
+  label: string;
+  status: Status;
+  statusLabel: string;
+  items: ProductLineItem[];
+}
+
+const { label, status, statusLabel, items } = Astro.props;
+---
+
+<nav class="product-line" aria-label={label}>
+  <ol>
+    <li class="status-node"><StatusBadge status={status} label={statusLabel} /></li>
+    {
+      items.map((item) => (
+        <li class:list={{ current: item.current }}>
+          {item.href ? (
+            <a
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
+            >
+              <span class="node" aria-hidden="true"></span>
+              <span>{item.label}{item.external ? " ↗" : ""}</span>
+            </a>
+          ) : (
+            <span aria-current={item.current ? "page" : undefined}>
+              <span class="node" aria-hidden="true"></span>
+              <span>{item.label}</span>
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .product-line {
+    max-inline-size: 100%;
+    overflow-x: auto;
+    padding-block: 2px var(--s-1);
+    scrollbar-width: thin;
+  }
+
+  ol {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    inline-size: max-content;
+    min-inline-size: min(100%, 38rem);
+    gap: var(--s-3);
+  }
+
+  ol::before {
+    content: "";
+    position: absolute;
+    inset-inline: var(--s-2);
+    inset-block-start: 13px;
+    block-size: 2px;
+    background: color-mix(in srgb, var(--accent) 52%, var(--edge));
+  }
+
+  li {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    padding-inline: 2px;
+  }
+
+  li > a,
+  li > span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-block-size: 27px;
+    color: var(--fg-dim);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .node {
+    inline-size: 11px;
+    block-size: 11px;
+    flex: none;
+    border: 2px solid color-mix(in srgb, var(--accent) 62%, var(--edge));
+    border-radius: 50%;
+    background: var(--bg);
+    transition:
+      background var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+
+  a:hover,
+  a:focus-visible,
+  .current > span {
+    color: var(--fg);
+  }
+
+  a:hover .node,
+  a:focus-visible .node,
+  .current .node {
+    background: var(--accent);
+    transform: scale(1.08);
+  }
+
+  .status-node {
+    padding-inline-start: 0;
+  }
+
+</style>
