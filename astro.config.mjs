@@ -25,7 +25,7 @@ export default defineConfig({
         locales: { en: "en", ar: "ar" },
       },
       // Legal documents stay out of search results; the product pages do not.
-      filter: (page) => !/(privacy|terms)\.html/.test(page),
+      filter: (page) => !/(privacy|terms)(?:\.html)?\/?$/.test(page),
     }),
   ],
 
@@ -46,6 +46,7 @@ function legacyLegalUrls() {
     ["tam", "privacy"], ["tam", "terms"],
     ["khamen", "privacy"], ["khamen", "terms"],
     ["zill", "privacy"],
+    ["studio-chairman", "privacy"], ["studio-chairman", "terms"],
   ];
   return {
     name: "sater:legacy-legal-urls",

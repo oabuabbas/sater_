@@ -24,7 +24,8 @@ const {
 } = Astro.props;
 ---
 
-<Tag id={id} aria-labelledby={labelledby} class:list={["band", `band-${tone}`, className]}>
+<Tag id={id} aria-labelledby={labelledby} class:list={["band", `band-${tone}`, className]} data-scribe>
+  <span class="cut-rule" aria-hidden="true"></span>
   <div class:list={["inner", { flush }]}>
     <slot />
   </div>
@@ -32,8 +33,56 @@ const {
 
 <style>
   .band {
+    position: relative;
     background: var(--bg);
     color: var(--fg);
+  }
+
+  /* When a band enters the viewport, its rule draws inward and stops around
+     the same central cut carried by the V2 mark. */
+  .cut-rule {
+    position: absolute;
+    inset: 0 0 auto;
+    block-size: 1px;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .cut-rule::before,
+  .cut-rule::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inline-size: calc(50% - var(--s-2));
+    block-size: 1px;
+    background: var(--fg);
+    opacity: 0.28;
+    transform: scaleX(0);
+    transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cut-rule::before {
+    inset-inline-start: 0;
+    transform-origin: left;
+  }
+
+  .cut-rule::after {
+    inset-inline-end: 0;
+    transform-origin: right;
+    transition-delay: 80ms;
+  }
+
+  .band.is-inscribed .cut-rule::before,
+  .band.is-inscribed .cut-rule::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cut-rule::before,
+    .cut-rule::after {
+      transform: scaleX(1);
+      transition: none;
+    }
   }
 
   .inner {

@@ -22,8 +22,9 @@ import { chromium } from "playwright-core";
 const DIST = new URL("../dist/", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const PORT = 4399;
 const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
-  "/tam/", "/khamen/", "/zill/", "/tam/privacy/", "/tam/terms/", "/zill/privacy/"];
-const EN_ONLY = /^\/(tam|khamen|zill|404)/;
+  "/tam/", "/khamen/", "/zill/", "/tam/privacy/", "/tam/terms/", "/zill/privacy/",
+  "/studio-chairman/privacy/", "/studio-chairman/terms/"];
+const EN_ONLY = /^\/(tam|khamen|zill|studio-chairman|404)/;
 const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)];
 const WIDTHS = [375, 768, 1280];
 const CHANNELS = ["msedge", "chrome", "chromium"];
@@ -95,9 +96,15 @@ function audit() {
     const a = el.getBoundingClientRect();
     const b = next.getBoundingClientRect();
     if (a.width < 2 || b.width < 2) continue;
+    const aStyle = getComputedStyle(el);
+    const bStyle = getComputedStyle(next);
+    // Two inline links in one paragraph legitimately share a line; text nodes
+    // between them are not elements, so nextElementSibling makes them look
+    // adjacent. The gate is for colliding layout boxes, not inline flow.
+    if (aStyle.display.startsWith("inline") && bStyle.display.startsWith("inline")) continue;
     const vOverlap = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
     const hOverlap = Math.min(a.right, b.right) - Math.max(a.left, b.left);
-    if (vOverlap > 3 && hOverlap > 3 && getComputedStyle(el).position === "static") {
+    if (vOverlap > 3 && hOverlap > 3 && aStyle.position === "static") {
       findings.push(
         `overlap ${Math.round(vOverlap)}x${Math.round(hOverlap)}px: <${el.tagName.toLowerCase()}> ` +
           `"${el.textContent.trim().slice(0, 30)}" over <${next.tagName.toLowerCase()}>`,

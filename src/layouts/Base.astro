@@ -3,6 +3,7 @@ import "~/styles/tokens.css";
 import "~/styles/base.css";
 import Nav from "~/components/Nav.astro";
 import Footer from "~/components/Footer.astro";
+import ScribeMotion from "~/components/ScribeMotion.astro";
 import { dir, useTranslations, localizePath, type UIKey } from "~/i18n/ui";
 import type { Locale } from "~/data/products";
 
@@ -13,9 +14,11 @@ interface Props {
   description?: string;
   /** Path with no locale prefix, e.g. "/tools". Drives the language switch. */
   path: string;
+  /** False for English-only legal/product pages that have no Arabic twin. */
+  localized?: boolean;
 }
 
-const { locale, title, description, path } = Astro.props;
+const { locale, title, description, path, localized = true } = Astro.props;
 const t = useTranslations(locale);
 
 const site = Astro.site ?? new URL("https://thesater.com");
@@ -48,9 +51,15 @@ const desc = description ?? t("site.description" as UIKey);
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical.href} />
 
-    <link rel="alternate" hreflang="en" href={new URL(localizePath(path, "en"), site).href} />
-    <link rel="alternate" hreflang="ar" href={new URL(localizePath(path, "ar"), site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL(localizePath(path, "en"), site).href} />
+    {
+      localized && (
+        <>
+          <link rel="alternate" hreflang="en" href={new URL(localizePath(path, "en"), site).href} />
+          <link rel="alternate" hreflang="ar" href={new URL(localizePath(path, "ar"), site).href} />
+          <link rel="alternate" hreflang="x-default" href={new URL(localizePath(path, "en"), site).href} />
+        </>
+      )
+    }
 
     <link rel="icon" type="image/png" href="/favicon.png" />
 
@@ -93,5 +102,6 @@ const desc = description ?? t("site.description" as UIKey);
       <slot />
     </main>
     <Footer locale={locale} path={path} />
+    <ScribeMotion />
   </body>
 </html>

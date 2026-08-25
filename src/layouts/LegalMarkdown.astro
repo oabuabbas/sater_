@@ -1,0 +1,78 @@
+---
+import Base from "~/layouts/Base.astro";
+import Band from "~/components/Band.astro";
+
+interface Frontmatter {
+  title: string;
+  description: string;
+  path: string;
+  effective: string;
+  updated: string;
+  applies_to: string;
+  publisher: string;
+  contact: string;
+}
+
+const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
+---
+
+<Base
+  locale="en"
+  path={frontmatter.path}
+  title={frontmatter.title}
+  description={frontmatter.description}
+  localized={false}
+>
+  <Band tone="base" class="legal-head">
+    <p class="app label">Studio Chairman · Android</p>
+    <h1>{frontmatter.title.replace(" — Studio Chairman", "")}</h1>
+    <dl class="facts label">
+      <div><dt>Effective</dt><dd>{frontmatter.effective}</dd></div>
+      <div><dt>Updated</dt><dd>{frontmatter.updated}</dd></div>
+      <div><dt>Applies to</dt><dd>{frontmatter.applies_to}</dd></div>
+    </dl>
+    <p class="back label"><a href="/play/">&larr; Studio Chairman</a></p>
+  </Band>
+
+  <Band tone="raised">
+    <article class="markdown-legal">
+      <slot />
+    </article>
+  </Band>
+</Base>
+
+<style is:global>
+  .legal-head .inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    align-items: flex-start;
+    padding-block: var(--s-14) var(--s-8);
+  }
+
+  .legal-head h1 { font-size: var(--step-head); line-height: var(--lead-tight); }
+  .legal-head .app, .legal-head .back { color: var(--fg-dim); margin: 0; }
+  .legal-head .facts { display: grid; gap: var(--s-1); margin: var(--s-2) 0 0; color: var(--fg-dim); }
+  .legal-head .facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--s-2); }
+  .legal-head .facts dt { color: var(--fg); }
+  .legal-head .facts dd { margin: 0; }
+
+  .markdown-legal { display: flex; flex-direction: column; gap: var(--s-3); max-inline-size: 74ch; }
+  .markdown-legal > h1, .markdown-legal > p:first-of-type, .markdown-legal > hr:first-of-type { display: none; }
+  .markdown-legal h2 { font-size: var(--step-3); line-height: var(--lead-head); margin-block-start: var(--s-6); }
+  .markdown-legal h3 { font-size: var(--step-2); line-height: var(--lead-head); margin-block-start: var(--s-3); }
+  .markdown-legal p, .markdown-legal li { color: var(--fg-dim); max-inline-size: none; }
+  .markdown-legal strong { color: var(--fg); }
+  .markdown-legal ul { display: flex; flex-direction: column; gap: var(--s-1); padding-inline-start: var(--s-4); list-style: square; }
+  .markdown-legal a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--edge-strong); text-underline-offset: 3px; }
+  .markdown-legal hr { inline-size: 100%; border: 0; border-block-start: var(--hair) solid var(--edge); margin-block: var(--s-4); }
+  .markdown-legal table { inline-size: 100%; border-collapse: collapse; font-size: var(--step-0); }
+  .markdown-legal th, .markdown-legal td { padding: var(--s-2); text-align: start; vertical-align: top; border: var(--hair) solid var(--edge); }
+  .markdown-legal th { color: var(--fg); background: var(--surface-2); }
+
+  @media (max-width: 620px) {
+    .legal-head .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+    .markdown-legal { overflow-wrap: anywhere; }
+    .markdown-legal table { display: block; overflow-x: auto; }
+  }
+</style>

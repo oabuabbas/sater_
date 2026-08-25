@@ -37,15 +37,15 @@ export const ui = {
     "hero.lede":
       "No dark patterns, no bloat, no engagement traps. Every app ships when it is actually finished.",
     "hero.fact.shipped": "On the store",
-    "hero.fact.build": "Games in build",
+    "hero.fact.build": "Games",
     "hero.fact.research": "In research",
     "hero.fact.place": "Amman, Jordan",
 
     "tools.head": "Three tools, on the store",
     "tools.note": "Each is named after the Arabic word for what it does.",
 
-    "games.head": "Two games, in build",
-    "games.note": "Longer-form work. Neither has had a page until now.",
+    "games.head": "Two games",
+    "games.note": "Studio Chairman is live. Behind The Badge remains in development.",
 
     "horizon.head": "On the horizon",
     "horizon.note": "Research and hardware. Not products yet.",
@@ -103,15 +103,15 @@ export const ui = {
     "hero.claim.b": "التي أردنا استخدامها.",
     "hero.lede": "بلا حيل ولا ترهّل ولا مصائد إدمان. وكل تطبيق يُنشر حين يكتمل فعلاً.",
     "hero.fact.shipped": "على المتجر",
-    "hero.fact.build": "ألعاب قيد البناء",
+    "hero.fact.build": "ألعاب",
     "hero.fact.research": "قيد البحث",
     "hero.fact.place": "عمّان، الأردن",
 
     "tools.head": "ثلاث أدوات على المتجر",
     "tools.note": "كلٌّ منها سُمّيت بالكلمة العربية التي تصف ما تفعله.",
 
-    "games.head": "لعبتان قيد البناء",
-    "games.note": "عمل أطول نفَساً. لم تكن لأيٍّ منهما صفحة حتى الآن.",
+    "games.head": "لعبتان",
+    "games.note": "Studio Chairman منشورة، وBehind The Badge ما تزال قيد التطوير.",
 
     "horizon.head": "في الأفق",
     "horizon.note": "بحث وعتاد. لم تصبح منتجات بعد.",

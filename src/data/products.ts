@@ -112,6 +112,9 @@ export const tools: Product[] = [
 
 export interface Game extends Product {
   blurb: Record<Locale, string>;
+  /** Public policy pages. Games may ship before they have a full detail page. */
+  privacyPath?: string;
+  termsPath?: string;
   /** Real captures — the games section shows the game, not just its icon. */
   shots?: ImageMetadata[];
   wide?: ImageMetadata;
@@ -129,12 +132,14 @@ export const games: Game[] = [
       en: "Greenlight films, court talent, read the box office and keep the board off your back — across decades of a studio's life.",
       ar: "تُجيز الأفلام، وتستقطب النجوم، وتقرأ شبّاك التذاكر، وتُبقي المجلس بعيداً عنك — عبر عقود من عمر الاستوديو.",
     },
-    status: "build",
+    status: "live",
     accent: "#E0813F",
     ground: "#F3F1EC",
     art: "inset",
     icon: chairmanIcon,
     shots: [chairman1, chairman2, chairman3],
+    privacyPath: "/studio-chairman/privacy/",
+    termsPath: "/studio-chairman/terms/",
   },
   {
     slug: "behind-the-badge",

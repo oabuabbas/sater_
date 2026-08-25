@@ -18,6 +18,9 @@ const TARGETS = [
   { path: "/", name: "en-home" },
   { path: "/tam/", name: "en-product" },
   { path: "/tam/privacy/", name: "en-legal" },
+  { path: "/play/", name: "en-play" },
+  { path: "/studio-chairman/privacy/", name: "chairman-privacy" },
+  { path: "/studio-chairman/terms/", name: "chairman-terms" },
   { path: "/ar/", name: "ar-home" },
   { path: "/ar/play/", name: "ar-play" },
 ];
