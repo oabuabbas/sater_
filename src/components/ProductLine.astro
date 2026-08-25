@@ -28,6 +28,7 @@ const { label, status, statusLabel, items } = Astro.props;
           {item.href ? (
             <a
               href={item.href}
+              aria-current={item.current ? "page" : undefined}
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noopener noreferrer" : undefined}
             >
