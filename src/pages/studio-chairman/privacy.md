@@ -7,7 +7,7 @@ effective: 25 August 2026
 updated: 25 August 2026
 applies_to: Studio Chairman (Android) — com.sater.studiochairman, version 1.0.0 and later
 publisher: sater
-contact: beatnabytna@gmail.com
+contact: sater.studios@gmail.com
 ---
 
 # Privacy Policy
@@ -37,7 +37,7 @@ That is the whole trade. The rest of this page is the detail.
 ## 1. Who is responsible
 
 This app is published by **sater** ("we", "us"). For anything on this page, write to
-**beatnabytna@gmail.com**.
+**sater.studios@gmail.com**.
 
 This policy covers the Android application **Studio Chairman**
 (package `com.sater.studiochairman`), version 1.0.0 and later. It does not cover
@@ -161,7 +161,7 @@ for no personal information from anyone, it asks for none from children either. 
 is not enrolled in Google Play's *Designed for Families* programme.
 
 If you believe a child has provided information through this app, write to
-**beatnabytna@gmail.com** and we will act on it.
+**sater.studios@gmail.com** and we will act on it.
 
 ---
 
@@ -225,6 +225,6 @@ to match this page.
 
 ## 12. Contact
 
-**beatnabytna@gmail.com**
+**sater.studios@gmail.com**
 
 Studio Chairman — by sater

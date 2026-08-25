@@ -7,7 +7,7 @@ effective: 25 August 2026
 updated: 25 August 2026
 applies_to: Studio Chairman (Android) — com.sater.studiochairman, version 1.0.0 and later
 publisher: sater
-contact: beatnabytna@gmail.com
+contact: sater.studios@gmail.com
 ---
 
 # Terms of Service
@@ -200,6 +200,6 @@ where the law requires it. Continuing to play after a change means you accept it
 
 ## 14. Contact
 
-**beatnabytna@gmail.com**
+**sater.studios@gmail.com**
 
 Studio Chairman — by sater
