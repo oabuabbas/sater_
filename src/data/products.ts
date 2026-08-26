@@ -14,6 +14,9 @@
 import tamIcon from "~/assets/products/tam.png";
 import khamenIcon from "~/assets/products/khamen.png";
 import zillIcon from "~/assets/products/zill.png";
+import tamFeature from "~/assets/products/tam-feature.png";
+import khamenFeature from "~/assets/products/khamen-feature.png";
+import zillFeature from "~/assets/products/zill-feature.png";
 import btbIcon from "~/assets/products/behind-the-badge.png";
 import chairmanIcon from "~/assets/products/studio-chairman.png";
 
@@ -21,6 +24,7 @@ import chairman1 from "~/assets/games/chairman-1.png";
 import chairman2 from "~/assets/games/chairman-2.png";
 import chairman3 from "~/assets/games/chairman-3.png";
 import btbBrand from "~/assets/games/btb-brand.png";
+import chairmanFeature from "~/assets/games/studio-chairman-feature.png";
 
 export type Locale = "en" | "ar";
 export type Status = "live" | "build";
@@ -48,6 +52,8 @@ export interface Product {
    */
   art: "full" | "inset";
   icon: ImageMetadata;
+  /** Store artwork that carries the product's world, separate from its mark. */
+  feature?: ImageMetadata;
   /** Public store listing. Only present once the product is actually shipped. */
   storeUrl?: string;
   /** Detail page carried over from the old site — linked from the store. */
@@ -76,6 +82,7 @@ export const tools: Product[] = [
     ground: "#232323",
     art: "full",
     icon: tamIcon,
+    feature: tamFeature,
     storeUrl: "https://play.google.com/store/apps/details?id=com.sater.tam_app",
     legacyPath: "/tam/",
   },
@@ -100,6 +107,7 @@ export const tools: Product[] = [
     ground: "#2F6DA6",
     art: "full",
     icon: khamenIcon,
+    feature: khamenFeature,
     storeUrl: "https://play.google.com/store/apps/details?id=com.sater.khamen.khamen_codes",
     legacyPath: "/khamen/",
   },
@@ -124,6 +132,7 @@ export const tools: Product[] = [
     ground: "#FFFFFF",
     art: "full",
     icon: zillIcon,
+    feature: zillFeature,
     storeUrl: "https://play.google.com/store/apps/details?id=com.sater.zill",
     legacyPath: "/zill/",
   },
@@ -156,6 +165,8 @@ export const games: Game[] = [
     ground: "#F3F1EC",
     art: "inset",
     icon: chairmanIcon,
+    feature: chairmanFeature,
+    storeUrl: "https://play.google.com/store/apps/details?id=com.sater.studiochairman",
     shots: [chairman1, chairman2, chairman3],
     privacyPath: "/studio-chairman/privacy/",
     termsPath: "/studio-chairman/terms/",

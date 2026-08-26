@@ -52,6 +52,17 @@ export const ui = {
     "games.head": "Two games",
     "games.note": "Studio Chairman is live. Behind The Badge remains in development.",
 
+    "runner.kicker": "A playable line",
+    "runner.head": "Don't break the line.",
+    "runner.note": "S jumps over fragments of the things we build. The longer the line, the faster it gets.",
+    "runner.start": "Start the line",
+    "runner.restart": "Draw it again",
+    "runner.jump": "Space, ↑ or tap to jump",
+    "runner.score": "Line",
+    "runner.best": "Best",
+    "runner.ready": "Press to begin",
+    "runner.over": "The line broke",
+
     "horizon.head": "On the horizon",
     "horizon.note": "Research and hardware. Not products yet.",
 
@@ -130,6 +141,17 @@ export const ui = {
 
     "games.head": "لعبتان",
     "games.note": "Studio Chairman منشورة، وBehind The Badge ما تزال قيد التطوير.",
+
+    "runner.kicker": "سطر قابل للعب",
+    "runner.head": "لا تقطع السطر.",
+    "runner.note": "تقفز «س» فوق شظايا مما نبنيه. كلما طال السطر، ازدادت سرعته.",
+    "runner.start": "ابدأ السطر",
+    "runner.restart": "ارسمه من جديد",
+    "runner.jump": "المس أو اضغط مسافة أو ↑ للقفز",
+    "runner.score": "السطر",
+    "runner.best": "الأفضل",
+    "runner.ready": "اضغط للبدء",
+    "runner.over": "انقطع السطر",
 
     "horizon.head": "في الأفق",
     "horizon.note": "بحث وعتاد. لم تصبح منتجات بعد.",

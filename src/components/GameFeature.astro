@@ -20,6 +20,7 @@ const { game, locale } = Astro.props;
 const t = useTranslations(locale);
 const statusKey = `status.${game.status}` as UIKey;
 const line: ProductLineItem[] = [
+  ...(game.storeUrl ? [{ label: t("tools.store" as UIKey), href: game.storeUrl, external: true }] : []),
   ...(game.privacyPath ? [{ label: t("tools.privacy" as UIKey), href: game.privacyPath }] : []),
   ...(game.termsPath ? [{ label: t("tools.terms" as UIKey), href: game.termsPath }] : []),
 ];
@@ -47,29 +48,39 @@ const line: ProductLineItem[] = [
     }
   </div>
 
-  {
-    game.shots && (
-      <div class="shots">
-        {game.shots.map((shot, i) => (
-          <Image
-            src={shot}
-            alt={`${game.name} screenshot ${i + 1}`}
-            width={300}
-            height={533}
-            loading="lazy"
-          />
-        ))}
-      </div>
-    )
-  }
+  <div class="media">
+    {
+      game.feature && (
+        <div class="feature-art">
+          <Image src={game.feature} alt={`${game.name} artwork`} width={1024} height={500} loading="lazy" />
+        </div>
+      )
+    }
 
-  {
-    game.wide && (
-      <div class="wide">
-        <Image src={game.wide} alt={`${game.name} brand plate`} width={420} height={420} loading="lazy" />
-      </div>
-    )
-  }
+    {
+      game.shots && (
+        <div class="shots">
+          {game.shots.map((shot, i) => (
+            <Image
+              src={shot}
+              alt={`${game.name} screenshot ${i + 1}`}
+              width={300}
+              height={533}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      )
+    }
+
+    {
+      game.wide && (
+        <div class="wide">
+          <Image src={game.wide} alt={`${game.name} brand plate`} width={420} height={420} loading="lazy" />
+        </div>
+      )
+    }
+  </div>
 </article>
 
 <style>
@@ -136,6 +147,31 @@ const line: ProductLineItem[] = [
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--s-2);
     align-items: start;
+  }
+
+  .media {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    min-width: 0;
+  }
+
+  .feature-art {
+    aspect-ratio: 1024 / 500;
+    overflow: hidden;
+    border: var(--hair) solid var(--edge);
+    border-radius: var(--radius-card);
+    background: var(--ground);
+  }
+
+  .feature-art :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feature-art + .shots {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .shots :global(img) {

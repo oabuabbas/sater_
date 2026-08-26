@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "prebuild": "node scripts/verify-app-ads.mjs",
-    "build": "astro build",
+    "build": "astro build && node scripts/prepare-sites.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "brand:assets": "node scripts/brand-assets.mjs",

@@ -9,6 +9,7 @@ import Band from "~/components/Band.astro";
 import Logo from "~/components/Logo.astro";
 import ToolCard from "~/components/ToolCard.astro";
 import GameFeature from "~/components/GameFeature.astro";
+import SaterRunner from "~/components/SaterRunner.astro";
 import { tools, games, horizon, type Locale } from "~/data/products";
 import { useTranslations, type UIKey } from "~/i18n/ui";
 
@@ -83,7 +84,11 @@ const path = ["idea", "code", "form", "product"] as const;
   {games.map((game) => <GameFeature game={game} locale={locale} />)}
 </Band>
 
-<Band tone="raised" labelledby="horizon-head">
+<Band tone="raised" labelledby="runner-head">
+  <SaterRunner locale={locale} />
+</Band>
+
+<Band tone="base" labelledby="horizon-head">
   <header class="sec">
     <h2 id="horizon-head">{t("horizon.head" as UIKey)}</h2>
     <p class="note">{t("horizon.note" as UIKey)}</p>

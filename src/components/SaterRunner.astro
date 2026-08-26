@@ -1,0 +1,464 @@
+---
+import tamIcon from "~/assets/products/tam.png";
+import khamenIcon from "~/assets/products/khamen.png";
+import zillIcon from "~/assets/products/zill.png";
+import chairmanIcon from "~/assets/products/studio-chairman.png";
+import { useTranslations, type UIKey } from "~/i18n/ui";
+import type { Locale } from "~/data/products";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const labels = {
+  start: t("runner.start" as UIKey),
+  restart: t("runner.restart" as UIKey),
+  jump: t("runner.jump" as UIKey),
+  ready: t("runner.ready" as UIKey),
+  over: t("runner.over" as UIKey),
+};
+const icons = [tamIcon.src, zillIcon.src, khamenIcon.src, chairmanIcon.src];
+const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
+---
+
+<section
+  class="runner"
+  data-sater-runner
+  data-labels={JSON.stringify(labels)}
+  data-icons={JSON.stringify(icons)}
+  data-accents={JSON.stringify(accents)}
+  dir={locale === "ar" ? "rtl" : "ltr"}
+>
+  <header class="intro">
+    <p class="label kicker">{t("runner.kicker" as UIKey)}</p>
+    <h2 id="runner-head">{t("runner.head" as UIKey)}</h2>
+    <p>{t("runner.note" as UIKey)}</p>
+  </header>
+
+  <div class="machine">
+    <div class="hud label" aria-live="polite">
+      <span>{t("runner.score" as UIKey)} <b data-score>000</b></span>
+      <span>{t("runner.best" as UIKey)} <b data-best>000</b></span>
+    </div>
+
+    <button class="stage" type="button" data-stage aria-label={labels.start}>
+      <canvas data-canvas aria-hidden="true"></canvas>
+      <span class="start-card" data-card>
+        <span class="mini-mark" aria-hidden="true">س</span>
+        <strong data-state>{labels.ready}</strong>
+        <span class="label">{labels.jump}</span>
+      </span>
+    </button>
+
+    <div class="controls">
+      <button type="button" class="start label" data-start>{labels.start}</button>
+      <p class="label">{labels.jump}</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Obstacle = { x: number; size: number; image: HTMLImageElement; accent: string };
+  type Trail = { x: number; y: number; life: number };
+
+  document.querySelectorAll<HTMLElement>("[data-sater-runner]").forEach((root) => {
+    const stage = root.querySelector<HTMLButtonElement>("[data-stage]");
+    const start = root.querySelector<HTMLButtonElement>("[data-start]");
+    const canvas = root.querySelector<HTMLCanvasElement>("[data-canvas]");
+    const scoreNode = root.querySelector<HTMLElement>("[data-score]");
+    const bestNode = root.querySelector<HTMLElement>("[data-best]");
+    const card = root.querySelector<HTMLElement>("[data-card]");
+    const stateNode = root.querySelector<HTMLElement>("[data-state]");
+    if (!stage || !start || !canvas || !scoreNode || !bestNode || !card || !stateNode) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const labels = JSON.parse(root.dataset.labels ?? "{}") as Record<string, string>;
+    const sources = JSON.parse(root.dataset.icons ?? "[]") as string[];
+    const accents = JSON.parse(root.dataset.accents ?? "[]") as string[];
+    const images = sources.map((src) => {
+      const image = new Image();
+      image.src = src;
+      return image;
+    });
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let baseline = 0;
+    let running = false;
+    let ended = false;
+    let last = 0;
+    let elapsed = 0;
+    let nextObstacle = 0.9;
+    let playerY = 0;
+    let velocity = 0;
+    let obstacles: Obstacle[] = [];
+    let trail: Trail[] = [];
+    let best = Number(localStorage.getItem("sater-line-best") ?? 0);
+    bestNode.textContent = String(best).padStart(3, "0");
+
+    const css = () => getComputedStyle(root);
+    const color = (name: string, fallback: string) => css().getPropertyValue(name).trim() || fallback;
+
+    function resize() {
+      const rect = stage.getBoundingClientRect();
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      baseline = Math.round(height * 0.74);
+      draw();
+    }
+
+    function roundedImage(image: HTMLImageElement, x: number, y: number, size: number) {
+      const radius = Math.max(7, size * 0.2);
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(x, y, size, size, radius);
+      ctx.clip();
+      if (image.complete && image.naturalWidth) ctx.drawImage(image, x, y, size, size);
+      else {
+        ctx.fillStyle = color("--surface-2", "#26262c");
+        ctx.fillRect(x, y, size, size);
+      }
+      ctx.restore();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      const fg = color("--fg", "#f2f1ef");
+      const dim = color("--fg-dim", "#a8a5a1");
+      const edge = color("--edge", "#34343c");
+
+      ctx.strokeStyle = edge;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 12]);
+      for (let x = 18; x < width; x += 54) {
+        ctx.beginPath();
+        ctx.moveTo(x, 18);
+        ctx.lineTo(x, height - 18);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+
+      ctx.strokeStyle = fg;
+      ctx.globalAlpha = 0.78;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, baseline + 1);
+      ctx.lineTo(width, baseline + 1);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      for (const dot of trail) {
+        ctx.fillStyle = dim;
+        ctx.globalAlpha = Math.max(0, dot.life);
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      const playerX = Math.max(58, width * 0.14);
+      ctx.fillStyle = fg;
+      ctx.font = `700 ${Math.min(66, Math.max(48, width * 0.065))}px "Plex Arabic", sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "alphabetic";
+      ctx.fillText("س", playerX, baseline - playerY + 2);
+
+      for (const item of obstacles) {
+        const y = baseline - item.size;
+        ctx.save();
+        ctx.shadowColor = item.accent;
+        ctx.shadowBlur = 15;
+        roundedImage(item.image, item.x, y, item.size);
+        ctx.restore();
+        ctx.fillStyle = item.accent;
+        ctx.fillRect(item.x + 5, baseline + 7, item.size - 10, 2);
+      }
+    }
+
+    function reset() {
+      elapsed = 0;
+      nextObstacle = 0.85;
+      playerY = 0;
+      velocity = 0;
+      obstacles = [];
+      trail = [];
+      scoreNode.textContent = "000";
+      ended = false;
+    }
+
+    function begin() {
+      reset();
+      running = true;
+      card.hidden = true;
+      start.textContent = labels.restart;
+      stage.setAttribute("aria-label", labels.jump);
+      stage.focus({ preventScroll: true });
+      last = performance.now();
+      requestAnimationFrame(frame);
+    }
+
+    function jump() {
+      if (!running) {
+        begin();
+        return;
+      }
+      if (playerY < 3) {
+        velocity = Math.max(520, height * 1.72);
+        trail.push({ x: Math.max(58, width * 0.14), y: baseline - 10, life: 1 });
+      }
+    }
+
+    function finish() {
+      running = false;
+      ended = true;
+      const score = Math.floor(elapsed * 10);
+      best = Math.max(best, score);
+      localStorage.setItem("sater-line-best", String(best));
+      bestNode.textContent = String(best).padStart(3, "0");
+      stateNode.textContent = labels.over;
+      card.hidden = false;
+      start.textContent = labels.restart;
+      stage.setAttribute("aria-label", labels.restart);
+    }
+
+    function frame(now: number) {
+      if (!running) return;
+      const dt = Math.min((now - last) / 1000, 0.034);
+      last = now;
+      elapsed += dt;
+      const speed = Math.min(640, 250 + elapsed * 9);
+      const gravity = Math.max(1450, height * 5.2);
+
+      velocity -= gravity * dt;
+      playerY = Math.max(0, playerY + velocity * dt);
+      if (playerY === 0 && velocity < 0) velocity = 0;
+
+      nextObstacle -= dt;
+      if (nextObstacle <= 0 && images.length) {
+        const index = Math.floor(Math.random() * images.length);
+        const size = Math.min(50, Math.max(36, width * 0.055));
+        obstacles.push({ x: width + size, size, image: images[index], accent: accents[index] });
+        nextObstacle = Math.max(0.72, 1.42 - elapsed * 0.012) + Math.random() * 0.55;
+      }
+
+      obstacles.forEach((item) => (item.x -= speed * dt));
+      obstacles = obstacles.filter((item) => item.x + item.size > -10);
+      trail.forEach((dot) => {
+        dot.x -= speed * dt * 0.42;
+        dot.life -= dt * 1.7;
+      });
+      trail = trail.filter((dot) => dot.life > 0);
+      if (playerY > 7 && Math.random() < 0.28) {
+        trail.push({ x: Math.max(58, width * 0.14) - 15, y: baseline - playerY - 18, life: 0.75 });
+      }
+
+      const px = Math.max(58, width * 0.14);
+      const player = { left: px - 19, right: px + 18, top: baseline - playerY - 47, bottom: baseline - playerY - 5 };
+      const hit = obstacles.some((item) => {
+        const top = baseline - item.size + 5;
+        return player.right > item.x + 5 && player.left < item.x + item.size - 5 && player.bottom > top && player.top < baseline;
+      });
+      if (hit) {
+        finish();
+        draw();
+        return;
+      }
+
+      scoreNode.textContent = String(Math.floor(elapsed * 10)).padStart(3, "0");
+      draw();
+      requestAnimationFrame(frame);
+    }
+
+    stage.addEventListener("click", jump);
+    start.addEventListener("click", () => (running ? begin() : ended ? begin() : begin()));
+    stage.addEventListener("keydown", (event) => {
+      if (event.key === " " || event.key === "ArrowUp") {
+        event.preventDefault();
+        jump();
+      }
+    });
+
+    new ResizeObserver(resize).observe(stage);
+    document.fonts.ready.then(resize);
+    resize();
+  });
+</script>
+
+<style>
+  .runner {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.6fr);
+    gap: var(--s-8);
+    align-items: center;
+    padding-block: var(--s-6);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+
+  .kicker {
+    color: var(--fg-dim);
+  }
+
+  .intro h2 {
+    font-size: var(--step-head);
+    line-height: var(--lead-head);
+  }
+
+  .intro > p:last-child {
+    color: var(--fg-dim);
+  }
+
+  .machine {
+    min-width: 0;
+    padding: var(--s-2);
+    border: var(--hair) solid var(--edge);
+    border-radius: var(--radius-card);
+    background: var(--surface-2);
+    box-shadow: 0 24px 70px rgb(0 0 0 / 0.12);
+  }
+
+  .hud,
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+  }
+
+  .hud {
+    padding: var(--s-1) var(--s-1) var(--s-2);
+    color: var(--fg-dim);
+  }
+
+  .hud b {
+    color: var(--fg);
+    font-weight: var(--w-bold);
+  }
+
+  .stage {
+    position: relative;
+    display: block;
+    inline-size: 100%;
+    block-size: clamp(240px, 34vw, 390px);
+    overflow: hidden;
+    padding: 0;
+    border: var(--hair) solid var(--edge);
+    border-radius: calc(var(--radius-card) - 2px);
+    background:
+      radial-gradient(circle at 78% 24%, color-mix(in srgb, #16bde8 9%, transparent), transparent 27%),
+      radial-gradient(circle at 20% 82%, color-mix(in srgb, #d6b43c 9%, transparent), transparent 29%),
+      var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  canvas {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .start-card {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-1);
+    min-inline-size: min(19rem, calc(100% - var(--s-4)));
+    padding: var(--s-3);
+    background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+    border: var(--hair) solid var(--edge);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.16);
+  }
+
+  .start-card[hidden] {
+    display: none;
+  }
+
+  .start-card strong {
+    font-size: var(--step-2);
+  }
+
+  .start-card .label {
+    color: var(--fg-dim);
+  }
+
+  .mini-mark {
+    display: grid;
+    place-items: center;
+    inline-size: 54px;
+    block-size: 54px;
+    border-radius: 50%;
+    background: var(--fg);
+    color: var(--bg);
+    font-family: var(--arabic);
+    font-size: 2rem;
+    font-weight: var(--w-bold);
+  }
+
+  .controls {
+    padding: var(--s-2) var(--s-1) 0;
+  }
+
+  .controls p {
+    color: var(--fg-dim);
+  }
+
+  .start {
+    min-block-size: 42px;
+    padding-inline: var(--s-2);
+    border: var(--hair) solid var(--fg);
+    border-radius: 999px;
+    background: var(--fg);
+    color: var(--bg);
+    cursor: pointer;
+  }
+
+  @media (max-width: 820px) {
+    .runner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-4);
+    }
+
+    .stage {
+      block-size: clamp(230px, 62vw, 330px);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .controls p {
+      display: none;
+    }
+
+    .start {
+      inline-size: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .machine {
+      box-shadow: none;
+    }
+  }
+</style>
