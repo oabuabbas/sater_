@@ -8,7 +8,7 @@
 import { Image } from "astro:assets";
 import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
 import StatusBadge from "~/components/StatusBadge.astro";
-import { useTranslations, type UIKey } from "~/i18n/ui";
+import { localizePath, useTranslations, type UIKey } from "~/i18n/ui";
 import type { Game, Locale } from "~/data/products";
 
 interface Props {
@@ -21,6 +21,7 @@ const t = useTranslations(locale);
 const statusKey = `status.${game.status}` as UIKey;
 const line: ProductLineItem[] = [
   ...(game.storeUrl ? [{ label: t("tools.store" as UIKey), href: game.storeUrl, external: true }] : []),
+  ...(game.legacyPath ? [{ label: t("tools.page" as UIKey), href: localizePath(game.legacyPath, locale) }] : []),
   ...(game.privacyPath ? [{ label: t("tools.privacy" as UIKey), href: game.privacyPath }] : []),
   ...(game.termsPath ? [{ label: t("tools.terms" as UIKey), href: game.termsPath }] : []),
 ];

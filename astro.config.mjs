@@ -47,6 +47,7 @@ function legacyLegalUrls() {
     ["khamen", "privacy"], ["khamen", "terms"],
     ["zill", "privacy"],
     ["studio-chairman", "privacy"], ["studio-chairman", "terms"],
+    ["behind-the-badge", "privacy"], ["behind-the-badge", "terms"],
   ];
   return {
     name: "sater:legacy-legal-urls",

@@ -23,7 +23,7 @@ import chairmanIcon from "~/assets/products/studio-chairman.png";
 import chairman1 from "~/assets/games/chairman-1.png";
 import chairman2 from "~/assets/games/chairman-2.png";
 import chairman3 from "~/assets/games/chairman-3.png";
-import btbBrand from "~/assets/games/btb-brand.png";
+import btbFeature from "~/assets/games/behind-the-badge-feature.png";
 import chairmanFeature from "~/assets/games/studio-chairman-feature.png";
 
 export type Locale = "en" | "ar";
@@ -148,6 +148,23 @@ export interface Game extends Product {
   wide?: ImageMetadata;
 }
 
+export interface GameDetailItem {
+  code: string;
+  title: Record<Locale, string>;
+  body: Record<Locale, string>;
+}
+
+export interface GameDetail {
+  eyebrow: Record<Locale, string>;
+  statement: Record<Locale, string>;
+  rolesHead: Record<Locale, string>;
+  rolesNote: Record<Locale, string>;
+  roles: GameDetailItem[];
+  worldHead: Record<Locale, string>;
+  worldNote: Record<Locale, string>;
+  facts: GameDetailItem[];
+}
+
 export const games: Game[] = [
   {
     slug: "studio-chairman",
@@ -187,9 +204,85 @@ export const games: Game[] = [
     ground: "#010100",
     art: "full",
     icon: btbIcon,
-    wide: btbBrand,
+    feature: btbFeature,
+    legacyPath: "/behind-the-badge/",
+    privacyPath: "/behind-the-badge/privacy/",
+    termsPath: "/behind-the-badge/terms/",
   },
 ];
+
+export const behindTheBadgeDetail: GameDetail = {
+  eyebrow: {
+    en: "A single-player football management simulation",
+    ar: "محاكاة فردية لإدارة كرة القدم",
+  },
+  statement: {
+    en: "The badge is yours. Every decision behind it is too.",
+    ar: "الشعار لك. وكل قرار خلفه مسؤوليتك أيضاً.",
+  },
+  rolesHead: { en: "Three desks. One badge.", ar: "ثلاثة مكاتب. شعار واحد." },
+  rolesNote: {
+    en: "Build the institution, shape the squad, then live with what happens on the pitch.",
+    ar: "ابنِ المؤسسة، وشكّل الفريق، ثم تحمّل ما يحدث على أرض الملعب.",
+  },
+  roles: [
+    {
+      code: "01",
+      title: { en: "President", ar: "الرئيس" },
+      body: {
+        en: "Set the direction, protect the finances and decide what kind of club will remain after you.",
+        ar: "حدّد الاتجاه، واحمِ المال، وقرّر أي نوع من الأندية سيبقى بعدك.",
+      },
+    },
+    {
+      code: "02",
+      title: { en: "Sporting director", ar: "المدير الرياضي" },
+      body: {
+        en: "Read the market, recruit with intent and build a squad whose pieces belong together.",
+        ar: "اقرأ السوق، وتعاقد بقصد، وابنِ فريقاً تتكامل قطعه معاً.",
+      },
+    },
+    {
+      code: "03",
+      title: { en: "Head coach", ar: "المدرب" },
+      body: {
+        en: "Choose the shape, react to a live match and turn a plan into ninety minutes of consequences.",
+        ar: "اختر الشكل، وتفاعل مع المباراة الحية، وحوّل الخطة إلى تسعين دقيقة من العواقب.",
+      },
+    },
+  ],
+  worldHead: { en: "A world that belongs to the save.", ar: "عالم ينتمي إلى ملف الحفظ." },
+  worldNote: {
+    en: "No borrowed clubs, famous names or scripted history. The football world is fictional, procedural and stored on your device.",
+    ar: "لا أندية مستعارة ولا أسماء شهيرة ولا تاريخ مكتوب مسبقاً. عالم كرة القدم خيالي، إجرائي، ومحفوظ على جهازك.",
+  },
+  facts: [
+    {
+      code: "OFFLINE",
+      title: { en: "Your career stays with you", ar: "مسيرتك تبقى لديك" },
+      body: {
+        en: "No account and no cloud save. Your club, players and history live locally on your device.",
+        ar: "لا حساب ولا حفظ سحابي. ناديك ولاعبوك وتاريخك يعيشون محلياً على جهازك.",
+      },
+    },
+    {
+      code: "FICTIONAL",
+      title: { en: "Every identity is its own", ar: "كل هوية مستقلة" },
+      body: {
+        en: "Clubs, players, competitions, crests and kits are fictional and generated for this world.",
+        ar: "الأندية واللاعبون والمسابقات والشعارات والأطقم خيالية ومولّدة لهذا العالم.",
+      },
+    },
+    {
+      code: "COMPLETE",
+      title: { en: "Football, not a storefront", ar: "كرة قدم، لا متجر" },
+      body: {
+        en: "There are no in-app purchases. Optional rewarded ads unlock cosmetic crest designs only.",
+        ar: "لا مشتريات داخل اللعبة. الإعلانات الاختيارية تفتح تصاميم تجميلية للشعار فقط.",
+      },
+    },
+  ],
+};
 
 export interface HorizonItem {
   code: string;
