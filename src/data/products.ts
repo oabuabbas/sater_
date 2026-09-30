@@ -23,6 +23,11 @@ import chairmanIcon from "~/assets/products/studio-chairman.png";
 import chairman1 from "~/assets/games/chairman-1.png";
 import chairman2 from "~/assets/games/chairman-2.png";
 import chairman3 from "~/assets/games/chairman-3.png";
+import chairman4 from "~/assets/games/chairman-4.png";
+import chairman5 from "~/assets/games/chairman-5.png";
+import chairman6 from "~/assets/games/chairman-6.png";
+import chairman7 from "~/assets/games/chairman-7.png";
+import chairman8 from "~/assets/games/chairman-8.png";
 import btbFeature from "~/assets/games/behind-the-badge-feature.png";
 import chairmanFeature from "~/assets/games/studio-chairman-feature.png";
 
@@ -184,7 +189,8 @@ export const games: Game[] = [
     icon: chairmanIcon,
     feature: chairmanFeature,
     storeUrl: "https://play.google.com/store/apps/details?id=com.sater.studiochairman",
-    shots: [chairman1, chairman2, chairman3],
+    shots: [chairman1, chairman2, chairman3, chairman4, chairman5, chairman6, chairman7, chairman8],
+    legacyPath: "/studio-chairman/",
     privacyPath: "/studio-chairman/privacy/",
     termsPath: "/studio-chairman/terms/",
   },

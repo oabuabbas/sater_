@@ -30,7 +30,7 @@ const current = normalise(path);
             <li>
               <a
                 href={localizePath(item.path, locale)}
-                aria-current={normalise(item.path) === current ? "page" : undefined}
+                aria-current={normalise(item.path) === current || (item.path === '/news' && current.startsWith('/news/')) ? "page" : undefined}
               >
                 {t(item.key)}
               </a>

@@ -1,0 +1,16 @@
+---
+import Band from './Band.astro';
+import NewsCards from './NewsCards.astro';
+import { newsFor, newsCopy } from '~/data/news';
+import { localizePath } from '~/i18n/ui';
+import type { Locale } from '~/data/products';
+interface Props { locale: Locale; product?: string }
+const { locale, product } = Astro.props;
+const articles = newsFor(product).slice(0, 2);
+const copy = newsCopy[locale];
+---
+<Band tone="raised">
+  <header><h2>{product ? copy.product : copy.latest}</h2><a href={localizePath(product ? `/news/topics/${product}` : '/news', locale)}>{copy.all} <span aria-hidden="true">{locale === 'ar' ? '←' : '→'}</span></a></header>
+  <NewsCards articles={articles} locale={locale} />
+</Band>
+<style>header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;margin-bottom:var(--s-4)}h2{font-size:var(--step-3)}header a{font-size:1rem;text-decoration:underline;text-underline-offset:.2em}</style>

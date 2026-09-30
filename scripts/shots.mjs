@@ -14,7 +14,13 @@ const DIST = new URL("../dist/", import.meta.url).pathname.replace(/^\/([A-Za-z]
 const OUT = new URL("../.shots/", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const PORT = 4398;
 
-const TARGETS = [
+const newsReview = process.argv.includes("--news");
+const TARGETS = newsReview ? [
+  { path: "/ar/news/", name: "ar-news" },
+  { path: "/news/", name: "en-news" },
+  { path: "/ar/news/studio-chairman-directors-cut/", name: "ar-directors-cut" },
+  { path: "/ar/studio-chairman/", name: "ar-chairman" },
+] : [
   { path: "/", name: "en-home" },
   { path: "/tam/", name: "en-product" },
   { path: "/tam/privacy/", name: "en-legal" },
@@ -24,7 +30,7 @@ const TARGETS = [
   { path: "/ar/", name: "ar-home" },
   { path: "/ar/play/", name: "ar-play" },
 ];
-const WIDTHS = [1280];
+const WIDTHS = newsReview ? [375, 1280] : [1280];
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -98,6 +104,15 @@ for (const scheme of SCHEMES) {
                 ]),
           ),
         );
+      });
+      await page.evaluate(async () => {
+        await Promise.all([...document.images].map(img => img.decode().catch(() => {})));
+        // Paint off-screen lazy images before the full-page capture.
+        for (const img of document.images) {
+          img.scrollIntoView();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        }
+        window.scrollTo(0, 0);
       });
       const file = join(OUT, `${scheme}-${name}-${width}.png`);
       await page.screenshot({ path: file, fullPage: true });

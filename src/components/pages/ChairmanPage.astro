@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import NewsSection from '~/components/NewsSection.astro';
+import { games, type Locale } from '~/data/products';
+import chairman from '~/assets/games/chairman-guide.png';
+import director from '~/assets/games/director-guide.png';
+import { localizePath } from '~/i18n/ui';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const game = games.find(g => g.slug === 'studio-chairman')!;
+const ar = locale === 'ar';
+const captions = ar ? ['إدارة الاستوديو', 'إنتاج الأفلام', 'اختيار الممثلين', 'تأسيس الاستوديو', 'وكالة المواهب', 'أحداث الأسبوع', 'شباك التذاكر', 'إرث المسيرة'] : ['Studio management', 'Film production', 'Casting', 'Studio setup', 'Talent agency', 'Weekly events', 'Box office', 'Career legacy'];
+---
+<Base locale={locale} title={game.name} description={game.blurb[locale]} path="/studio-chairman">
+  <Band tone="raised">
+    <header class="intro">
+      <div><p class="kicker">{ar ? 'محاكاة إدارة صناعة السينما' : 'Movie studio management'}</p><h1>Studio Chairman</h1><p class="lede">{ar ? 'رؤيتك. استوديوك. والحكاية التي تتركها خلفك.' : 'Your vision. Your studio. The legacy you leave behind.'}</p></div>
+      <a class="store" href={game.storeUrl} target="_blank" rel="noopener noreferrer">Google Play ↗</a>
+    </header>
+    {game.feature && <Image class="feature" src={game.feature} alt={ar ? 'Studio Chairman — رؤيتك، استوديوك' : 'Studio Chairman — your vision, your studio'} width={1400} loading="eager" />}
+    <nav class="links" aria-label={ar ? 'روابط اللعبة' : 'Game links'}><a href="#screenshots">{ar ? 'صور اللعبة' : 'Screenshots'}</a><a href={localizePath('/news/topics/studio-chairman', locale)}>{ar ? 'الأخبار والتحديثات' : 'News and updates'}</a><a href={game.privacyPath}>{ar ? 'الخصوصية' : 'Privacy'}</a><a href={game.termsPath}>{ar ? 'الشروط' : 'Terms'}</a></nav>
+  </Band>
+  <Band>
+    <div class="guides"><Image src={chairman} alt="" width={210} loading="lazy" /><div><h2>{ar ? 'من أول فيلم إلى إمبراطورية إعلامية' : 'From your first film to a media empire'}</h2><p>{ar ? 'امنح الأفلام الضوء الأخضر، واستقطب المواهب، وتابع شباك التذاكر عبر عقود من عمر الاستوديو. يوسّع تحديث 1.1.1 عالمك بالمسلسلات ومنصات البث والقنوات التلفزيونية والجوائز والإرث العائلي.' : 'Greenlight films, recruit talent and follow the box office across decades of studio life. Update 1.1.1 expands your world with TV series, streaming platforms, television channels, awards and a family legacy.'}</p><a href={localizePath('/news/studio-chairman-1-1-1', locale)}>{ar ? 'اكتشف تحديث 1.1.1' : 'Explore update 1.1.1'}</a></div><Image src={director} alt="" width={210} loading="lazy" /></div>
+  </Band>
+  <Band tone="raised" id="screenshots">
+    <h2>{ar ? 'داخل الاستوديو' : 'Inside the studio'}</h2>
+    <p class="hint">{ar ? 'ثماني لقطات من عالم اللعبة. افتح أي صورة لرؤيتها بالحجم الكامل.' : 'Eight views of the game. Open any image to see it at full size.'}</p>
+    <div class="gallery">{game.shots?.map((shot, i) => <figure><a href={shot.src} target="_blank" rel="noopener noreferrer" aria-label={`${captions[i]} — ${ar ? 'فتح الصورة الكاملة في علامة تبويب جديدة' : 'open full image in a new tab'}`}><Image src={shot} alt={captions[i]} width={540} loading="lazy" /></a><figcaption><span>{String(i + 1).padStart(2, '0')}</span> {captions[i]}</figcaption></figure>)}</div>
+  </Band>
+  <NewsSection locale={locale} product={game.slug} />
+</Base>
+<style>
+  .intro{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);flex-wrap:wrap;margin-bottom:var(--s-4)}.kicker{color:var(--fg-dim);font-size:.95rem;margin-bottom:1rem}h1{font-size:clamp(2.4rem,5vw,4.5rem);line-height:1.2}.lede{font-size:var(--step-lede);margin-top:1rem;color:var(--fg-dim)}
+  .store{background:var(--fg);color:var(--bg);padding:1rem 1.5rem;border-radius:var(--radius-card);font-weight:700}.feature{width:100%;height:auto;border-radius:var(--radius-card)}.links{display:flex;gap:1rem 2rem;flex-wrap:wrap;margin-top:var(--s-3)}.links a,.guides a{text-decoration:underline;text-underline-offset:.25em}
+  h2{font-size:var(--step-3);line-height:1.45}.guides{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr) minmax(0,1fr);gap:var(--s-4);align-items:center}.guides img{width:100%;height:auto;max-height:320px;object-fit:contain}.guides p{color:var(--fg-dim);margin-block:var(--s-3);font-size:1.1rem;line-height:1.9}
+  .hint{color:var(--fg-dim);margin-block:1rem 2rem}.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-3)}figure{margin:0;min-width:0}figure img{width:100%;height:auto;border-radius:var(--radius-card)}figcaption{font-size:.95rem;padding-block:1rem}figcaption span{color:var(--fg-dim);font-family:var(--mono);margin-inline-end:.4rem}
+  @media(max-width:850px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.guides{grid-template-columns:1fr}.guides>img{display:none}}
+</style>

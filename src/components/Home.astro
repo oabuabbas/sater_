@@ -6,6 +6,7 @@
  */
 
 import Band from "~/components/Band.astro";
+import NewsSection from "~/components/NewsSection.astro";
 import Logo from "~/components/Logo.astro";
 import ToolCard from "~/components/ToolCard.astro";
 import GameFeature from "~/components/GameFeature.astro";
@@ -65,6 +66,8 @@ const path = ["idea", "code", "form", "product"] as const;
 
   <p class="doctrine label">{t("site.doctrine" as UIKey)}</p>
 </Band>
+
+<NewsSection locale={locale} />
 
 <Band tone="raised" labelledby="tools-head">
   <header class="sec">

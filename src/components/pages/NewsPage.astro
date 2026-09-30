@@ -1,0 +1,26 @@
+---
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import PageHead from '~/components/PageHead.astro';
+import NewsCards from '~/components/NewsCards.astro';
+import { newsCopy, topics, newsFor } from '~/data/news';
+import { localizePath } from '~/i18n/ui';
+import type { Locale } from '~/data/products';
+interface Props { locale: Locale; topic?: string }
+const { locale, topic } = Astro.props;
+const copy = newsCopy[locale];
+const selected = topics.find(t => t.slug === topic);
+const title = selected ? `${copy.title} — ${selected.title[locale]}` : copy.title;
+const path = topic ? `/news/topics/${topic}` : '/news';
+---
+<Base locale={locale} title={title} description={copy.intro} path={path}>
+  <PageHead title={title} lede={copy.intro} />
+  <Band>
+    <nav aria-label={locale === 'ar' ? 'تصفّح الأخبار حسب الموضوع' : 'Browse news by topic'}>
+      <a href={localizePath('/news', locale)} aria-current={!topic ? 'page' : undefined}>{copy.all}</a>
+      {topics.map(item => <a href={localizePath(`/news/topics/${item.slug}`, locale)} aria-current={topic === item.slug ? 'page' : undefined}>{item.title[locale]}</a>)}
+    </nav>
+    <NewsCards locale={locale} articles={newsFor(topic)} />
+  </Band>
+</Base>
+<style>nav{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:var(--s-4)}nav a{padding:.6rem 1rem;border:1px solid var(--edge);border-radius:2rem;font-size:.95rem}nav a[aria-current=page]{background:var(--fg);color:var(--bg)}nav a:hover{text-decoration:underline}</style>

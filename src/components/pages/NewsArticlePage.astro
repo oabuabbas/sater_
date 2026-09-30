@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import NewsCards from '~/components/NewsCards.astro';
+import { newsCopy, newsFor, newsDate, type NewsArticle } from '~/data/news';
+import { games, tools, type Locale } from '~/data/products';
+import { localizePath } from '~/i18n/ui';
+interface Props { locale: Locale; article: NewsArticle }
+const { locale, article } = Astro.props;
+const copy = newsCopy[locale];
+const product = [...games, ...tools].find(p => p.slug === article.product);
+const related = newsFor(article.product).filter(n => n.slug !== article.slug).slice(0, 2);
+---
+<Base locale={locale} title={article.title[locale]} description={article.summary[locale]} path={`/news/${article.slug}`}>
+  <Band tone="raised">
+    <header class="article-head">
+      <div>
+        <a class="back" href={localizePath('/news', locale)}>{copy.all}</a>
+        <p class="meta">{copy[article.kind]} · <time datetime={article.date}>{newsDate(article.date, locale)}</time></p>
+        <h1>{article.title[locale]}</h1>
+        <p class="lede">{article.summary[locale]}</p>
+        {product && <a class="product" href={localizePath(`/news/topics/${product.slug}`, locale)}>{product.name}</a>}
+      </div>
+      <div class="portrait"><Image src={article.illustration} alt={locale === 'ar' ? 'مرشد Studio Chairman' : 'Studio Chairman guide'} width={360} loading="eager" /></div>
+    </header>
+  </Band>
+  <Band>
+    <article class="body">
+      {article.sections.map((section, index) => <section id={`section-${index + 1}`}>
+        <h2>{section.title[locale]}</h2>
+        <p>{section.body[locale]}</p>
+        {section.bullets && (article.kind === 'guide' && index === 1 ? <ol>{section.bullets[locale].map(point => <li>{point}</li>)}</ol> : <ul>{section.bullets[locale].map(point => <li>{point}</li>)}</ul>)}
+      </section>)}
+      {product && <footer><strong>{product.name}</strong><div class="links">
+        {product.legacyPath && <a href={localizePath(product.legacyPath, locale)}>{locale === 'ar' ? 'استكشف اللعبة' : 'Explore the game'}</a>}
+        {product.storeUrl && <a href={product.storeUrl} target="_blank" rel="noopener noreferrer">Google Play ↗</a>}
+      </div></footer>}
+    </article>
+  </Band>
+  {related.length > 0 && <Band tone="raised"><h2 class="related">{copy.related}</h2><NewsCards articles={related} locale={locale} /></Band>}
+</Base>
+<style>
+  .article-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.35fr);align-items:center;gap:var(--s-6)}
+  .back{text-decoration:underline;text-underline-offset:.2em}.meta{margin-block:var(--s-3);color:var(--fg-dim);font-size:.9rem}
+  h1{font-size:clamp(2rem,4.5vw,3.8rem);line-height:1.35;max-width:23ch}.lede{font-size:var(--step-lede);margin-block:var(--s-3);color:var(--fg-dim)}
+  .product{font-size:.95rem;text-decoration:underline}.portrait{height:360px;overflow:hidden;border-block-end:1px solid var(--edge)}.portrait img{height:130%;width:100%;object-fit:contain;object-position:top}
+  .body{max-width:48rem;margin-inline:auto;font-size:1.1rem;line-height:1.95}.body section+section{margin-top:var(--s-6)}.body h2{font-size:1.65rem;margin-bottom:var(--s-2);line-height:1.5}.body p,.body li{color:var(--fg-dim)}.body ul,.body ol{padding-inline-start:1.5em; margin-top:1rem}.body ul{list-style:disc}.body ol{list-style:decimal}.body li{margin-block:.6rem}
+  footer{margin-top:var(--s-6);padding-top:var(--s-3);border-top:1px solid var(--edge)}.links{display:flex;flex-wrap:wrap;gap:1.5rem}.links a{text-decoration:underline}.related{font-size:var(--step-3);margin-bottom:var(--s-4)}
+  @media(max-width:650px){.article-head{grid-template-columns:1fr}.portrait{display:none}h1{max-width:none}}
+</style>

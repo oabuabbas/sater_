@@ -24,8 +24,10 @@ const PORT = 4399;
 const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
   "/tam/", "/khamen/", "/zill/", "/tam/privacy/", "/tam/terms/", "/zill/privacy/",
   "/studio-chairman/privacy/", "/studio-chairman/terms/", "/behind-the-badge/",
-  "/behind-the-badge/privacy/", "/behind-the-badge/terms/"];
-const EN_ONLY = /^\/(tam|khamen|zill|studio-chairman|behind-the-badge\/(privacy|terms)|404)/;
+  "/behind-the-badge/privacy/", "/behind-the-badge/terms/", "/studio-chairman/",
+  "/news/", "/news/studio-chairman-1-1-1/", "/news/studio-chairman-directors-cut/",
+  "/news/topics/studio-chairman/", "/news/topics/apps/"];
+const EN_ONLY = /^\/(tam|khamen|zill|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
 const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)];
 const WIDTHS = [375, 768, 1280];
 const CHANNELS = ["msedge", "chrome", "chromium"];

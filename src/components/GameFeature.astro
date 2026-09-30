@@ -20,6 +20,7 @@ const { game, locale } = Astro.props;
 const t = useTranslations(locale);
 const statusKey = `status.${game.status}` as UIKey;
 const line: ProductLineItem[] = [
+  { label: locale === 'ar' ? 'الأخبار' : 'News', href: localizePath(`/news/topics/${game.slug}`, locale) },
   ...(game.storeUrl ? [{ label: t("tools.store" as UIKey), href: game.storeUrl, external: true }] : []),
   ...(game.legacyPath ? [{ label: t("tools.page" as UIKey), href: localizePath(game.legacyPath, locale) }] : []),
   ...(game.privacyPath ? [{ label: t("tools.privacy" as UIKey), href: game.privacyPath }] : []),
@@ -61,7 +62,7 @@ const line: ProductLineItem[] = [
     {
       game.shots && (
         <div class="shots">
-          {game.shots.map((shot, i) => (
+          {game.shots.slice(0, 3).map((shot, i) => (
             <Image
               src={shot}
               alt={`${game.name} screenshot ${i + 1}`}

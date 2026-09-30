@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Band from "~/components/Band.astro";
+import NewsSection from "~/components/NewsSection.astro";
 import StatusBadge from "~/components/StatusBadge.astro";
 import { behindTheBadgeDetail, games, type Locale } from "~/data/products";
 import { localizePath, useTranslations, type UIKey } from "~/i18n/ui";
@@ -85,6 +86,8 @@ const t = useTranslations(locale);
     </dl>
   </div>
 </Band>
+
+<NewsSection locale={locale} product={game.slug} />
 
 <style>
   .btb-hero {

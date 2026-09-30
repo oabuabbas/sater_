@@ -24,6 +24,7 @@ export const ui = {
       "Everything starts with a line. SATER is an independent studio in Amman turning ideas, code and form into software worth keeping.",
 
     "nav.index": "Index",
+    "nav.news": "News",
     "nav.tools": "Tools",
     "nav.play": "Play",
     "nav.studio": "Studio",
@@ -115,6 +116,7 @@ export const ui = {
       "كل شيء يبدأ من سطر. استوديو مستقل في عمّان يحوّل الفكرة والكود والشكل إلى برمجيات تستحق البقاء.",
 
     "nav.index": "الفهرس",
+    "nav.news": "الأخبار",
     "nav.tools": "الأدوات",
     "nav.play": "الألعاب",
     "nav.studio": "الاستوديو",
@@ -213,6 +215,7 @@ export function localizePath(path: string, locale: Locale): string {
 
 export const navItems = [
   { key: "nav.index", path: "/" },
+  { key: "nav.news", path: "/news" },
   { key: "nav.tools", path: "/tools" },
   { key: "nav.play", path: "/play" },
   { key: "nav.studio", path: "/studio" },
