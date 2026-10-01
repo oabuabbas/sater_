@@ -9,7 +9,7 @@ export interface NewsArticle {
   slug: string;
   date: string;
   product?: string;
-  kind: 'release' | 'guide' | 'studio';
+  kind: 'release' | 'guide' | 'studio' | 'character';
   title: Copy;
   summary: Copy;
   illustration: ImageMetadata;
@@ -21,6 +21,40 @@ export interface NewsArticle {
 
 // Publication dates belong to the articles, not to the date of each site build.
 export const news: NewsArticle[] = [
+  {
+    slug: 'meet-khamoon', date: '2026-10-02', product: 'khamen', kind: 'character',
+    illustration: khamoon, illustrationFit: 'contain', coverTitle: 'HI!',
+    illustrationAlt: { ar: 'خمّون، الشخصية التركوازية بخصلة صفراء وشارة K', en: 'Khamoon, the turquoise character with a yellow tuft and K badge' },
+    title: { ar: 'تعرّفوا على خمّون: وجه صغير لضحكة جماعية', en: 'Meet Khamoon: a little face for shared laughter' },
+    summary: { ar: 'تركوازي، مبتسم، ومستعد للجولة التالية. تعرّفوا على رفيق «خمّن» الذي يرحّب بكم، ويساعدكم على فهم اللعبة، ويشارككم فرحة الفوز.', en: 'Turquoise, smiling and ready for the next round. Meet KHAMEN’s companion, here to welcome you, explain the game and share in a win.' },
+    sections: [
+      {
+        title: { ar: 'أهلًا، أنا خمّون!', en: 'Hello, I’m Khamoon!' },
+        body: { ar: 'كل جلسة تبدأ بسؤال: ماذا نلعب؟ من هذه اللحظة يأتي دور خمّون، رفيق «خمّن» الذي يمنح الترحيب والمساعدة وجهًا مألوفًا. صُمّم ليكون ودودًا وخفيف الحضور، قريبًا من روح «ألعاب تجمعكم»: نتفق على لعبة، نفهم قواعدها، ثم نترك مساحة للضحك والمنافسة بين الأصدقاء.', en: 'Every gathering starts with a question: what shall we play? That is where Khamoon comes in. KHAMEN’s companion gives welcomes and help a familiar face. Friendly and light on his feet, he carries the spirit of “Games that bring you together”: pick a game, learn the rules, and make room for laughter and friendly competition.' },
+      },
+      {
+        title: { ar: 'من ألوان خمّن إلى شخصية لها ملامح', en: 'From KHAMEN’s colours to a familiar face' },
+        body: { ar: 'جسم مستدير باللون التركوازي، وخصلة صفراء، وابتسامة واضحة. يستلهم خمّون شكله من الحركة الدائرية في هوية خمّن، وتحمل شارة صدره حرف K داخل حلقة صفراء تربطه بالشعار. هذه التفاصيل تجعل التعرف عليه سهلًا، سواء ظهر في الترحيب أو بحجم صغير بجوار المساعدة.', en: 'A round turquoise body, a yellow tuft and a clear smile. Khamoon takes inspiration from the circular movement in KHAMEN’s identity. A K badge inside a yellow ring ties him to the logo. Those details make him recognisable both in a welcome and as a small face beside the help controls.' },
+      },
+      {
+        title: { ar: 'خمسة تعابير، كلّ واحد في وقته', en: 'Five expressions, each with a purpose' },
+        body: { ar: 'لا يبقى خمّون على تعبير واحد طوال الجلسة؛ له خمس حالات ترافق اللحظات المناسبة في التجربة:', en: 'Khamoon has five states to accompany different moments in the experience:' },
+        bullets: { ar: ['الترحيب: بداية ودودة قبل الدخول إلى الألعاب.', 'الشرح: رفيق لخطوات المساعدة والأمثلة.', 'التفكير: تعبير الفضول والاستعداد للاختيار.', 'الاحتفال: مشاركة فرحة النتيجة في الشاشات الداعمة.', 'إعادة المحاولة: تشجيع لطيف لجولة أخرى.'], en: ['Welcome: a friendly beginning before the games.', 'Explain: a companion to help steps and examples.', 'Think: a curious expression, ready to choose.', 'Celebrate: sharing a result on supported screens.', 'Try again: a little encouragement for another round.'] },
+      },
+      {
+        title: { ar: 'مساعدة وقت الحاجة', en: 'Help when you need it' },
+        body: { ar: 'عندما تحتاجون إلى القواعد، تقودكم شخصية خمّون إلى شرح مرتبط باللعبة ومرحلتها، مع أمثلة بالعربية والإنجليزية. تظهر إشارة صغيرة للمساعدة عند أول استخدام، ويمكنكم فتحها بأنفسكم دون شرح إجباري. حركاته قصيرة وتراعي تقليل الحركة، ويظهر في مواضع محددة بدل البقاء عائمًا فوق الجولة.', en: 'When you need the rules, Khamoon leads you to guidance for the game and its current phase, with Arabic and English examples. A small first-use hint points out help, which you can open yourself without a compulsory tutorial. His short animations respect reduced-motion settings, and he appears in designated places rather than floating over a round.' },
+      },
+      {
+        title: { ar: '«ماذا نلعب؟» خمّون عنده اقتراح', en: '“What shall we play?” Khamoon has a suggestion' },
+        body: { ar: 'اختاروا عدد اللاعبين والوقت المتاح، وسيقترح خمّون لعبة مع سبب مختصر لملاءمتها. وإن لم تناسب مزاج الجلسة، اطلبوا اقتراحًا آخر. يعتمد الترشيح على قواعد محلية داخل التطبيق، وليس محادثة ذكية أو شخصية تتعلم من بياناتكم؛ أنتم من يختار كيف تبدأ الجلسة.', en: 'Choose your player count and available time, and Khamoon suggests a game with a short reason for the match. If it does not suit the mood, ask for another. These suggestions use local rules within the app, not an AI chat or a character learning from your data. You decide how the gathering begins.' },
+      },
+      {
+        title: { ar: 'جزء من حكاية خمّن الجديدة', en: 'Part of KHAMEN’s next chapter' },
+        body: { ar: 'خمّون جزء من تطوير هوية خمّن وتجربتها الذي نستعرضه مع الإصدار 1.7.0. يمكنكم قراءة خبر التحديث المرتبط أدناه للتعرّف على الكلمة الممنوعة ووضع «جلستنا» وبقية الإضافات وحالة الإصدار. أما هنا، فالتعارف الأول بسيط: هذا خمّون، ووجوده يبدأ من فكرة أن اللعب أجمل معًا.', en: 'Khamoon is part of the identity and experience changes previewed with KHAMEN 1.7.0. Read the linked update story below for Forbidden Words, local sessions, the other additions and the release status. For now, the introduction is simple: this is Khamoon, built around the idea that games are better together.' },
+      },
+    ],
+  },
   {
     slug: 'khamen-1-7-0', date: '2026-10-01', product: 'khamen', kind: 'release',
     illustration: khamoon, illustrationFit: 'contain', coverTitle: '1.7.0',
@@ -89,8 +123,8 @@ export const news: NewsArticle[] = [
 ];
 
 export const newsCopy = {
-  ar: { title: 'أخبار سطر', intro: 'ما الجديد في الاستوديو، والألعاب والتطبيقات التي نصنعها.', latest: 'آخر الأخبار', all: 'كل الأخبار', read: 'اقرأ الخبر', empty: 'لا توجد أخبار منشورة هنا بعد. يمكنك متابعة آخر المستجدات في جميع الأخبار.', product: 'أخبار المنتج', related: 'اقرأ أيضًا', release: 'تحديث', guide: 'دليل اللعب', studio: 'من الاستوديو' },
-  en: { title: 'SATER news', intro: 'The latest from the studio, and the games and apps we make.', latest: 'Latest news', all: 'All news', read: 'Read story', empty: 'No stories here yet. Explore all news for the latest from the studio.', product: 'Product news', related: 'Read next', release: 'Update', guide: 'Play guide', studio: 'From the studio' },
+  ar: { title: 'أخبار سطر', intro: 'ما الجديد في الاستوديو، والألعاب والتطبيقات التي نصنعها.', latest: 'آخر الأخبار', all: 'كل الأخبار', read: 'اقرأ الخبر', empty: 'لا توجد أخبار منشورة هنا بعد. يمكنك متابعة آخر المستجدات في جميع الأخبار.', product: 'أخبار المنتج', related: 'اقرأ أيضًا', release: 'تحديث', guide: 'دليل اللعب', studio: 'من الاستوديو', character: 'تعرّف على الشخصية' },
+  en: { title: 'SATER news', intro: 'The latest from the studio, and the games and apps we make.', latest: 'Latest news', all: 'All news', read: 'Read story', empty: 'No stories here yet. Explore all news for the latest from the studio.', product: 'Product news', related: 'Read next', release: 'Update', guide: 'Play guide', studio: 'From the studio', character: 'Meet the character' },
 };
 export const topics = [
   { slug: 'studio', title: { ar: 'الاستوديو', en: 'Studio' } },
