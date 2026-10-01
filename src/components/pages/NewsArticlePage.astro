@@ -22,7 +22,7 @@ const related = newsFor(article.product).filter(n => n.slug !== article.slug).sl
         <p class="lede">{article.summary[locale]}</p>
         {product && <a class="product" href={localizePath(`/news/topics/${product.slug}`, locale)}>{product.name}</a>}
       </div>
-      <div class="portrait"><Image src={article.illustration} alt={locale === 'ar' ? 'مرشد Studio Chairman' : 'Studio Chairman guide'} width={360} loading="eager" /></div>
+      <div class:list={['portrait', { contained: article.illustrationFit === 'contain' }]}><Image src={article.illustration} alt={article.illustrationAlt?.[locale] ?? (locale === 'ar' ? `مرشد ${product?.name ?? 'SATER'}` : `${product?.name ?? 'SATER'} guide`)} width={360} loading="eager" /></div>
     </header>
   </Band>
   <Band>
@@ -45,6 +45,7 @@ const related = newsFor(article.product).filter(n => n.slug !== article.slug).sl
   .back{text-decoration:underline;text-underline-offset:.2em}.meta{margin-block:var(--s-3);color:var(--fg-dim);font-size:.9rem}
   h1{font-size:clamp(2rem,4.5vw,3.8rem);line-height:1.35;max-width:23ch}.lede{font-size:var(--step-lede);margin-block:var(--s-3);color:var(--fg-dim)}
   .product{font-size:.95rem;text-decoration:underline}.portrait{height:360px;overflow:hidden;border-block-end:1px solid var(--edge)}.portrait img{height:130%;width:100%;object-fit:contain;object-position:top}
+  .portrait.contained img{height:100%;object-position:center}
   .body{max-width:48rem;margin-inline:auto;font-size:1.1rem;line-height:1.95}.body section+section{margin-top:var(--s-6)}.body h2{font-size:1.65rem;margin-bottom:var(--s-2);line-height:1.5}.body p,.body li{color:var(--fg-dim)}.body ul,.body ol{padding-inline-start:1.5em; margin-top:1rem}.body ul{list-style:disc}.body ol{list-style:decimal}.body li{margin-block:.6rem}
   footer{margin-top:var(--s-6);padding-top:var(--s-3);border-top:1px solid var(--edge)}.links{display:flex;flex-wrap:wrap;gap:1.5rem}.links a{text-decoration:underline}.related{font-size:var(--step-3);margin-bottom:var(--s-4)}
   @media(max-width:650px){.article-head{grid-template-columns:1fr}.portrait{display:none}h1{max-width:none}}
