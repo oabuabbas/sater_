@@ -59,10 +59,6 @@ export const news: NewsArticle[] = [
         title: { ar: 'قرارات أوضح وحفظ أكثر اتساقًا', en: 'Clearer decisions and more consistent saves' },
         body: { ar: 'تراجع شاشات الإنشاء المفهوم والطاقم والتكاليف قبل تأكيد الدفع، وتعيد التحقق من المال والتوافر والالتزامات عند التنفيذ. يمكن طلب مرشح من الوكالة لدور محدد في مسودة فيلم أو مسلسل، مع الحفاظ على بقية الاختيارات. وتشمل الإصلاحات منع تكرار إيراد الفيلم ومكافآت البحث ومكافآت توقيع العقود، وحماية سجلات الخزنة والعلاقات بين الأعمال من الإدخالات المتكررة.', en: 'Creation reviews show concepts, cast and costs before payment, then recheck funds, availability and commitments at confirmation. Request an agency candidate for one supported role in a film or series draft while keeping other choices. Fixes guard against repeated film payments, research rewards and signing bonuses, and protect vault records and production relationships from duplicate entries.' },
       },
-      {
-        title: { ar: 'حالة الإصدار: 1.1.2، البناء 11', en: 'Release status: 1.1.2, build 11' },
-        body: { ar: 'يعرض هذا الخبر التغييرات المنفّذة منذ الإصدار العام 1.1.1، وفق سجل البناء 11 حتى 12 أكتوبر 2026. حُزمت نسختا APK وAAB موقّعتان محليًا، مع التحقق من الحزمة والإصدار والتوقيع. لم يؤكد السجل رفع الإصدار أو نشره على Google Play؛ ويظل اختبار البناء النهائي على جهاز فعلي وترقية حفظ قديم ومراجعة اللغات من خطوات التجهيز قبل الطرح.', en: 'This story covers implemented changes since the public 1.1.1 release, based on the build-11 changelog through 12 October 2026. Signed APK and AAB files were built locally with package, version and signature checks. The record does not confirm a Google Play upload or release. Final-device testing, upgrading an actual older save and human language review remain part of preparation before rollout.' },
-      },
     ],
   },
   {
