@@ -26,7 +26,7 @@ const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
   "/studio-chairman/privacy/", "/studio-chairman/terms/", "/behind-the-badge/",
   "/behind-the-badge/privacy/", "/behind-the-badge/terms/", "/studio-chairman/",
   "/news/", "/news/studio-chairman-1-1-1/", "/news/studio-chairman-directors-cut/",
-  "/news/topics/studio-chairman/", "/news/topics/apps/", "/news/khamen-1-7-0/", "/news/topics/khamen/", "/news/meet-khamoon/"];
+  "/news/topics/studio-chairman/", "/news/topics/apps/", "/news/khamen-1-7-0/", "/news/topics/khamen/", "/news/meet-khamoon/", "/news/studio-chairman-1-1-2/"];
 const EN_ONLY = /^\/(tam|khamen\/(privacy|terms)|zill|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
 const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)];
 const WIDTHS = [375, 768, 1280];
