@@ -18,7 +18,9 @@ const newsReview = process.argv.includes("--news");
 const legalReview = process.argv.includes('--legal');
 const badgeReview = process.argv.includes('--badge');
 const discoveryReview = process.argv.includes('--discovery');
-const TARGETS = discoveryReview ? [
+const TARGETS = process.argv.includes('--arabic-fixes') ? [
+  {path:'/ar/privacy/',name:'ar-privacy'}, {path:'/ar/terms/',name:'ar-terms'},
+] : discoveryReview ? [
   {path:'/sater-apps/',name:'en-apps'}, {path:'/ar/sater-apps/',name:'ar-apps'},
   {path:'/sater-games/',name:'en-games'}, {path:'/ar/sater-games/',name:'ar-games'},
 ] : badgeReview ? [

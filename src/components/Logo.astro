@@ -31,8 +31,10 @@ const source =
 // against the first mask.
 const uid = Math.random().toString(36).slice(2, 8);
 
+const viewBox = source.match(/viewBox="([^"]+)"/)?.[1].split(/\s+/).map(Number);
+const width = viewBox ? height * viewBox[2] / viewBox[3] : height;
 const svg = source
-  .replace(/<svg/, `<svg style="height:${height}px;width:auto" ${title ? 'role="img"' : 'aria-hidden="true"'}`)
+  .replace(/<svg/, `<svg width="${width}" height="${height}" style="height:${height}px;width:${width}px" ${title ? 'role="img"' : 'aria-hidden="true"'}`)
   .replace(/id="([^"]+)"/g, (_, id) => `id="${id}-${uid}"`)
   .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${id}-${uid})`)
   .replace(/>\s*$/, ">");

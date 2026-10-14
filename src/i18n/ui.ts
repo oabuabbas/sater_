@@ -75,7 +75,7 @@ export const ui = {
     "theme.toggle": "Switch between light and dark",
 
     "tools.title": "Tools",
-    "tools.lede": "Three apps on the Play Store. Each does one thing, and stops there.",
+    "tools.lede": "Three apps on Google Play for task planning, party games and sun-aware travel.",
     "tools.privacy": "Privacy",
     "tools.terms": "Terms",
     "tools.page": "Product page",
@@ -115,7 +115,7 @@ export const ui = {
     "site.description":
       "كل شيء يبدأ من سطر. استوديو مستقل في عمّان يحوّل الفكرة والكود والشكل إلى برمجيات تستحق البقاء.",
 
-    "nav.index": "الفهرس",
+    "nav.index": "الرئيسية",
     "nav.news": "الأخبار",
     "nav.tools": "الأدوات",
     "nav.play": "الألعاب",
@@ -138,7 +138,7 @@ export const ui = {
     "hero.fact.research": "قيد البحث",
     "hero.fact.place": "عمّان، الأردن",
 
-    "tools.head": "ثلاث أدوات على المتجر",
+    "tools.head": "ثلاثة تطبيقات على المتجر",
     "tools.note": "كلٌّ منها سُمّيت بالكلمة العربية التي تصف ما تفعله.",
 
     "games.head": "لعبتان",
@@ -159,14 +159,14 @@ export const ui = {
     "horizon.note": "بحث وعتاد. لم تصبح منتجات بعد.",
 
     "status.live": "منشور",
-    "status.build": "قيد البناء",
+    "status.build": "قيد التطوير",
 
     "footer.rights": "سطر — عمّان، الأردن",
     "footer.lang": "اللغة",
     "theme.toggle": "بدّل بين الوضع الفاتح والداكن",
 
     "tools.title": "الأدوات",
-    "tools.lede": "ثلاثة تطبيقات على متجر Play. كلٌّ منها يفعل شيئاً واحداً، ويقف عنده.",
+    "tools.lede": "ثلاثة تطبيقات على Google Play لتنظيم المهام، والألعاب الجماعية، والتنقل مع مراعاة اتجاه الشمس.",
     "tools.privacy": "الخصوصية",
     "tools.terms": "الشروط",
     "tools.page": "صفحة المنتج",

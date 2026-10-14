@@ -29,7 +29,7 @@ const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
   "/news/topics/studio-chairman/", "/news/topics/apps/", "/news/khamen-1-7-0/", "/news/topics/khamen/", "/news/meet-khamoon/", "/news/studio-chairman-1-1-2/"];
 ROUTES.push('/khamen/privacy/','/khamen/terms/','/zill/terms/','/privacy/','/terms/');
 ROUTES.push('/sater-apps/','/sater-games/');
-const EN_ONLY = /^\/(privacy|terms|tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
+const EN_ONLY = /^\/(tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
 const largeText = process.argv.includes('--large-text');
 const badgeReview = process.argv.includes('--badge');
 const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)]
@@ -78,6 +78,16 @@ function audit() {
 
   const overflow = de.scrollWidth - de.clientWidth;
   if (overflow > 1) findings.push(`horizontal overflow of ${overflow}px`);
+
+  for (const logo of document.querySelectorAll('.logo svg')) {
+    const bounds = logo.getBoundingClientRect();
+    if (bounds.width < 20 || bounds.height < 16) findings.push('Collapsed brand logo');
+  }
+  if (de.lang === 'ar') {
+    for (const route of ['/ar/privacy/', '/ar/terms/']) {
+      if (!document.querySelector(`footer a[href="${route}"]`)) findings.push(`Missing Arabic policy link: ${route}`);
+    }
+  }
 
   // Every leading token must move when --lead-scale moves.
   const cs = getComputedStyle(de);

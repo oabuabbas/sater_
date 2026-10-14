@@ -32,8 +32,8 @@ const year = new Date().getFullYear();
     <div class="bottom-row">
       <p class="copyright">© {year} {ar?'سطر':'SATER'}</p>
       <nav class="legal" aria-label={ar?'سياسات الموقع':'Website policies'}>
-        <a href="/privacy/">{ar?'الخصوصية':'Privacy'}</a>
-        <a href="/terms/">{ar?'الشروط':'Terms'}</a>
+        <a href={localizePath("/privacy",locale)}>{ar?'الخصوصية':'Privacy'}</a>
+        <a href={localizePath("/terms",locale)}>{ar?'الشروط وحقوق النشر':'Terms'}</a>
       </nav>
       <a class="lang" href={localizePath(localized?path:'/',other)} lang={other} hreflang={other}>{localeName[other]}</a>
     </div>
