@@ -72,7 +72,7 @@ const path = ["idea", "code", "form", "product"] as const;
 <Band tone="raised" labelledby="tools-head">
   <header class="sec">
     <h2 id="tools-head">{t("tools.head" as UIKey)}</h2>
-    <a href={localizePath('/sater-apps',locale)}>SATER Apps →</a>
+    <a href={localizePath('/sater-apps',locale)}>{locale === 'ar' ? 'تطبيقات سطر ←' : 'SATER Apps →'}</a>
     <p class="note">{t("tools.note" as UIKey)}</p>
   </header>
   <div class="grid">
@@ -83,7 +83,7 @@ const path = ["idea", "code", "form", "product"] as const;
 <Band tone="base" labelledby="games-head">
   <header class="sec">
     <h2 id="games-head">{t("games.head" as UIKey)}</h2>
-    <a href={localizePath('/sater-games',locale)}>SATER Games →</a>
+    <a href={localizePath('/sater-games',locale)}>{locale === 'ar' ? 'ألعاب سطر ←' : 'SATER Games →'}</a>
     <p class="note">{t("games.note" as UIKey)}</p>
   </header>
   {games.map((game) => <GameFeature game={game} locale={locale} />)}

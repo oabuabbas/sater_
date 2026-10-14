@@ -1,100 +1,66 @@
 ---
-import Logo from "~/components/Logo.astro";
-import { studioLinks } from "~/data/products";
-import { useTranslations, localizePath, localeName, type UIKey } from "~/i18n/ui";
-import type { Locale } from "~/data/products";
-
-interface Props {
-  locale: Locale;
-  path: string;
-  localized?: boolean;
-}
-
+import Logo from '~/components/Logo.astro';
+import { studioLinks, type Locale } from '~/data/products';
+import { discovery } from '~/data/discovery';
+import { localizePath, localeName } from '~/i18n/ui';
+interface Props { locale: Locale; path: string; localized?: boolean }
 const { locale, path, localized = true } = Astro.props;
-const t = useTranslations(locale);
-const other: Locale = locale === "en" ? "ar" : "en";
+const ar = locale === 'ar';
+const other: Locale = ar ? 'en' : 'ar';
 const year = new Date().getFullYear();
 ---
-
 <footer class="foot band-raised">
   <div class="inner">
-    <Logo variant="mark" height={40} />
-    <p class="line label">{t("footer.rights" as UIKey)}</p>
-    <p class="line label tabular">{year}</p>
-    <nav class="social label" aria-label={locale==='ar'?'منتجات سطر':'SATER products'}>
-      <a href={localizePath('/sater-apps',locale)}>SATER Apps</a>
-      <a href={localizePath('/sater-games',locale)}>SATER Games</a>
-    </nav>
-    <nav class="social label" aria-label={locale==='ar'?'سياسات الموقع':'Website policies'}><a href="/privacy/">{locale==='ar'?'الخصوصية':'Privacy'}</a><a href="/terms/">{locale==='ar'?'الشروط':'Terms'}</a></nav>
-    <nav class="social label" aria-label={t("studio.links.head" as UIKey)}>
-      <a href={studioLinks.play} target="_blank" rel="noopener noreferrer">Play ↗</a>
-      <a href={studioLinks.youtube} target="_blank" rel="noopener noreferrer">YouTube ↗</a>
-      <a href={studioLinks.facebook} target="_blank" rel="noopener noreferrer">Facebook ↗</a>
-    </nav>
-    <a class="line label lang" href={localizePath(localized ? path : '/', other)} lang={other} hreflang={other}>
-      {localeName[other]}
-    </a>
+    <div class="main-row">
+      <div class="identity">
+        <a class="brand" href={localizePath('/',locale)} aria-label={ar?'سطر — الرئيسية':'SATER — Home'}><Logo variant="wordmark" locale={locale} height={28} /></a>
+        <p>{ar?'استوديو مستقل في عمّان، الأردن.':'An independent studio in Amman, Jordan.'}</p>
+      </div>
+      <nav aria-labelledby="footer-explore">
+        <h2 id="footer-explore">{ar?'اكتشف سطر':'Explore SATER'}</h2>
+        <a href={localizePath('/sater-apps',locale)}>{discovery.apps.title[locale]}</a>
+        <a href={localizePath('/sater-games',locale)}>{discovery.games.title[locale]}</a>
+        <a href={localizePath('/studio',locale)}>{ar?'عن الاستوديو':'About the studio'}</a>
+      </nav>
+      <nav aria-labelledby="footer-follow">
+        <h2 id="footer-follow">{ar?'تابعنا':'Find us'}</h2>
+        <a href={studioLinks.play} target="_blank" rel="noopener noreferrer">Google Play <span aria-hidden="true">↗</span></a>
+        <a href={studioLinks.youtube} target="_blank" rel="noopener noreferrer">{ar?'يوتيوب':'YouTube'} <span aria-hidden="true">↗</span></a>
+        <a href={studioLinks.facebook} target="_blank" rel="noopener noreferrer">{ar?'فيسبوك':'Facebook'} <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+    <div class="bottom-row">
+      <p class="copyright">© {year} {ar?'سطر':'SATER'}</p>
+      <nav class="legal" aria-label={ar?'سياسات الموقع':'Website policies'}>
+        <a href="/privacy/">{ar?'الخصوصية':'Privacy'}</a>
+        <a href="/terms/">{ar?'الشروط':'Terms'}</a>
+      </nav>
+      <a class="lang" href={localizePath(localized?path:'/',other)} lang={other} hreflang={other}>{localeName[other]}</a>
+    </div>
   </div>
 </footer>
-
 <style>
-  .foot {
-    background: var(--bg);
-    color: var(--fg);
-    border-block-start: var(--hair) solid var(--edge);
-  }
-
-  .inner {
-    width: var(--col);
-    margin-inline: auto;
-    padding-block: var(--s-8);
-    display: flex;
-    align-items: center;
-    gap: var(--s-4);
-    flex-wrap: wrap;
-  }
-
-  .line {
-    margin: 0;
-    color: var(--fg-dim);
-  }
-
-  .lang {
-    transition: color var(--dur) var(--ease);
-  }
-
-  .lang:hover {
-    color: var(--fg);
-  }
-
-  .social {
-    display: flex;
-    align-items: center;
-    gap: var(--s-2);
-    margin-inline-start: auto;
-    color: var(--fg-dim);
-  }
-
-  .social a {
-    transition: color var(--dur) var(--ease);
-  }
-
-  .social a:hover {
-    color: var(--fg);
-  }
-
-  @media (max-width: 760px) {
-    .social {
-      order: 3;
-      inline-size: 100%;
-      margin-inline-start: 0;
-      padding-block-start: var(--s-2);
-      border-block-start: var(--hair) solid var(--edge);
-      flex-wrap: wrap;
-    }
-
-    .lang {
-      margin-inline-start: auto;
-    }
+  .foot {background:var(--bg);color:var(--fg);border-block-start:var(--hair) solid var(--edge)}
+  .inner {width:var(--col);margin-inline:auto;padding-block:var(--s-6) var(--s-3)}
+  .main-row {display:grid;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:var(--s-6);padding-block-end:var(--s-4)}
+  .identity {display:flex;flex-direction:column;align-items:flex-start;gap:var(--s-2)}
+  .identity p {color:var(--fg-dim);max-width:30ch;font-size:.9375rem;line-height:var(--lead-body)}
+  .brand {display:inline-flex;padding-block:.25rem}
+  nav {display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;min-width:0}
+  h2 {font-size:.875rem;line-height:var(--lead-body);font-weight:var(--w-bold);margin-block-end:.5rem}
+  nav a,.lang {color:var(--fg-dim);font-size:.9375rem;line-height:var(--lead-body);padding-block:.35rem}
+  a:hover {color:var(--fg);text-decoration:underline;text-underline-offset:.25em}
+  .bottom-row {display:flex;align-items:center;gap:var(--s-4);flex-wrap:wrap;border-block-start:var(--hair) solid var(--edge);padding-block-start:var(--s-3)}
+  .copyright {color:var(--fg-dim);font-size:.875rem}
+  .legal {flex-direction:row;flex-wrap:wrap;gap:var(--s-3);margin-inline-start:auto}
+  .bottom-row a {font-size:.875rem}
+  @media(max-width:640px){
+    .main-row {grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-4)}
+    .identity {grid-column:1/-1}
+    .bottom-row {gap:var(--s-2) var(--s-3)}
+    .copyright {flex-basis:100%}
+    .legal {margin-inline-start:0}
+    .lang {margin-inline-start:auto}
+    nav a {min-height:44px;display:flex;align-items:center;gap:.35rem}
   }
 </style>

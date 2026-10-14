@@ -27,7 +27,7 @@ const productLine = (product: (typeof tools)[number]): ProductLineItem[] => [
 <PageHead title={t("tools.title" as UIKey)} lede={t("tools.lede" as UIKey)} />
 
 <Band tone="raised">
-  <p class="hub-link"><a href={localizePath('/sater-apps',locale)}>{locale==='ar'?'دليل تطبيقات سطر — SATER Apps':'Explore the SATER Apps guide'}</a></p>
+  <p class="hub-link"><a href={localizePath('/sater-apps',locale)}>{locale==='ar'?'دليل تطبيقات سطر':'Explore the SATER Apps guide'}</a></p>
   <ul class="list">
     {
       tools.map((product) => (

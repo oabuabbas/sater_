@@ -3,21 +3,21 @@ import type { Locale } from './products';
 type Copy = Record<Locale, string>;
 export const discovery = {
   apps: {
-    title: 'SATER Apps',
+    title: { en: 'SATER Apps', ar: 'تطبيقات سطر' },
     subtitle: { en: 'Apps from SATER, the independent studio in Amman, Jordan.', ar: 'تطبيقات سطر، الاستوديو المستقل في عمّان، الأردن.' },
-    description: { en: 'Explore SATER Apps: TAM for tasks, KHAMEN for party games and ZILL for sun-aware travel. Find official product pages, Google Play links and updates.', ar: 'اكتشف SATER Apps: تم للمهام، وخمّن للألعاب الجماعية، وظل للتنقل مع الشمس. صفحات المنتجات وروابط Google Play الرسمية والأخبار والسياسات.' },
+    description: { en: 'Explore SATER Apps: TAM for tasks, KHAMEN for party games and ZILL for sun-aware travel. Find official product pages, Google Play links and updates.', ar: 'اكتشف تطبيقات سطر: تم للمهام، وخمّن للألعاب الجماعية، وظل للتنقل مع الشمس. صفحات المنتجات وروابط Google Play الرسمية والأخبار والسياسات.' },
     heading: { en: 'What would you like to do?', ar: 'ماذا تريد أن تفعل؟' },
     intro: { en: 'Three different ideas, each with its own purpose. Choose by what you need, then visit the product page for details and its official store link.', ar: 'ثلاث أفكار مختلفة، لكل منها غايتها. اختر ما تحتاجه، ثم افتح صفحة المنتج للتفاصيل ورابطه الرسمي في المتجر.' },
     catalog: { en: 'View the full app catalogue', ar: 'عرض كتالوج التطبيقات الكامل' },
     questions: [
       { title: { en: 'Where should I download SATER apps?', ar: 'من أين أحمل تطبيقات سطر؟' }, body: { en: 'Use the Google Play links on these official product pages. Each app has its own listing, update history and privacy policy.', ar: 'استخدم روابط Google Play في صفحات المنتجات الرسمية هنا. لكل تطبيق صفحة مستقلة وتحديثاته وسياسة خصوصيته.' } },
-      { title: { en: 'Are the apps and management games the same collection?', ar: 'هل التطبيقات وألعاب الإدارة مجموعة واحدة؟' }, body: { en: 'KHAMEN is a party-game app in this collection. Studio Chairman and Behind The Badge are longer-form management simulations, introduced separately in SATER Games.', ar: 'خمّن تطبيق ألعاب جماعية ضمن هذه المجموعة. أما Studio Chairman وBehind The Badge فهما محاكاتان إداريتان أطول نفسًا، ولهما دليل مستقل في SATER Games.' } },
+      { title: { en: 'Are the apps and management games the same collection?', ar: 'هل التطبيقات وألعاب الإدارة مجموعة واحدة؟' }, body: { en: 'KHAMEN is a party-game app in this collection. Studio Chairman and Behind The Badge are longer-form management simulations, introduced separately in SATER Games.', ar: 'خمّن تطبيق ألعاب جماعية ضمن هذه المجموعة. أما Studio Chairman وBehind The Badge فهما محاكاتان إداريتان أطول نفسًا، ولهما دليل مستقل في ألعاب سطر.' } },
     ],
   },
   games: {
-    title: 'SATER Games',
+    title: { en: 'SATER Games', ar: 'ألعاب سطر' },
     subtitle: { en: 'Management simulation games from SATER, an independent studio in Jordan.', ar: 'ألعاب محاكاة إدارية من سطر، استوديو مستقل في الأردن.' },
-    description: { en: 'Explore SATER Games: Studio Chairman film-studio management and Behind The Badge football presidency. Find game details, release status, screenshots and news.', ar: 'اكتشف SATER Games: إدارة استوديو الأفلام في Studio Chairman ورئاسة كرة القدم في Behind The Badge. تفاصيل الألعاب وحالة النشر والصور والأخبار.' },
+    description: { en: 'Explore SATER Games: Studio Chairman film-studio management and Behind The Badge football presidency. Find game details, release status, screenshots and news.', ar: 'اكتشف ألعاب سطر: إدارة استوديو الأفلام في Studio Chairman ورئاسة كرة القدم في Behind The Badge. تفاصيل الألعاب وحالة النشر والصور والأخبار.' },
     heading: { en: 'Which world will you lead?', ar: 'أي عالم ستقود؟' },
     intro: { en: 'Our management games centre on decisions and their consequences. Run a film studio or build a football institution; each game has its own systems, story and release status.', ar: 'تتمحور ألعابنا الإدارية حول القرارات وعواقبها. أدِر استوديو أفلام أو ابنِ مؤسسة كروية؛ لكل لعبة أنظمتها وقصتها وحالة نشرها الخاصة.' },
     catalog: { en: 'View the full game catalogue', ar: 'عرض كتالوج الألعاب الكامل' },
@@ -38,8 +38,8 @@ export const productDiscovery: Record<string, { purpose: Copy; body: Copy; categ
 
 export const seoPages: Record<string, { title: Copy; description: Copy }> = {
   '/': { title: { en: 'Independent Apps & Management Games', ar: 'تطبيقات وألعاب محاكاة من استوديو مستقل' }, description: { en: 'SATER is an independent studio in Amman, Jordan. Discover TAM, KHAMEN and ZILL apps, Studio Chairman and Behind The Badge games, and official product news.', ar: 'سطر استوديو مستقل في عمّان، الأردن. اكتشف تطبيقات تم وخمّن وظل، وألعاب Studio Chairman وBehind The Badge، والأخبار وروابط المنتجات الرسمية.' } },
-  '/sater-apps': { title: { en: 'SATER Apps — Android Apps & Party Games', ar: 'SATER Apps — تطبيقات سطر وألعاب الجلسات' }, description: discovery.apps.description },
-  '/sater-games': { title: { en: 'SATER Games — Management Simulation Games', ar: 'SATER Games — ألعاب سطر والمحاكاة الإدارية' }, description: discovery.games.description },
+  '/sater-apps': { title: { en: 'SATER Apps — Android Apps & Party Games', ar: 'تطبيقات سطر — تطبيقات أندرويد وألعاب الجلسات' }, description: discovery.apps.description },
+  '/sater-games': { title: { en: 'SATER Games — Management Simulation Games', ar: 'ألعاب سطر — ألعاب المحاكاة الإدارية' }, description: discovery.games.description },
   '/tools': { title: { en: 'App Catalogue — TAM, KHAMEN & ZILL', ar: 'كتالوج التطبيقات — تم وخمّن وظل' }, description: { en: 'Browse the SATER app catalogue with official Google Play links, product descriptions, privacy policies and terms for TAM, KHAMEN and ZILL.', ar: 'تصفح كتالوج تطبيقات سطر: تم وخمّن وظل، مع روابط Google Play الرسمية وأوصاف المنتجات والخصوصية والشروط.' } },
   '/play': { title: { en: 'Game Catalogue — Studio Chairman & Behind The Badge', ar: 'كتالوج الألعاب — Studio Chairman وBehind The Badge' }, description: { en: 'Browse SATER management games: Studio Chairman and Behind The Badge, with artwork, release status, product pages and game news.', ar: 'تصفح ألعاب سطر الإدارية: Studio Chairman وBehind The Badge، مع الصور وحالة النشر وصفحات الألعاب والأخبار.' } },
 };

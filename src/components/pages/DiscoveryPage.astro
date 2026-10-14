@@ -18,7 +18,7 @@ const path = `/sater-${kind}`;
 const site = Astro.site!;
 const collection = {
   '@type': 'CollectionPage', '@id': new URL(localizePath(path, locale), site).href + '#page',
-  name: copy.title, description: copy.description[locale],
+  name: copy.title[locale], description: copy.description[locale],
   mainEntity: { '@type': 'ItemList', itemListElement: products.map((p, index) => ({
     '@type': 'ListItem', position: index + 1, name: p.name,
     url: new URL(localizePath(p.legacyPath!, locale), site).href,
@@ -28,14 +28,14 @@ const breadcrumb = {
   '@type': 'BreadcrumbList', '@id': new URL(localizePath(path,locale),site).href + '#breadcrumb',
   itemListElement: [
     { '@type':'ListItem',position:1,name:ar?'سطر':'SATER',item:new URL(localizePath('/',locale),site).href },
-    { '@type':'ListItem',position:2,name:copy.title,item:new URL(localizePath(path,locale),site).href },
+    { '@type':'ListItem',position:2,name:copy.title[locale],item:new URL(localizePath(path,locale),site).href },
   ],
 };
 ---
-<Base locale={locale} title={copy.title} path={path} description={copy.description[locale]} structuredData={[collection,breadcrumb]}>
-  <PageHead title={copy.title} lede={copy.subtitle[locale]} />
+<Base locale={locale} title={copy.title[locale]} path={path} description={copy.description[locale]} structuredData={[collection,breadcrumb]}>
+  <PageHead title={copy.title[locale]} lede={copy.subtitle[locale]} />
   <Band tone="raised" labelledby="choose-head">
-    <nav class="breadcrumbs" aria-label={ar?'مسار التصفح':'Breadcrumb'}><a href={localizePath('/',locale)}>{ar?'سطر':'SATER'}</a><span aria-hidden="true">/</span><span aria-current="page">{copy.title}</span></nav>
+    <nav class="breadcrumbs" aria-label={ar?'مسار التصفح':'Breadcrumb'}><a href={localizePath('/',locale)}>{ar?'سطر':'SATER'}</a><span aria-hidden="true">/</span><span aria-current="page">{copy.title[locale]}</span></nav>
     <header class="intro"><h2 id="choose-head">{copy.heading[locale]}</h2><p>{copy.intro[locale]}</p></header>
     <div class:list={['products', { games: kind === 'games' }]}>
       {products.map(product => (
@@ -51,9 +51,6 @@ const breadcrumb = {
             <nav aria-label={`${product.name} — ${ar ? 'روابط' : 'links'}`}>
               <a href={localizePath(product.legacyPath!, locale)}>{ar ? 'اكتشف المنتج' : 'Explore product'}</a>
               {product.storeUrl && <a href={product.storeUrl} target="_blank" rel="noopener noreferrer">Google Play ↗</a>}
-              <a href={localizePath(`/news/topics/${product.slug}`, locale)}>{ar ? 'الأخبار' : 'News'}</a>
-              <a href={`/${product.slug}/privacy/`}>{ar ? 'الخصوصية' : 'Privacy'}</a>
-              <a href={`/${product.slug}/terms/`}>{ar ? 'الشروط' : 'Terms'}</a>
             </nav>
           </div>
         </article>
@@ -62,11 +59,10 @@ const breadcrumb = {
   </Band>
   <Band tone="base" labelledby="answers-head">
     <h2 id="answers-head">{ar ? 'قبل أن تبدأ' : 'Before you start'}</h2>
-    <div class="answers">{copy.questions.map(q => <article><h3>{q.title[locale]}</h3><p>{q.body[locale]}</p></article>)}</div>
+    <div class="answers">{copy.questions.map(q => <details><summary>{q.title[locale]}</summary><p>{q.body[locale]}</p></details>)}</div>
     <nav class="more" aria-label={ar ? 'اكتشف المزيد' : 'Discover more'}>
       <a href={localizePath(kind === 'apps' ? '/tools' : '/play', locale)}>{copy.catalog[locale]}</a>
-      <a href={localizePath(kind === 'apps' ? '/sater-games' : '/sater-apps', locale)}>{kind === 'apps' ? 'SATER Games' : 'SATER Apps'}</a>
-      <a href={localizePath('/studio', locale)}>{ar ? 'عن استوديو سطر' : 'About SATER Studio'}</a>
+      <a href={localizePath(kind === 'apps' ? '/sater-games' : '/sater-apps', locale)}>{discovery[kind === 'apps' ? 'games' : 'apps'].title[locale]}</a>
     </nav>
   </Band>
   <NewsSection locale={locale} product={kind} />
@@ -90,8 +86,10 @@ const breadcrumb = {
   nav {display:flex;flex-wrap:wrap;gap:var(--s-2)}
   nav a {text-decoration:underline;text-underline-offset:.25em}
   nav a:hover {color:var(--accent,var(--fg))}
-  .answers {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6);margin-block:var(--s-6)}
-  .answers article {display:grid;align-content:start;gap:var(--s-2)}
+  .answers {margin-block:var(--s-4);max-width:70ch}
+  .answers details {border-bottom:var(--hair) solid var(--edge)}
+  .answers summary {padding-block:var(--s-3);cursor:pointer;font-weight:var(--w-bold);line-height:var(--lead-body)}
+  .answers details p {padding-block-end:var(--s-3);max-width:64ch}
   .more {border-top:var(--hair) solid var(--edge);padding-top:var(--s-4)}
   @media(max-width:850px){.products,.products.games,.intro,.answers{grid-template-columns:minmax(0,1fr)}.intro,.answers{gap:var(--s-3)}}
   @media(prefers-reduced-motion:reduce){.art :global(img){transition:none}}

@@ -16,6 +16,6 @@ const t = useTranslations(locale);
 <PageHead title={t("play.title" as UIKey)} lede={t("play.lede" as UIKey)} />
 
 <Band tone="raised">
-  <p style="margin-bottom:var(--s-4);text-decoration:underline;text-underline-offset:.25em"><a href={localizePath('/sater-games',locale)}>{locale==='ar'?'دليل ألعاب سطر — SATER Games':'Explore the SATER Games guide'}</a></p>
+  <p style="margin-bottom:var(--s-4);text-decoration:underline;text-underline-offset:.25em"><a href={localizePath('/sater-games',locale)}>{locale==='ar'?'دليل ألعاب سطر':'Explore the SATER Games guide'}</a></p>
   {games.map((game) => <GameFeature game={game} locale={locale} />)}
 </Band>
