@@ -131,7 +131,7 @@ a {
 /* Monospace label — navigation, status, data. Never prose. */
 .label {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   letter-spacing: var(--track-label);
   text-transform: uppercase;

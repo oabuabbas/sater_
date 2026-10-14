@@ -20,12 +20,11 @@ const product = tools.find((p) => p.slug === slug);
 if (!product) throw new Error(`unknown product: ${slug}`);
 
 const t = useTranslations(locale);
-const hasTerms = slug !== "zill"; // ZILL never shipped a terms page
 const line: ProductLineItem[] = [
   { label: t("tools.store" as UIKey), href: product.storeUrl, external: true },
   { label: t("tools.page" as UIKey), current: true },
   { label: t("tools.privacy" as UIKey), href: `/${slug}/privacy` },
-  ...(hasTerms ? [{ label: t("tools.terms" as UIKey), href: `/${slug}/terms` }] : []),
+  { label: t("tools.terms" as UIKey), href: `/${slug}/terms` },
 ];
 ---
 

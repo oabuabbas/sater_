@@ -1,99 +1,12 @@
 ---
-import Base from "~/layouts/Base.astro";
-import Band from "~/components/Band.astro";
-import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
-import { games } from "~/data/products";
-import { useTranslations, type UIKey } from "~/i18n/ui";
-
-interface Frontmatter {
-  title: string;
-  description: string;
-  path: string;
-  effective: string;
-  updated: string;
-  applies_to: string;
-  publisher: string;
-  contact: string;
-}
-
-const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
-const slug = frontmatter.path.split("/").filter(Boolean)[0];
-const game = games.find((item) => item.slug === slug);
-if (!game) throw new Error(`Game product data is missing for ${slug}`);
-const t = useTranslations("en");
-const current = frontmatter.path.endsWith("/terms") ? "terms" : "privacy";
-const line: ProductLineItem[] = [
-  ...(game.storeUrl ? [{ label: t("tools.store" as UIKey), href: game.storeUrl, external: true }] : []),
-  ...(game.legacyPath ? [{ label: t("tools.page" as UIKey), href: game.legacyPath }] : []),
-  { label: t("tools.privacy" as UIKey), href: game.privacyPath, current: current === "privacy" },
-  { label: t("tools.terms" as UIKey), href: game.termsPath, current: current === "terms" },
-];
+import Base from '~/layouts/Base.astro';
+import LegalFrame from '~/components/LegalFrame.astro';
+import { games } from '~/data/products';
+interface Frontmatter{title:string;description:string;path:string;effective:string;updated:string;applies_to:string}
+const {frontmatter,headings=[]}=Astro.props as {frontmatter:Frontmatter;headings:{depth:number;slug:string;text:string}[]};
+const game=games.find(p=>p.slug===frontmatter.path.split('/').filter(Boolean)[0]);
+if(!game)throw new Error('Game data missing for legal page');
 ---
-
-<Base
-  locale="en"
-  path={frontmatter.path}
-  title={frontmatter.title}
-  description={frontmatter.description}
-  localized={false}
->
-  <Band tone="base" class="legal-head">
-    <p class="app label">{game.name} · Android{slug === "behind-the-badge" ? " + Web" : ""}</p>
-    <h1>{frontmatter.title.replace(` — ${game.name}`, "")}</h1>
-    <dl class="facts label">
-      <div><dt>Effective</dt><dd>{frontmatter.effective}</dd></div>
-      <div><dt>Updated</dt><dd>{frontmatter.updated}</dd></div>
-      <div><dt>Applies to</dt><dd>{frontmatter.applies_to}</dd></div>
-    </dl>
-    <p class="back label"><a href={game.legacyPath ?? "/play/"}>&larr; {game.name}</a></p>
-    <ProductLine
-      label={`${game.name} — ${t("tools.line" as UIKey)}`}
-      status={game.status}
-      statusLabel={t(`status.${game.status}` as UIKey)}
-      items={line}
-    />
-  </Band>
-
-  <Band tone="raised">
-    <article class="markdown-legal">
-      <slot />
-    </article>
-  </Band>
+<Base locale="en" title={frontmatter.title} description={frontmatter.description} path={frontmatter.path} localized={false}>
+  <LegalFrame product={game} title={frontmatter.title.replace(` — ${game.name}`,'')} current={frontmatter.path.endsWith('/terms')?'terms':'privacy'} updated={frontmatter.updated} effective={frontmatter.effective} applies={frontmatter.applies_to} headings={headings.filter(h=>h.depth===2)}><slot/></LegalFrame>
 </Base>
-
-<style is:global>
-  .legal-head .inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-2);
-    align-items: flex-start;
-    padding-block: var(--s-14) var(--s-8);
-  }
-
-  .legal-head h1 { font-size: var(--step-head); line-height: var(--lead-tight); }
-  .legal-head .app, .legal-head .back { color: var(--fg-dim); margin: 0; }
-  .legal-head .facts { display: grid; gap: var(--s-1); margin: var(--s-2) 0 0; color: var(--fg-dim); }
-  .legal-head .facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--s-2); }
-  .legal-head .facts dt { color: var(--fg); }
-  .legal-head .facts dd { margin: 0; }
-  .legal-head .product-line { inline-size: min(100%, 36rem); margin-block-start: var(--s-3); }
-
-  .markdown-legal { display: flex; flex-direction: column; gap: var(--s-3); max-inline-size: 74ch; }
-  .markdown-legal > h1, .markdown-legal > p:first-of-type, .markdown-legal > hr:first-of-type { display: none; }
-  .markdown-legal h2 { font-size: var(--step-3); line-height: var(--lead-head); margin-block-start: var(--s-6); }
-  .markdown-legal h3 { font-size: var(--step-2); line-height: var(--lead-head); margin-block-start: var(--s-3); }
-  .markdown-legal p, .markdown-legal li { color: var(--fg-dim); max-inline-size: none; }
-  .markdown-legal strong { color: var(--fg); }
-  .markdown-legal ul { display: flex; flex-direction: column; gap: var(--s-1); padding-inline-start: var(--s-4); list-style: square; }
-  .markdown-legal a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--edge-strong); text-underline-offset: 3px; }
-  .markdown-legal hr { inline-size: 100%; border: 0; border-block-start: var(--hair) solid var(--edge); margin-block: var(--s-4); }
-  .markdown-legal table { inline-size: 100%; border-collapse: collapse; font-size: var(--step-0); }
-  .markdown-legal th, .markdown-legal td { padding: var(--s-2); text-align: start; vertical-align: top; border: var(--hair) solid var(--edge); }
-  .markdown-legal th { color: var(--fg); background: var(--surface-2); }
-
-  @media (max-width: 620px) {
-    .legal-head .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-    .markdown-legal { overflow-wrap: anywhere; }
-    .markdown-legal table { display: block; overflow-x: auto; }
-  }
-</style>

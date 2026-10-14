@@ -1,30 +1,20 @@
 ---
 layout: ../../layouts/LegalMarkdown.astro
 title: Terms of Service — Studio Chairman
-description: "The terms you agree to by playing Studio Chairman. Plain language, no traps."
+description: "Terms for Studio Chairman, including local saves, advertising and optional purchases."
 path: /studio-chairman/terms
 effective: 25 August 2026
-updated: 25 August 2026
+updated: 14 October 2026
 applies_to: Studio Chairman (Android) — com.sater.studiochairman, version 1.0.0 and later
 publisher: sater
 contact: sater.studios@gmail.com
 ---
 
-# Terms of Service
-
-**Studio Chairman** · published by **sater**
-
-Effective 25 August 2026 · Last updated 25 August 2026
-
----
-
 ## The short version
 
-The game is free and complete. Advertising pays for it. There is one optional purchase
-that removes the ads, and it does not unlock any content, because nothing is locked.
-
-Nothing here is designed to catch you out. The long version follows because some of it
-has to be said precisely.
+The game is free to download and supported by advertising. An optional
+ad-removal purchase may be offered. The installed version determines which
+modes, features and rewarded offers are available.
 
 ---
 
@@ -58,8 +48,8 @@ permission. The footage of your play is yours.
 
 ## 3. What the game costs
 
-The game is **free**. All seven story chapters, and the open sandbox mode, are available
-from first install at no cost. No chapter is locked and no content is sold.
+The game is **free to download**. Available modes and campaigns are shown in the
+installed version; a mode may be unavailable while being developed or revised.
 
 The game is funded by advertising, as described in the
 [Privacy Policy](/studio-chairman/privacy/).
@@ -72,16 +62,16 @@ Studio Chairman offers a single optional in-app purchase: **Remove ads**.
 
 - It is a **one-time, non-consumable** purchase. You buy it once, per Google account.
 - It **permanently removes** the interstitial and in-list advertising.
-- It **does not** unlock chapters, grant in-game money, or provide any competitive or
-  gameplay advantage of any kind. The story is exactly the same either way.
+- In versions with **Director's Cut**, owning ad removal also unlocks that optional
+  mode. Its tools can change in-game cash, reputation and other values, and permanently
+  mark the current save as modified. Other saves are not modified by that action.
 - Optional **rewarded** ads remain available to you afterwards if you want the in-game
   favour they grant. You are never required to watch one. To make sure paying is never
   worse than watching, buyers also receive a standing daily allowance of favours.
 
-**Payment, refunds and cancellation are handled by Google Play, not by us.** We cannot
-issue refunds directly. Refund requests go through
+**Google Play processes payment.** Refund requests can use
 [Google Play's refund process](https://support.google.com/googleplay/answer/2479637),
-and are subject to Google's policy and any statutory rights you have in your country.
+and are subject to Google's policy and statutory rights. Contact us for purchase support.
 
 If you reinstall or change device, use **Settings → Ads → Restore purchase**.
 
@@ -104,10 +94,9 @@ You should understand clearly:
   will not make you win, and refusing will not make you lose.
 - We may adjust the balance, cost or availability of in-game items in future updates.
 
-Because your progress is stored only on your device, **we cannot restore a lost save**.
-Uninstalling the app, clearing its data, or losing the device will lose your progress.
-This is a direct consequence of not uploading your data anywhere, and is not a fault we
-can remedy.
+SATER holds no cloud copy and **cannot restore a save it does not have**.
+Clearing app data, uninstalling or losing the device can remove local progress.
+Protect backups you make; device backup or transfer settings may apply separately.
 
 ---
 

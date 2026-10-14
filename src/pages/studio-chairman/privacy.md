@@ -4,18 +4,10 @@ title: Privacy Policy — Studio Chairman
 description: "How Studio Chairman handles your data. Short version: the game stays on your phone; the ads do not."
 path: /studio-chairman/privacy
 effective: 25 August 2026
-updated: 25 August 2026
+updated: 14 October 2026
 applies_to: Studio Chairman (Android) — com.sater.studiochairman, version 1.0.0 and later
 publisher: sater
 contact: sater.studios@gmail.com
----
-
-# Privacy Policy
-
-**Studio Chairman** · published by **sater**
-
-Effective 25 August 2026 · Last updated 25 August 2026
-
 ---
 
 ## The short version
@@ -23,8 +15,9 @@ Effective 25 August 2026 · Last updated 25 August 2026
 Studio Chairman has **no servers of its own**. It does not create an account, and it
 never asks for your name, email address or phone number.
 
-Your saved game, your play statistics and your settings live **only in this app's
-private storage on your device**. They are never uploaded anywhere.
+Your saved game, local play statistics and settings are stored in the app's
+private storage on your device. SATER does not operate a cloud-save service.
+Device backup or transfer settings may separately apply.
 
 The game is free, and **advertising pays for it**. Ads are supplied by Google AdMob,
 which is a separate company with its own privacy policy — and it does receive data
@@ -47,20 +40,19 @@ other apps, or any website you may reach from a link.
 
 ## 2. What stays on your device
 
-The following never leaves your phone. We cannot see it, and there is no copy of it
-anywhere else:
+The following is stored locally and is not sent to a SATER game server:
 
 | Data | What it is |
 |---|---|
-| **Saved game** | Studio name, chairman name, family and studio progress. These are names *you invent*, not personal details. |
+| **Saved game** | Studio and character names you enter, family, films, talent and studio progress. Names may be personal if you enter real information. |
 | **Play statistics** | Plain counters — how many weeks you advanced, which screens you opened, how far you reached. Numbers only. |
-| **Settings** | Sound, haptics, autosave interval, appearance choices. |
+| **Settings** | Sound, haptics, language, autosave interval and appearance choices. |
 | **Ad-removal flag** | A single true/false value recording whether you bought the ad removal. |
+| **Director's Cut** | Local unlock/reward progress and the modified-save status when its tools are used. |
 
-You can switch play statistics off, erase them, or delete your saved game at any time
-from **Settings → Privacy & Data**. That screen also has a **See my data** button that
-prints everything the app has stored about you, verbatim, so you never have to take
-this page on trust.
+Use the available settings and privacy/data controls to view or erase local
+statistics and manage saves. Controls and labels may vary by app version.
+Clearing app data can remove local progress; SATER cannot recover copies it does not hold.
 
 ---
 
@@ -90,7 +82,8 @@ at the turn of an in-game year, and after a film's result. It never interrupts a
 or a decision. It also offers **rewarded** ads that you choose to watch in exchange for
 an in-game favour; these are entirely optional, and declining them costs you nothing.
 
-The app does **not** use banner ads or app-open ads.
+Ad formats and placements depend on the version installed; optional rewarded
+offers describe the reward before you choose to watch.
 
 ---
 
@@ -98,8 +91,9 @@ The app does **not** use banner ads or app-open ads.
 
 ### If you are in the EEA, the UK or Switzerland
 
-Before any ad loads, you are shown a consent form provided by Google's User Messaging
-Platform, and asked to choose. Your choice is stored by Google, not by us.
+Google's User Messaging Platform manages consent where required. Consent status
+is handled through the SDK and its local state. Advertising availability depends
+on region, consent and the provider's configuration.
 
 You can change that choice at any time: **Settings → Privacy & Data → Ad privacy
 choices**.
@@ -110,8 +104,8 @@ You can reset or delete your advertising ID in Android:
 **Settings → Google → Ads**. On recent Android versions you can delete the advertising
 ID entirely, after which apps receive a string of zeros.
 
-The simplest option is also available: **buying the ad removal stops the ads**, and
-with them the ad requests.
+Where offered, **ad removal stops the unsolicited ads covered by the purchase**.
+Optional rewarded ads may remain available if you explicitly choose their offer.
 
 ### If you are in California
 
@@ -131,8 +125,9 @@ The transaction is handled **entirely by Google Play**. This app never sees your
 number, billing address, or any payment detail. All the app stores is a single
 true/false flag on your device recording that the purchase exists.
 
-All seven story chapters are free whether you buy it or not. **The purchase buys quiet,
-not progress.**
+Mode and content availability depend on the installed version. In versions with
+Director's Cut, owning ad removal also unlocks that optional mode; eligible rewarded
+views provide another unlock route. Its tools mark the affected save as modified.
 
 Google's handling of the payment is covered by the
 [Google Play Terms of Service](https://play.google.com/intl/en/about/play-terms/) and
@@ -140,9 +135,10 @@ the [Google Privacy Policy](https://policies.google.com/privacy).
 
 ---
 
-## 6. What we do not collect
+## 6. What gameplay does not request
 
-- No name, email address, phone number or postal address.
+- No required real name, email address, phone number or postal address. Names you
+  choose for your studio and characters are stored locally.
 - No precise location. (Only the coarse region the ad network infers.)
 - No contacts, photos, files or microphone access.
 - No crash-reporting or analytics service of any kind. The play statistics described
@@ -167,12 +163,12 @@ If you believe a child has provided information through this app, write to
 
 ## 8. Keeping and deleting data
 
-Because your data never leaves your device, deletion is entirely in your hands:
+For local game data, use the controls on your device:
 
 - **Erase play statistics** — Settings → Privacy & Data → Erase stats.
 - **Delete your saved game** — Settings → Save & Data → Delete saved game.
-- **Remove everything** — uninstall the app. Nothing survives it, because there is no
-  copy anywhere else.
+- **Remove local app data** — clear app storage or uninstall the app. Device backups,
+  transferred files or copies you made are managed separately by you and your provider.
 
 Note that your **purchase** is recorded by Google Play, not by us. Uninstalling does not
 cancel it, and you can restore it on a new device with
@@ -195,9 +191,10 @@ never receive.
 Where Google acts as an independent controller for advertising data, direct such
 requests to Google using the links in section 3.
 
-The lawful bases we rely on are **consent** (for personalised advertising in the EEA,
-UK and Switzerland) and **legitimate interests** (for showing non-personalised ads and
-for keeping the app working).
+Advertising privacy requirements depend on your location and the data involved.
+Non-personalised ads may still involve identifiers or device storage and applicable
+consent requirements. Use the app's privacy choices and Google's controls to
+manage advertising data.
 
 ---
 
@@ -214,9 +211,8 @@ No method of storage is perfectly secure, and we do not claim otherwise.
 
 ## 11. Changes to this policy
 
-If the app's behaviour changes, this page changes with it — in the same release, not
-after it. The **Last updated** date at the top always reflects the behaviour of the
-current published version.
+We update this policy when data handling changes and revise the **Last updated**
+date. Features and their controls may differ between supported versions.
 
 Material changes will also be reflected in the in-app privacy screen, which is written
 to match this page.
@@ -228,3 +224,6 @@ to match this page.
 **sater.studios@gmail.com**
 
 Studio Chairman — by sater
+
+If you contact us, we receive your email address and the information you choose to
+include, and use it to respond. This support correspondence is separate from local gameplay.

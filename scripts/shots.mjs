@@ -15,7 +15,13 @@ const OUT = new URL("../.shots/", import.meta.url).pathname.replace(/^\/([A-Za-z
 const PORT = 4398;
 
 const newsReview = process.argv.includes("--news");
-const TARGETS = newsReview ? [
+const legalReview = process.argv.includes('--legal');
+const TARGETS = legalReview ? [
+  {path:'/tam/privacy/',name:'tam-privacy'}, {path:'/khamen/privacy/',name:'khamen-privacy'},
+  {path:'/zill/privacy/',name:'zill-privacy'}, {path:'/zill/terms/',name:'zill-terms'},
+  {path:'/studio-chairman/terms/',name:'chairman-terms'}, {path:'/behind-the-badge/privacy/',name:'btb-privacy'},
+  {path:'/ar/tools/',name:'ar-tools'}, {path:'/privacy/',name:'website-privacy'},
+] : newsReview ? [
   { path: "/ar/news/", name: "ar-news" },
   { path: "/news/", name: "en-news" },
   { path: "/ar/news/studio-chairman-directors-cut/", name: "ar-directors-cut" },
@@ -30,7 +36,7 @@ const TARGETS = newsReview ? [
   { path: "/ar/", name: "ar-home" },
   { path: "/ar/play/", name: "ar-play" },
 ];
-const WIDTHS = newsReview ? [375, 1280] : [1280];
+const WIDTHS = newsReview || legalReview ? [375, 1280] : [1280];
 
 const MIME = {
   ".html": "text/html; charset=utf-8",

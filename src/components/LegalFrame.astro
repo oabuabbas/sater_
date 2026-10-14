@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import Band from './Band.astro';
+import ProductLine from './ProductLine.astro';
+import type { Product } from '~/data/products';
+interface Props { product?:Product; title:string; current:'privacy'|'terms'; updated:string; effective?:string; applies?:string; headings:{slug:string;text:string}[] }
+const { product,title,current,updated,effective,applies,headings }=Astro.props;
+const items=product?[...(product.storeUrl?[{label:'Google Play',href:product.storeUrl,external:true}]:[]),{label:'Product page',href:product.legacyPath??`/${product.slug}/`},{label:'Privacy',href:`/${product.slug}/privacy/`,current:current==='privacy'},{label:'Terms',href:`/${product.slug}/terms/`,current:current==='terms'}]:[];
+---
+<Band tone="base" class="legal-heading">
+  <div class="identity">{product&&<Image src={product.icon} alt="" width={64} height={64}/>}<div><p class="eyebrow">{product?`${product.name} · SATER`:'SATER · thesater.com'}</p><h1>{title}</h1></div></div>
+  <dl class="facts"><div><dt>Last updated</dt><dd>{updated}</dd></div>{effective&&<div><dt>Effective from</dt><dd>{effective}</dd></div>}{applies&&<div><dt>Applies to</dt><dd>{applies}</dd></div>}</dl>
+  {product?<ProductLine label={`${product.name} legal and product links`} status={product.status} statusLabel={product.status==='live'?'Live':'In development'} items={items}/>:<nav class="site-legal-links" aria-label="Website legal links"><a href="/">Home</a><a href="/privacy/" aria-current={current==='privacy'?'page':undefined}>Privacy</a><a href="/terms/" aria-current={current==='terms'?'page':undefined}>Terms</a></nav>}
+</Band>
+<Band tone="raised"><div class="reading-layout">
+  <aside><nav aria-label="On this page"><h2>On this page</h2><ol>{headings.map(item=><li><a href={`#${item.slug}`}>{item.text}</a></li>)}</ol></nav><a class="contact" href="mailto:sater.studios@gmail.com">Contact SATER</a></aside>
+  <article class="legal-body"><slot/></article>
+</div></Band>
+<style>
+  .legal-heading :global(.inner){display:flex;flex-direction:column;align-items:flex-start;gap:var(--s-3);padding-block:var(--s-8)}
+  .identity{display:flex;align-items:center;gap:var(--s-3)}.identity img{width:64px;height:64px;object-fit:contain;border-radius:var(--radius-card)}.eyebrow{color:var(--fg-dim);font-size:.95rem;margin-bottom:.4rem}h1{font-size:var(--step-head);line-height:var(--lead-head)}
+  .site-legal-links{display:flex;gap:var(--s-3);font-size:1rem}.site-legal-links a{text-decoration:underline}
+  .facts{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-4);margin:0;max-width:100%}.facts div{max-width:100%}.facts dt{color:var(--fg-dim);font-size:.875rem}.facts dd{margin:0;font-size:1rem;overflow-wrap:anywhere}
+  .legal-heading :global(.product-line){max-width:100%;width:100%}.reading-layout{display:grid;grid-template-columns:minmax(12rem,1fr) minmax(0,3fr);gap:var(--s-8);align-items:start}aside{position:sticky;top:var(--s-4)}aside h2{font-size:1rem;margin-bottom:var(--s-2)}aside ol{display:grid;gap:.8rem}aside a{font-size:.95rem;color:var(--fg-dim);line-height:1.6}aside a:hover{color:var(--fg);text-decoration:underline}.contact{display:inline-block;margin-top:var(--s-3);text-decoration:underline}
+  .legal-body{min-width:0;width:100%;max-width:74ch;overflow-wrap:anywhere}.legal-body :global(h1){display:none}.legal-body :global(h2){font-size:var(--step-2);margin-block:var(--s-6) var(--s-2);scroll-margin-top:var(--s-4)}.legal-body :global(h2:first-child){margin-top:0}.legal-body :global(h3){font-size:var(--step-1);margin-block:var(--s-3) var(--s-2)}
+  .legal-body :global(p),.legal-body :global(li){color:var(--fg-dim);font-size:1rem;line-height:1.8;max-width:none}.legal-body :global(p){margin-block:var(--s-2)}.legal-body :global(strong){color:var(--fg)}.legal-body :global(ul),.legal-body :global(ol){padding-inline-start:1.4rem;list-style:disc;margin-block:var(--s-2);display:grid;gap:.65rem}.legal-body :global(ol){list-style:decimal}.legal-body :global(a){color:var(--fg);text-decoration:underline;text-underline-offset:.2em}.legal-body :global(hr){border:0;border-top:1px solid var(--edge);margin-block:var(--s-4)}.legal-body :global(blockquote){margin:var(--s-3) 0;padding-inline-start:var(--s-3);border-inline-start:2px solid var(--edge)}
+  .legal-body :global(table){display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:1rem}.legal-body :global(th),.legal-body :global(td){padding:var(--s-2);text-align:start;vertical-align:top;border:1px solid var(--edge);min-width:8rem}.legal-body :global(th){background:var(--surface-2)}
+  @media(max-width:850px){.reading-layout{grid-template-columns:minmax(0,1fr);gap:var(--s-4)}aside{position:static;padding-bottom:var(--s-3);border-bottom:1px solid var(--edge)}aside ol{grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr))}.identity{align-items:flex-start}.identity img{width:48px;height:48px}}
+</style>

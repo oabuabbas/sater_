@@ -27,8 +27,10 @@ const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
   "/behind-the-badge/privacy/", "/behind-the-badge/terms/", "/studio-chairman/",
   "/news/", "/news/studio-chairman-1-1-1/", "/news/studio-chairman-directors-cut/",
   "/news/topics/studio-chairman/", "/news/topics/apps/", "/news/khamen-1-7-0/", "/news/topics/khamen/", "/news/meet-khamoon/", "/news/studio-chairman-1-1-2/"];
-const EN_ONLY = /^\/(tam|khamen\/(privacy|terms)|zill|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
-const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)];
+ROUTES.push('/khamen/privacy/','/khamen/terms/','/zill/terms/','/privacy/','/terms/');
+const EN_ONLY = /^\/(privacy|terms|tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
+const largeText = process.argv.includes('--large-text');
+const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)].filter(r=>!largeText||/privacy|terms/.test(r)||r==='/ar/tools/'||r==='/news/');
 const WIDTHS = [375, 768, 1280];
 const CHANNELS = ["msedge", "chrome", "chromium"];
 
@@ -151,11 +153,15 @@ const browser = await launch();
 const page = await browser.newPage();
 
 let failures = 0;
+const THEMES = ['light','dark'];
+for (const theme of THEMES) {
+await page.emulateMedia({colorScheme:theme});
 for (const path of PAGES) {
   for (const width of WIDTHS) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(`http://localhost:${PORT}${path}`, { waitUntil: "load" });
     await page.evaluate(() => document.fonts.ready);
+    if(largeText)await page.evaluate(()=>document.documentElement.style.fontSize='200%');
     // Scroll the whole page first: below-the-fold art is lazy, and auditing
     // without this reports every unloaded image as broken.
     // Force every lazy image to fetch. Scrolling to trigger them is timing
@@ -177,7 +183,7 @@ for (const path of PAGES) {
       await Promise.all(imgs.map(settle));
     });
     const findings = await page.evaluate(audit);
-    const tag = `${path.padEnd(14)} @${String(width).padStart(4)}`;
+    const tag = `${theme} ${path.padEnd(14)} @${String(width).padStart(4)}`;
     if (findings.length === 0) {
       console.log(`  ok    ${tag}`);
     } else {
@@ -186,6 +192,7 @@ for (const path of PAGES) {
       for (const f of findings) console.log(`          ${f}`);
     }
   }
+}
 }
 
 await browser.close();

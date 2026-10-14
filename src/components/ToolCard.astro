@@ -9,7 +9,7 @@
 
 import { Image } from "astro:assets";
 import StatusBadge from "~/components/StatusBadge.astro";
-import { useTranslations, type UIKey } from "~/i18n/ui";
+import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
 import type { Locale, Product } from "~/data/products";
 
 interface Props {
@@ -26,7 +26,7 @@ const Tag = product.legacyPath ? "a" : "article";
 
 <Tag
   class="card"
-  href={product.legacyPath}
+  href={product.legacyPath ? localizePath(product.legacyPath, locale) : undefined}
   style={`--accent:${product.accent};--ground:${product.ground}`}
 >
   <span class:list={["art", product.art]}>

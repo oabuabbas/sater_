@@ -7,9 +7,10 @@ import type { Locale } from "~/data/products";
 interface Props {
   locale: Locale;
   path: string;
+  localized?: boolean;
 }
 
-const { locale, path } = Astro.props;
+const { locale, path, localized = true } = Astro.props;
 const t = useTranslations(locale);
 const other: Locale = locale === "en" ? "ar" : "en";
 const year = new Date().getFullYear();
@@ -20,12 +21,13 @@ const year = new Date().getFullYear();
     <Logo variant="mark" height={40} />
     <p class="line label">{t("footer.rights" as UIKey)}</p>
     <p class="line label tabular">{year}</p>
+    <nav class="social label" aria-label={locale==='ar'?'سياسات الموقع':'Website policies'}><a href="/privacy/">{locale==='ar'?'الخصوصية':'Privacy'}</a><a href="/terms/">{locale==='ar'?'الشروط':'Terms'}</a></nav>
     <nav class="social label" aria-label={t("studio.links.head" as UIKey)}>
       <a href={studioLinks.play} target="_blank" rel="noopener noreferrer">Play ↗</a>
       <a href={studioLinks.youtube} target="_blank" rel="noopener noreferrer">YouTube ↗</a>
       <a href={studioLinks.facebook} target="_blank" rel="noopener noreferrer">Facebook ↗</a>
     </nav>
-    <a class="line label lang" href={localizePath(path, other)} lang={other} hreflang={other}>
+    <a class="line label lang" href={localizePath(localized ? path : '/', other)} lang={other} hreflang={other}>
       {localeName[other]}
     </a>
   </div>

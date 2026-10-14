@@ -4,26 +4,17 @@ title: Privacy Policy — Behind The Badge
 description: "How Behind The Badge handles local saves and advertising data."
 path: /behind-the-badge/privacy
 effective: 6 September 2026
-updated: 6 September 2026
+updated: 14 October 2026
 applies_to: Behind The Badge (Android and web) — com.behindthebadge.game
 publisher: SATER
 contact: sater.studios@gmail.com
----
-
-# Privacy Policy — Behind The Badge
-
-**Effective date:** 6 September 2026
-**Applies to:** the mobile game *Behind The Badge* (Android package `com.behindthebadge.game`) and its web edition.
-**Published by:** SATER ("we", "us").
-**Contact:** `sater.studios@gmail.com`
-
 ---
 
 ## The short version
 
 Behind The Badge is a single-player football management game. It has **no accounts, no login, and no servers of ours**. Everything you do — your career, your club, your save files — is created on your device and stays on your device.
 
-The one exception is advertising. The game shows ads supplied by **Google AdMob**, and Google collects data to deliver them. That is the only way information about you leaves your phone, and it is described in full below.
+On Android, advertising is supplied by **Google AdMob**, which processes data as described below. Loading the web edition also sends normal network information such as IP addresses to its hosting provider. Support messages and device backups are separate from local gameplay.
 
 We do not use analytics, crash reporting, tracking pixels, or any advertising network other than AdMob.
 
@@ -31,7 +22,7 @@ We do not use analytics, crash reporting, tracking pixels, or any advertising ne
 
 ## 1. What the game itself collects
 
-**Nothing that reaches us.** We operate no servers and have no database. We cannot see your saves, your clubs, your managers, or anything else about how you play.
+We operate no game-save server. We cannot see your saves, clubs, managers or local gameplay records. Support correspondence is described in §11.
 
 The game stores the following **locally on your device only**:
 
@@ -40,7 +31,7 @@ The game stores the following **locally on your device only**:
 | Save files (your career, clubs, players, league history) | Android: the app's private data directory, via Capacitor Filesystem. Web: your browser's IndexedDB. | So you can continue a career. |
 | Settings (sound on/off, and similar preferences) | Local device storage. | So the game remembers your choices. |
 
-This data is never transmitted anywhere. Uninstalling the app (or clearing site data, in the web edition) deletes it permanently — see §7.
+The game does not upload these records to a SATER game server. Device backup settings may apply separately. Clearing local data can remove progress — see §7.
 
 ## 2. Permissions the app requests
 
@@ -79,7 +70,7 @@ We receive only aggregate, non-identifying earnings reports (for example, "this 
 
 ## 4. Consent, and how to change your mind
 
-If you are in the **European Economic Area, the United Kingdom, or Switzerland**, the game presents Google's official consent form (the Google UMP SDK) before ads are initialised, asking whether you agree to personalised advertising. You may refuse; the game continues to work, and you will see non-personalised ads instead.
+Where required, Google's UMP SDK manages advertising consent. Whether an ad can be requested depends on consent, region and provider configuration. Declining personalisation does not guarantee that a non-personalised ad will be available.
 
 You can change or withdraw that choice at any time by clearing the app's data, or via the consent options Google's form provides where available.
 
@@ -99,20 +90,20 @@ If you contact us at `sater.studios@gmail.com` we will assist as far as we are a
 
 ## 6. Your rights
 
-Because we hold no personal data about you, most data-subject rights (access, correction, portability, erasure) have nothing to act on at our end — there is simply no record of you to produce or delete.
+For local gameplay records, you exercise access and deletion on your device because SATER holds no copy. If you have sent us personal information in a support message, contact us to make a request about that correspondence.
 
 Where **Google** holds data associated with your advertising ID, you can exercise your rights directly with Google using the links in §3, and you can sever the connection at any time by deleting or resetting your advertising ID (§4).
 
-- **EEA / UK (GDPR, UK GDPR):** the lawful basis for personalised advertising is your **consent**, collected through the form described in §4. Non-personalised advertising, where shown, relies on our legitimate interest in funding the game. You may withdraw consent at any time.
-- **California (CCPA/CPRA):** we do not sell or share personal information as those terms are defined, because we do not collect any. Advertising data is collected by Google under its own policies.
+- **EEA / UK:** advertising processing and device-storage access may require consent, including for some non-personalised ads. Use the available privacy controls.
+- **California:** advertising processing may constitute sharing under applicable law. Use Google's privacy controls and Android advertising-ID settings, or contact us for help.
 
 You always have the right to lodge a complaint with your local data protection authority.
 
 ## 7. Keeping and deleting data
 
-We keep nothing, because we receive nothing. All game data lives on your device and is under your control:
+SATER holds no copy of your local game data. You control it on your device:
 
-- **Android:** uninstalling the app deletes all saves and settings permanently. There is no cloud backup and no copy held anywhere else.
+- **Android:** clearing app storage or uninstalling can delete saves. SATER holds no cloud copy; device backup or transfer settings may separately apply.
 - **Web edition:** clearing your browser's site data for the game deletes all saves.
 
 Please note that **deletion is irreversible** — your save is your only copy.
@@ -121,7 +112,7 @@ Google's retention of advertising data is governed by Google's policies.
 
 ## 8. Security
 
-Game data is stored in the app's private storage area, which the Android operating system isolates from other apps. Because we transmit no personal data, there is no transmission for an attacker to intercept.
+Android game data is stored in the app's private storage area. Web saves use browser storage. Advertising and hosting requests are separate network activity; no claim of perfect storage or transmission security is made.
 
 No method of storage is perfectly secure, and a device that is lost, shared, or compromised may expose data held on it.
 
@@ -135,6 +126,6 @@ If the game changes in a way that affects this policy — for example if analyti
 
 ## 11. Contact
 
-Questions about this policy, or about privacy in the game:
+Questions about this policy or privacy in the game. If you contact us, we receive your address and the information you include and use it to respond:
 
 **`sater.studios@gmail.com`**

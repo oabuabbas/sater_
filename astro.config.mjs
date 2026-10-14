@@ -45,7 +45,7 @@ function legacyLegalUrls() {
   const docs = [
     ["tam", "privacy"], ["tam", "terms"],
     ["khamen", "privacy"], ["khamen", "terms"],
-    ["zill", "privacy"],
+    ["zill", "privacy"], ["zill", "terms"],
     ["studio-chairman", "privacy"], ["studio-chairman", "terms"],
     ["behind-the-badge", "privacy"], ["behind-the-badge", "terms"],
   ];

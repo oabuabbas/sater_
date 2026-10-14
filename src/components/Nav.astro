@@ -8,9 +8,10 @@ interface Props {
   locale: Locale;
   /** Unprefixed path of the current page. */
   path: string;
+  localized?: boolean;
 }
 
-const { locale, path } = Astro.props;
+const { locale, path, localized = true } = Astro.props;
 const t = useTranslations(locale);
 const other: Locale = locale === "en" ? "ar" : "en";
 const normalise = (p: string) => (p === "/" ? "/" : p.replace(/\/$/, ""));
@@ -41,7 +42,7 @@ const current = normalise(path);
     </nav>
 
     <div class="tail">
-      <a class="lang label" href={localizePath(path, other)} lang={other} hreflang={other}>
+      <a class="lang label" href={localizePath(localized ? path : '/', other)} lang={other} hreflang={other}>
         <span class="visually-hidden">{t("footer.lang" as UIKey)}: </span>{localeName[other]}
       </a>
       <ThemeToggle label={t("theme.toggle" as UIKey)} />

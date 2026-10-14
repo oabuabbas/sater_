@@ -98,11 +98,11 @@ const desc = description ?? t("site.description" as UIKey);
 
   <body>
     <a class="skip-link" href="#main">{t("nav.skip" as UIKey)}</a>
-    <Nav locale={locale} path={path} />
+    <Nav locale={locale} path={path} localized={localized} />
     <main id="main">
       <slot />
     </main>
-    <Footer locale={locale} path={path} />
+    <Footer locale={locale} path={path} localized={localized} />
     <ScribeMotion />
   </body>
 </html>

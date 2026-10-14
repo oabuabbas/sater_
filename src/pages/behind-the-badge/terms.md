@@ -4,19 +4,10 @@ title: Terms of Service — Behind The Badge
 description: "Terms for playing Behind The Badge on Android and the web."
 path: /behind-the-badge/terms
 effective: 6 September 2026
-updated: 6 September 2026
+updated: 14 October 2026
 applies_to: Behind The Badge (Android and web) — com.behindthebadge.game
 publisher: SATER
 contact: sater.studios@gmail.com
----
-
-# Terms of Service — Behind The Badge
-
-**Effective date:** 6 September 2026
-**Applies to:** the mobile game *Behind The Badge* (Android package `com.behindthebadge.game`) and its web edition.
-**Published by:** SATER ("we", "us").
-**Contact:** `sater.studios@gmail.com`
-
 ---
 
 ## 1. Agreement
@@ -35,7 +26,7 @@ This is a licence, not a sale. We retain all rights in the Game that are not exp
 
 Behind The Badge is an **offline, single-player** football management simulation. It has no accounts, no login, no multiplayer, and no online services operated by us. Everything happens on your device.
 
-You are responsible for the device, the operating system, and any data or connection charges incurred while using the Game — in practice, only ad loading uses your connection.
+You are responsible for your device and connection charges. Android advertising and loading the web edition may use your connection.
 
 ## 4. Everything in the Game is fictional
 
@@ -60,7 +51,7 @@ We do not control the content of third-party ads and are not responsible for it.
 
 ## 6. Your save data
 
-**Your save is stored only on your device.** There is no cloud backup and we hold no copy.
+**Your save is stored locally.** SATER offers no cloud-save service and holds no copy. Device backup or transfer settings may separately apply.
 
 This means your career can be lost permanently if you uninstall the Game, clear its data, lose or reset your device, or if the storage becomes corrupted. **We cannot recover a lost save**, because we have never had it.
 
