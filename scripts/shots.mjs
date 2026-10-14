@@ -16,7 +16,10 @@ const PORT = 4398;
 
 const newsReview = process.argv.includes("--news");
 const legalReview = process.argv.includes('--legal');
-const TARGETS = legalReview ? [
+const badgeReview = process.argv.includes('--badge');
+const TARGETS = badgeReview ? [
+  {path:'/behind-the-badge/',name:'en-badge'}, {path:'/ar/behind-the-badge/',name:'ar-badge'},
+] : legalReview ? [
   {path:'/tam/privacy/',name:'tam-privacy'}, {path:'/khamen/privacy/',name:'khamen-privacy'},
   {path:'/zill/privacy/',name:'zill-privacy'}, {path:'/zill/terms/',name:'zill-terms'},
   {path:'/studio-chairman/terms/',name:'chairman-terms'}, {path:'/behind-the-badge/privacy/',name:'btb-privacy'},
@@ -36,7 +39,7 @@ const TARGETS = legalReview ? [
   { path: "/ar/", name: "ar-home" },
   { path: "/ar/play/", name: "ar-play" },
 ];
-const WIDTHS = newsReview || legalReview ? [375, 1280] : [1280];
+const WIDTHS = newsReview || legalReview || badgeReview ? [375, 1280] : [1280];
 
 const MIME = {
   ".html": "text/html; charset=utf-8",

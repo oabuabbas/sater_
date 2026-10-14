@@ -30,7 +30,10 @@ const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
 ROUTES.push('/khamen/privacy/','/khamen/terms/','/zill/terms/','/privacy/','/terms/');
 const EN_ONLY = /^\/(privacy|terms|tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
 const largeText = process.argv.includes('--large-text');
-const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)].filter(r=>!largeText||/privacy|terms/.test(r)||r==='/ar/tools/'||r==='/news/');
+const badgeReview = process.argv.includes('--badge');
+const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)]
+  .filter(r => !badgeReview || /behind-the-badge|^\/(ar\/)?play\/$/.test(r))
+  .filter(r => !largeText || badgeReview || /privacy|terms/.test(r) || r === '/ar/tools/' || r === '/news/');
 const WIDTHS = [375, 768, 1280];
 const CHANNELS = ["msedge", "chrome", "chromium"];
 

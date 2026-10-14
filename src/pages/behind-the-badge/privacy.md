@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/LegalMarkdown.astro
 title: Privacy Policy — Behind The Badge
-description: "How Behind The Badge handles local saves and advertising data."
+description: "How Behind The Badge handles local saves, Android ads and optional Google Play purchases."
 path: /behind-the-badge/privacy
 effective: 6 September 2026
 updated: 14 October 2026
@@ -28,8 +28,9 @@ The game stores the following **locally on your device only**:
 
 | What | Where | Why |
 |---|---|---|
-| Save files (your career, clubs, players, league history) | Android: the app's private data directory, via Capacitor Filesystem. Web: your browser's IndexedDB. | So you can continue a career. |
+| Save files (your career, club, generated players, league history and manager profile, including any name, age or appearance you enter) | Android: the app's private data directory, via Capacitor Filesystem. Web: your browser's IndexedDB. | Three manual save slots and autosave let you continue a career. |
 | Settings (sound on/off, and similar preferences) | Local device storage. | So the game remembers your choices. |
+| Achievements, cosmetic unlocks, ad-frequency counts, ad-free reward progress and ad-removal entitlement | Local device or browser storage, as applicable. | To remember achievements, rewards and whether automatic ads should be shown. |
 
 The game does not upload these records to a SATER game server. Device backup settings may apply separately. Clearing local data can remove progress — see §7.
 
@@ -37,7 +38,7 @@ The game does not upload these records to a SATER game server. Device backup set
 
 The app declares one permission of its own:
 
-- **`INTERNET`** — required solely to load ads.
+- **`INTERNET`** — used for Android advertising and Google Play purchase services, not to upload career saves to SATER.
 
 The Google Mobile Ads SDK additionally declares **`com.google.android.gms.permission.AD_ID`** and **`android.permission.ACCESS_ADSERVICES_AD_ID`**, which allow it to read your device's advertising identifier.
 
@@ -45,12 +46,13 @@ The game requests **no** access to your location, contacts, camera, microphone, 
 
 ## 3. Advertising, and what Google collects
 
-The game shows two kinds of ad:
+The Android edition supports these advertising formats:
 
-- **Rewarded ads**, which you choose to watch in exchange for cosmetic club-crest designs.
-- **Interstitial ads**, shown occasionally between screens. They are suppressed for the whole of a live match.
+- **Rewarded ads**, which you choose for cosmetic club-crest designs, or three completed rewards for an hour without ads through the ad-free-hour option.
+- **Interstitial video ads**, which may appear after awards ceremonies, at most twice per season, never during a live match.
+- **Banner ads**, inside the sponsor board on supported screens.
 
-There are no other ads, no banner ads, and no ads inside matches.
+The web edition has no AdMob ads. Fictional sponsor artwork is part of the simulation, not a third-party advertising request. The optional Android ad-removal purchase disables automatic interstitial and banner ads; rewarded videos remain voluntary.
 
 Ads are served by **Google AdMob**. When an ad is requested or shown, Google may collect and process:
 
@@ -64,9 +66,15 @@ Google acts as an independent controller of this data. What it does with it is g
 - Google Privacy Policy — https://policies.google.com/privacy
 - How Google uses information from sites or apps that use its services — https://policies.google.com/technologies/partner-sites
 
-We receive only aggregate, non-identifying earnings reports (for example, "this many ads were shown"). We never receive your advertising ID, your IP address, or any information that identifies you.
+AdMob provides reporting on advertising activity and earnings. The game does not send advertising identifiers or IP addresses to a SATER game-save server. Google processes advertising information separately; support correspondence and store purchase records are distinct from advertising reports.
 
-**We make no in-app purchases available.** The game contains no payment mechanism, and we never collect payment details.
+## 3a. Optional Google Play purchase
+
+On Android, the game supports a one-time, non-consumable **ad-removal** purchase through Google Play, where the store product is available. The web edition has no purchases.
+
+Google Play and the billing plugin process product, transaction and ownership information to complete or restore the purchase. The game remembers the ad-removal entitlement locally. We do not operate a purchase-validation server or receive your card or bank details through the game. Google retains payment and purchase records under its own policies and may make order information available to the developer for administration and support.
+
+Restoring a purchase uses the relevant Google Play account; it does not upload or restore your career saves. If you send us an order number or receipt for support, we receive that information as part of your correspondence (§11). See [Google's Privacy Policy](https://policies.google.com/privacy) for Google's processing.
 
 ## 4. Consent, and how to change your mind
 
@@ -84,9 +92,9 @@ Deleting the advertising ID stops apps, including this one, from receiving it.
 
 Behind The Badge is a football management simulation intended for a **general audience**. It is **not directed at children under 13** (or the equivalent minimum age in your country), and we do not knowingly collect personal information from children.
 
-The game asks for no name, age, email address, or any other personal detail, so we hold nothing to identify a child by. If you are a parent or guardian and believe a child has been shown advertising you did not consent to, you can delete or reset the advertising ID as described in §4, or uninstall the app, which removes all local data.
+The local manager-creation screen allows a name, age and appearance for the fictional character. These are saved on the device, not sent to SATER, and the character's age is not verification of the player's age. There is no game-account registration or email requirement. If you are a parent or guardian concerned about advertising, use the controls in §4 or remove the app and its local data; device backups may need separate attention.
 
-If you contact us at `sater.studios@gmail.com` we will assist as far as we are able — noting that, because we hold no data, there is no account for us to delete.
+If you contact us at `sater.studios@gmail.com`, we will assist as far as we are able. There is no game account for us to delete; any personal information in support correspondence is handled separately.
 
 ## 6. Your rights
 
@@ -108,7 +116,7 @@ SATER holds no copy of your local game data. You control it on your device:
 
 Please note that **deletion is irreversible** — your save is your only copy.
 
-Google's retention of advertising data is governed by Google's policies.
+Google's retention of advertising and purchase records is governed by its policies and legal obligations. Removing local game data does not delete those records or cancel an owned Google Play purchase.
 
 ## 8. Security
 
@@ -118,11 +126,11 @@ No method of storage is perfectly secure, and a device that is lost, shared, or 
 
 ## 9. International transfers
 
-We transfer nothing. Google may process advertising data on servers outside your country, including in the United States, under the safeguards described in Google's privacy policy.
+The game does not transfer local career saves to SATER. Advertising, purchases, web hosting and support services may process their respective information outside your country, under the safeguards described in their providers' policies and applicable law.
 
 ## 10. Changes to this policy
 
-If the game changes in a way that affects this policy — for example if analytics, cloud saves, or purchases are ever added — we will update this document and change the effective date at the top. Material changes will be announced in the app or on the store listing. Continuing to use the game after a change means you accept the updated policy.
+If the game's data practices change — for example if analytics or SATER cloud saves are added — we will update this document and its review date. Material changes will be announced in the app, on the website or on the store listing as appropriate. Where required, new consent will be requested; this notice does not replace consent.
 
 ## 11. Contact
 

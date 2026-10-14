@@ -165,6 +165,12 @@ export interface GameDetail {
   rolesHead: Record<Locale, string>;
   rolesNote: Record<Locale, string>;
   roles: GameDetailItem[];
+  careerHead: Record<Locale, string>;
+  careerNote: Record<Locale, string>;
+  career: GameDetailItem[];
+  gameplayHead: Record<Locale, string>;
+  gameplayNote: Record<Locale, string>;
+  gameplay: GameDetailItem[];
   worldHead: Record<Locale, string>;
   worldNote: Record<Locale, string>;
   facts: GameDetailItem[];
@@ -198,12 +204,12 @@ export const games: Game[] = [
     slug: "behind-the-badge",
     name: "Behind The Badge",
     tagline: {
-      en: "Football management, season after season.",
-      ar: "إدارة نادي كرة قدم، موسماً بعد موسم.",
+      en: "From the club boardroom to the top of world football.",
+      ar: "من رئاسة النادي إلى قيادة عالم كرة القدم.",
     },
     blurb: {
-      en: "President, sporting director and head coach at once. A live match engine, a transfer market with its own opinions, and a youth academy that outlives you.",
-      ar: "رئيساً ومديراً رياضياً ومدرباً في آنٍ واحد. محرّك مباريات حيّ، وسوق انتقالات له رأيه، وأكاديمية شباب تبقى بعدك.",
+      en: "Be the club president: appoint the coach, negotiate transfers, build the stadium and face the fans. Earn your way into league, national, continental and international leadership.",
+      ar: "كن رئيس النادي: عيّن المدرب، وفاوض في الانتقالات، وابنِ الملعب، وواجه الجماهير. ثم شقّ طريقك إلى رئاسة الرابطة والاتحادات الوطنية والقارية والهيئة الدولية.",
     },
     status: "build",
     accent: "#E8CE72",
@@ -219,72 +225,97 @@ export const games: Game[] = [
 
 export const behindTheBadgeDetail: GameDetail = {
   eyebrow: {
-    en: "A single-player football management simulation",
-    ar: "محاكاة فردية لإدارة كرة القدم",
+    en: "An offline, single-player football presidency simulation",
+    ar: "محاكاة فردية لرئاسة كرة القدم، تعمل دون اتصال",
   },
   statement: {
-    en: "The badge is yours. Every decision behind it is too.",
-    ar: "الشعار لك. وكل قرار خلفه مسؤوليتك أيضاً.",
+    en: "Start behind one badge. Shape the whole game.",
+    ar: "ابدأ خلف شعار واحد. واصنع مستقبل اللعبة كلها.",
   },
-  rolesHead: { en: "Three desks. One badge.", ar: "ثلاثة مكاتب. شعار واحد." },
+  rolesHead: { en: "One presidency. Three ways to hold it.", ar: "رئاسة واحدة. ثلاث طرق للوصول إليها." },
   rolesNote: {
-    en: "Build the institution, shape the squad, then live with what happens on the pitch.",
-    ar: "ابنِ المؤسسة، وشكّل الفريق، ثم تحمّل ما يحدث على أرض الملعب.",
+    en: "Appoint a coach with a personality of their own, build the institution and answer for its future. How you hold office decides who can remove you.",
+    ar: "تعيّن مدرباً له شخصيته ورأيه، وتبني المؤسسة وتتحمّل مسؤولية مستقبلها. طريقة تولّيك الرئاسة تحدّد من يحاسبك وكيف تنتهي ولايتك.",
   },
   roles: [
     {
       code: "01",
-      title: { en: "President", ar: "الرئيس" },
+      title: { en: "Appointed president", ar: "رئيس معيَّن" },
       body: {
-        en: "Set the direction, protect the finances and decide what kind of club will remain after you.",
-        ar: "حدّد الاتجاه، واحمِ المال، وقرّر أي نوع من الأندية سيبقى بعدك.",
+        en: "Answer to the owner and board. Results, finances and trust decide whether you keep the job or are dismissed.",
+        ar: "تحاسبك جهة الملكية ومجلس الإدارة. النتائج والمال والثقة تحدّد بقاءك في المنصب أو إقالتك.",
       },
     },
     {
       code: "02",
-      title: { en: "Sporting director", ar: "المدير الرياضي" },
+      title: { en: "Elected president", ar: "رئيس منتخَب" },
       body: {
-        en: "Read the market, recruit with intent and build a squad whose pieces belong together.",
-        ar: "اقرأ السوق، وتعاقد بقصد، وابنِ فريقاً تتكامل قطعه معاً.",
+        en: "Lead a member-owned club. Campaign promises, rivals and confidence votes make the ballot as important as the table.",
+        ar: "تقود نادياً يملكه أعضاؤه. الوعود الانتخابية والمنافسون وسحب الثقة تجعل صندوق الاقتراع مهماً مثل جدول الدوري.",
       },
     },
     {
       code: "03",
-      title: { en: "Head coach", ar: "المدرب" },
+      title: { en: "Owner-president", ar: "رئيس مالك" },
       body: {
-        en: "Choose the shape, react to a live match and turn a plan into ninety minutes of consequences.",
-        ar: "اختر الشكل، وتفاعل مع المباراة الحية، وحوّل الخطة إلى تسعين دقيقة من العواقب.",
+        en: "Buy the club and take responsibility for its survival. Bankruptcy can end your tenure; an heir may carry on the family dynasty.",
+        ar: "اشترِ النادي وتحمّل مسؤولية بقائه. الإفلاس قد ينهي رئاستك، وقد يواصل ابنك أو ابنتك المسيرة عبر الأجيال.",
       },
     },
   ],
+  careerHead: { en: "Five offices. A bigger responsibility at each.", ar: "خمسة مناصب. ومسؤولية تكبر مع كل خطوة." },
+  careerNote: {
+    en: "Progress through elections, not automatic promotions. Hold one office at a time: taking a league presidency means leaving your club. Proposals need votes, and conflicts of interest have consequences.",
+    ar: "تتقدّم عبر الانتخابات، لا بترقيات تلقائية. تشغل منصباً واحداً في كل مرة: رئاسة الرابطة تعني ترك ناديك. القرارات تحتاج أصواتاً، وتضارب المصالح له عواقبه.",
+  },
+  career: [
+    { code: "01", title: { en: "Club president", ar: "رئيس النادي" }, body: { en: "Build the institution, appoint the coach and balance ambition against money and supporter trust.", ar: "ابنِ المؤسسة، وعيّن المدرب، ووازن الطموح مع المال وثقة الجماهير." } },
+    { code: "02", title: { en: "League president", ar: "رئيس الرابطة" }, body: { en: "Seek the clubs' votes on prize money, relegation places, wage caps and club licensing.", ar: "اطلب أصوات الأندية بشأن جوائز الدوري وعدد الهابطين وسقف الرواتب وتراخيص الأندية." } },
+    { code: "03", title: { en: "National federation president", ar: "رئيس الاتحاد الوطني" }, body: { en: "Shape refereeing and sanctions, support lower divisions and appoint the national-team coach.", ar: "طوّر التحكيم والعقوبات، وادعم الدرجات الدنيا، وعيّن مدرب المنتخب." } },
+    { code: "04", title: { en: "Continental federation president", ar: "رئيس الاتحاد القاري" }, body: { en: "Put continental places, financial rules and tournament hosting before the member federations.", ar: "اعرض توزيع المقاعد القارية والقواعد المالية واستضافة البطولات على الاتحادات الأعضاء." } },
+    { code: "05", title: { en: "International governing-body president", ar: "رئيس الهيئة الدولية" }, body: { en: "Face 48 federations over international windows, solidarity payments, grants and world tournaments.", ar: "واجه 48 اتحاداً في قرارات فترات التوقف الدولي والتضامن والمنح والبطولات العالمية." } },
+  ],
+  gameplayHead: { en: "A club is more than its starting eleven.", ar: "النادي أكبر من تشكيلته الأساسية." },
+  gameplayNote: {
+    en: "Interconnected systems create the story: every club develops, trades, borrows and changes its coach, not just yours.",
+    ar: "الأنظمة المتشابكة تصنع القصة: كل نادٍ يتطوّر ويتعاقد ويستدين ويغيّر مدربه، لا ناديك وحده.",
+  },
+  gameplay: [
+    { code: "SQUAD", title: { en: "A coach with their own opinion", ar: "مدرب له رأيه" }, body: { en: "Work with 15 formations, player roles and set pieces. Your coach can accept an instruction, refuse it or take the dispute to the press.", ar: "15 خطة وأدوار للاعبين وكرات ثابتة. قد يقبل المدرب تعليماتك، أو يرفضها، أو ينقل الخلاف إلى الصحافة." } },
+    { code: "MARKET", title: { en: "Negotiate through uncertainty", ar: "فاوض وسط معلومات ناقصة" }, body: { en: "Scouting takes weeks. Negotiate fees, wages, agents' commissions, release clauses and loans inside transfer windows.", ar: "الكشف يستغرق أسابيع. فاوض على الأسعار والرواتب وعمولات الوكلاء والشروط الجزائية والإعارات ضمن نوافذ الانتقالات." } },
+    { code: "CLUB", title: { en: "Build beyond the pitch", ar: "ابنِ ما وراء الملعب" }, body: { en: "Manage debt, financial rules, sponsors and ticket prices. Expand a stadium or build a new one, develop the academy and invest in a museum and club businesses.", ar: "أدِر الديون والقواعد المالية والرعاة وأسعار التذاكر. وسّع الملعب أو ابنِ جديداً، وطوّر الأكاديمية، واستثمر في المتحف وأعمال النادي." } },
+    { code: "MATCH", title: { en: "Watch from the directors' box", ar: "شاهد من المقصورة" }, body: { en: "The coach leads a live 2D match with text commentary, goal replays, VAR and other grounds' scores. Choose results only when you prefer a quicker week.", ar: "يقود المدرب مباراة حية ثنائية الأبعاد، بتعليق نصي وإعادة الأهداف وحكم الفيديو ونتائج الملاعب الأخرى. اختر النتيجة فقط حين تريد أسبوعاً أسرع." } },
+    { code: "PRESS", title: { en: "Trust is part of the job", ar: "الثقة جزء من الوظيفة" }, body: { en: "Face supporters, three newspapers per club, interviews, election rivals, leaks and legal disputes. Your choices carry reputational and political costs.", ar: "واجه الجماهير وثلاث صحف لكل نادٍ والمقابلات والمنافسين الانتخابيين والتسريبات والنزاعات القضائية. قراراتك لها ثمن إعلامي وسياسي." } },
+    { code: "LEGACY", title: { en: "A career with a memory", ar: "مسيرة لها ذاكرة" }, body: { en: "Family life, club records and annual awards follow you across seasons. Keep three save slots plus autosave, and earn 35 on-device achievements.", ar: "حياة العائلة وسجل النادي والجوائز السنوية ترافقك عبر المواسم. ثلاث خانات حفظ إضافة إلى الحفظ التلقائي، و35 إنجازاً على جهازك." } },
+  ],
   worldHead: { en: "A world that belongs to the save.", ar: "عالم ينتمي إلى ملف الحفظ." },
   worldNote: {
-    en: "No borrowed clubs, famous names or scripted history. The football world is fictional, procedural and stored on your device.",
-    ar: "لا أندية مستعارة ولا أسماء شهيرة ولا تاريخ مكتوب مسبقاً. عالم كرة القدم خيالي، إجرائي، ومحفوظ على جهازك.",
+    en: "Real countries and cities, fictional club identities and procedurally generated people. Pick the world's size at the start; the same seed recreates the same starting world.",
+    ar: "دول ومدن حقيقية، وهويات أندية خيالية وشخصيات مولّدة إجرائياً. اختر حجم العالم عند البداية؛ والبذرة نفسها تعيد إنشاء عالم البداية نفسه.",
   },
   facts: [
     {
       code: "OFFLINE",
       title: { en: "Your career stays with you", ar: "مسيرتك تبقى لديك" },
       body: {
-        en: "No account and no cloud save. Your club, players and history live locally on your device.",
-        ar: "لا حساب ولا حفظ سحابي. ناديك ولاعبوك وتاريخك يعيشون محلياً على جهازك.",
+        en: "Single-player gameplay works offline, with no game account or SATER cloud save. Android ads and purchases require a connection; the web edition is a PWA.",
+        ar: "اللعب الفردي يعمل دون اتصال، بلا حساب لعبة أو حفظ سحابي لدى SATER. إعلانات أندرويد ومشترياته تحتاج اتصالاً؛ ونسخة الويب تطبيق PWA.",
       },
     },
     {
-      code: "FICTIONAL",
-      title: { en: "Every identity is its own", ar: "كل هوية مستقلة" },
+      code: "48 / 26",
+      title: { en: "Choose your football world", ar: "اختر عالمك الكروي" },
       body: {
-        en: "Clubs, players, competitions, crests and kits are fictional and generated for this world.",
-        ar: "الأندية واللاعبون والمسابقات والشعارات والأطقم خيالية ومولّدة لهذا العالم.",
+        en: "48 countries and 26 leagues in the full world, with hundreds of clubs. Start focused with 8 leagues, choose 16 major leagues, or simulate all 26.",
+        ar: "48 دولة و26 دورياً في العالم الكامل، مع مئات الأندية. ابدأ بعالم مركّز من 8 دوريات، أو 16 من الدوريات الكبرى، أو حاكِ الدوريات الـ26 كلها.",
       },
     },
     {
-      code: "COMPLETE",
-      title: { en: "Football, not a storefront", ar: "كرة قدم، لا متجر" },
+      code: "FAIR PLAY",
+      title: { en: "No paid simulation advantage", ar: "لا أفضلية مدفوعة في المحاكاة" },
       body: {
-        en: "There are no in-app purchases. Optional rewarded ads unlock cosmetic crest designs only.",
-        ar: "لا مشتريات داخل اللعبة. الإعلانات الاختيارية تفتح تصاميم تجميلية للشعار فقط.",
+        en: "Android offers optional one-time ad removal through Google Play, subject to store availability. Rewarded ads unlock crest designs or an ad-free hour after three completed rewards. Neither money nor ads buy transfer funds or stronger players; the web edition has no ads or purchases.",
+        ar: "تتيح نسخة أندرويد إزالة الإعلانات بشراء اختياري لمرة واحدة عبر Google Play، بحسب توفره في المتجر. تفتح الإعلانات الاختيارية تصاميم شعارات أو ساعة بلا إعلانات بعد ثلاث مكافآت مكتملة. لا المال ولا الإعلانات يشتريان ميزانية انتقالات أو لاعبين أقوى؛ ونسخة الويب بلا إعلانات أو مشتريات.",
       },
     },
   ],
