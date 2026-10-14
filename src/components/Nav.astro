@@ -33,7 +33,7 @@ const current = normalise(path);
                 href={localizePath(item.path, locale)}
                 aria-current={normalise(item.path) === current || (item.path === '/news' && current.startsWith('/news/')) ? "page" : undefined}
               >
-                {t(item.key)}
+                {item.path === '/sater-apps' ? 'SATER Apps' : item.path === '/sater-games' ? 'SATER Games' : t(item.key)}
               </a>
             </li>
           ))

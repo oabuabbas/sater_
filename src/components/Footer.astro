@@ -21,6 +21,10 @@ const year = new Date().getFullYear();
     <Logo variant="mark" height={40} />
     <p class="line label">{t("footer.rights" as UIKey)}</p>
     <p class="line label tabular">{year}</p>
+    <nav class="social label" aria-label={locale==='ar'?'منتجات سطر':'SATER products'}>
+      <a href={localizePath('/sater-apps',locale)}>SATER Apps</a>
+      <a href={localizePath('/sater-games',locale)}>SATER Games</a>
+    </nav>
     <nav class="social label" aria-label={locale==='ar'?'سياسات الموقع':'Website policies'}><a href="/privacy/">{locale==='ar'?'الخصوصية':'Privacy'}</a><a href="/terms/">{locale==='ar'?'الشروط':'Terms'}</a></nav>
     <nav class="social label" aria-label={t("studio.links.head" as UIKey)}>
       <a href={studioLinks.play} target="_blank" rel="noopener noreferrer">Play ↗</a>

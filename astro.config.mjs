@@ -24,8 +24,8 @@ export default defineConfig({
         defaultLocale: "en",
         locales: { en: "en", ar: "ar" },
       },
-      // Legal documents stay out of search results; the product pages do not.
-      filter: (page) => !/(privacy|terms)(?:\.html)?\/?$/.test(page),
+      // Prioritise discovery pages in the sitemap; policy pages remain crawlable.
+      filter: (page) => !/(privacy|terms)(?:\.html)?\/?$/.test(page) && !/\/404(?:\.html)?\/?$/.test(page),
     }),
   ],
 

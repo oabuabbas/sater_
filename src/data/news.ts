@@ -173,7 +173,7 @@ export const topics = [
   ...[...tools, ...games].map(p => ({ slug: p.slug, title: { ar: p.name, en: p.name } })),
 ];
 export function newsFor(topic?: string) {
-  return news.filter(n => !topic || (topic === 'studio' ? !n.product : topic === 'games' ? [...games.map(p => p.slug), 'khamen'].includes(n.product ?? '') : topic === 'apps' ? tools.some(p => p.slug !== 'khamen' && p.slug === n.product) : n.product === topic)).sort((a, b) => b.date.localeCompare(a.date));
+  return news.filter(n => !topic || (topic === 'studio' ? !n.product : topic === 'games' ? [...games.map(p => p.slug), 'khamen'].includes(n.product ?? '') : topic === 'apps' ? tools.some(p => p.slug === n.product) : n.product === topic)).sort((a, b) => b.date.localeCompare(a.date));
 }
 export function newsDate(date: string, locale: Locale) {
   return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-JO' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T12:00:00Z`));

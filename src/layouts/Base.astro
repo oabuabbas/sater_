@@ -5,7 +5,8 @@ import Nav from "~/components/Nav.astro";
 import Footer from "~/components/Footer.astro";
 import ScribeMotion from "~/components/ScribeMotion.astro";
 import { dir, useTranslations, localizePath, type UIKey } from "~/i18n/ui";
-import type { Locale } from "~/data/products";
+import { tools, games, studioLinks, type Locale } from "~/data/products";
+import { seoPages, productDiscovery } from "~/data/discovery";
 
 interface Props {
   locale: Locale;
@@ -16,9 +17,10 @@ interface Props {
   path: string;
   /** False for English-only legal/product pages that have no Arabic twin. */
   localized?: boolean;
+  structuredData?: Record<string, unknown>[];
 }
 
-const { locale, title, description, path, localized = true } = Astro.props;
+const { locale, title, description, path, localized = true, structuredData = [] } = Astro.props;
 const t = useTranslations(locale);
 
 const site = Astro.site ?? new URL("https://thesater.com");
@@ -27,9 +29,36 @@ const canonical = new URL(localizePath(path, locale), site);
 // The old site wrote these as Markdown links inside href attributes, so the
 // fonts never loaded and every shared link rendered without an image. Absolute
 // URLs, built from Astro.site, are the fix.
-const ogImage = new URL("/cover.png", site);
-const pageTitle = `${t("site.name" as UIKey)} — ${title}`;
-const desc = description ?? t("site.description" as UIKey);
+const cleanPath = path.replace(/\/$/, '') || '/';
+const product = [...tools, ...games].find(p => cleanPath === `/${p.slug}`);
+const seo = seoPages[cleanPath];
+const heading = seo?.title[locale] ?? (product ? `${product.name} — ${productDiscovery[product.slug].purpose[locale]}` : title);
+const ogImage = new URL(product?.feature?.src ?? '/cover.png', site);
+const pageTitle = /^SATER\b/.test(heading) ? heading : `${heading} | SATER`;
+const desc = description ?? seo?.description[locale] ?? (product ? productDiscovery[product.slug].body[locale] : t("site.description" as UIKey));
+const websiteId = new URL('/#website', site).href;
+const studioId = new URL('/#studio', site).href;
+const graph: Record<string, unknown>[] = [
+  { '@type': 'Organization', '@id': studioId, name: 'SATER', alternateName: 'سطر', url: site.href,
+    logo: new URL('/favicon.png', site).href, sameAs: Object.values(studioLinks) },
+  { '@type': 'WebSite', '@id': websiteId, name: 'SATER', alternateName: 'سطر', url: site.href,
+    inLanguage: ['en', 'ar'], publisher: { '@id': studioId } },
+  { '@type': 'WebPage', '@id': canonical.href + '#page', url: canonical.href,
+    name: pageTitle, description: desc, inLanguage: locale, isPartOf: { '@id': websiteId },
+    ...(product ? { mainEntity: { '@id': canonical.href + '#app' } } : {}) },
+  ...(product ? [{ '@type': 'SoftwareApplication', '@id': canonical.href + '#app',
+    name: product.name, url: canonical.href, description: desc,
+    applicationCategory: productDiscovery[product.slug].category,
+    publisher: { '@id': studioId }, image: new URL(product.icon.src, site).href,
+    ...(product.storeUrl ? { operatingSystem: 'Android', installUrl: product.storeUrl } : {}) }] : []),
+  ...structuredData,
+];
+// Extensions enrich the same page entity rather than defining conflicting copies.
+const entities = new Map<string, Record<string, unknown>>();
+for (const node of graph) {
+  const id = String(node['@id'] ?? `node-${entities.size}`);
+  entities.set(id, { ...entities.get(id), ...node });
+}
 ---
 
 <!doctype html>
@@ -50,6 +79,8 @@ const desc = description ?? t("site.description" as UIKey);
     <title>{pageTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical.href} />
+    {cleanPath === '/404' && <meta name="robots" content="noindex, follow" />}
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': [...entities.values()] }).replaceAll('<', '\\u003c')} />
 
     {
       localized && (

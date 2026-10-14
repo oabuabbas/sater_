@@ -11,8 +11,16 @@ const { locale, article } = Astro.props;
 const copy = newsCopy[locale];
 const product = [...games, ...tools].find(p => p.slug === article.product);
 const related = newsFor(article.product).filter(n => n.slug !== article.slug).slice(0, 2);
+const articleUrl = new URL(localizePath(`/news/${article.slug}`,locale),Astro.site!).href;
+const structuredArticle = {
+  '@type':'NewsArticle','@id':articleUrl+'#article',headline:article.title[locale],
+  description:article.summary[locale],datePublished:article.date,inLanguage:locale,
+  image:new URL(article.illustration.src,Astro.site!).href,
+  author:{'@type':'Organization',name:'SATER',url:Astro.site!.href},
+  publisher:{'@id':new URL('/#studio',Astro.site!).href},mainEntityOfPage:{'@id':articleUrl+'#page'},
+};
 ---
-<Base locale={locale} title={article.title[locale]} description={article.summary[locale]} path={`/news/${article.slug}`}>
+<Base locale={locale} title={article.title[locale]} description={article.summary[locale]} path={`/news/${article.slug}`} structuredData={[structuredArticle]}>
   <Band tone="raised">
     <header class="article-head">
       <div>

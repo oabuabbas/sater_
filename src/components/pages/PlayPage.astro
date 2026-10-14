@@ -3,7 +3,7 @@ import Band from "~/components/Band.astro";
 import PageHead from "~/components/PageHead.astro";
 import GameFeature from "~/components/GameFeature.astro";
 import { games, type Locale } from "~/data/products";
-import { useTranslations, type UIKey } from "~/i18n/ui";
+import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
 
 interface Props {
   locale: Locale;
@@ -16,5 +16,6 @@ const t = useTranslations(locale);
 <PageHead title={t("play.title" as UIKey)} lede={t("play.lede" as UIKey)} />
 
 <Band tone="raised">
+  <p style="margin-bottom:var(--s-4);text-decoration:underline;text-underline-offset:.25em"><a href={localizePath('/sater-games',locale)}>{locale==='ar'?'دليل ألعاب سطر — SATER Games':'Explore the SATER Games guide'}</a></p>
   {games.map((game) => <GameFeature game={game} locale={locale} />)}
 </Band>

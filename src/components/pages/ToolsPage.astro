@@ -4,7 +4,7 @@ import Band from "~/components/Band.astro";
 import PageHead from "~/components/PageHead.astro";
 import ProductLine, { type ProductLineItem } from "~/components/ProductLine.astro";
 import { tools, type Locale } from "~/data/products";
-import { useTranslations, type UIKey } from "~/i18n/ui";
+import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
 
 interface Props {
   locale: Locale;
@@ -13,23 +13,21 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-/** Product and legal pages are English-only routes carried over from the old site. */
 const legacy = (product: (typeof tools)[number], page: "" | "privacy" | "terms") =>
-  product.legacyPath ? `${product.legacyPath}${page}` : undefined;
+  product.legacyPath ? (page ? `${product.legacyPath}${page}/` : localizePath(product.legacyPath,locale)) : undefined;
 
 const productLine = (product: (typeof tools)[number]): ProductLineItem[] => [
   { label: t("tools.store" as UIKey), href: product.storeUrl, external: true },
   { label: t("tools.page" as UIKey), href: legacy(product, "") },
   { label: t("tools.privacy" as UIKey), href: legacy(product, "privacy") },
-  ...(product.slug === "zill"
-    ? []
-    : [{ label: t("tools.terms" as UIKey), href: legacy(product, "terms") }]),
+  { label: t("tools.terms" as UIKey), href: legacy(product, "terms") },
 ];
 ---
 
 <PageHead title={t("tools.title" as UIKey)} lede={t("tools.lede" as UIKey)} />
 
 <Band tone="raised">
+  <p class="hub-link"><a href={localizePath('/sater-apps',locale)}>{locale==='ar'?'دليل تطبيقات سطر — SATER Apps':'Explore the SATER Apps guide'}</a></p>
   <ul class="list">
     {
       tools.map((product) => (
@@ -73,6 +71,7 @@ const productLine = (product: (typeof tools)[number]): ProductLineItem[] => [
 </Band>
 
 <style>
+  .hub-link {margin-block-end:var(--s-4);text-decoration:underline;text-underline-offset:.25em}
   .list {
     display: flex;
     flex-direction: column;

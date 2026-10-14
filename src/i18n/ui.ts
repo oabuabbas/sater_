@@ -210,14 +210,15 @@ export function useTranslations(locale: Locale) {
 /** Prefix a path with the locale, leaving the default locale at the root. */
 export function localizePath(path: string, locale: Locale): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  return locale === defaultLocale ? clean : `/${locale}${clean === "/" ? "" : clean}`;
+  const localized = locale === defaultLocale ? clean : `/${locale}${clean === "/" ? "" : clean}`;
+  return /\.[a-z0-9]+$/i.test(localized) ? localized : `${localized.replace(/\/$/, '')}/`;
 }
 
 export const navItems = [
   { key: "nav.index", path: "/" },
   { key: "nav.news", path: "/news" },
-  { key: "nav.tools", path: "/tools" },
-  { key: "nav.play", path: "/play" },
+  { key: "nav.tools", path: "/sater-apps" },
+  { key: "nav.play", path: "/sater-games" },
   { key: "nav.studio", path: "/studio" },
   { key: "nav.horizon", path: "/horizon" },
 ] as const satisfies ReadonlyArray<{ key: UIKey; path: string }>;

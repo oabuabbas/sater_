@@ -12,7 +12,7 @@ import ToolCard from "~/components/ToolCard.astro";
 import GameFeature from "~/components/GameFeature.astro";
 import SaterRunner from "~/components/SaterRunner.astro";
 import { tools, games, horizon, type Locale } from "~/data/products";
-import { useTranslations, type UIKey } from "~/i18n/ui";
+import { useTranslations, localizePath, type UIKey } from "~/i18n/ui";
 
 interface Props {
   locale: Locale;
@@ -72,6 +72,7 @@ const path = ["idea", "code", "form", "product"] as const;
 <Band tone="raised" labelledby="tools-head">
   <header class="sec">
     <h2 id="tools-head">{t("tools.head" as UIKey)}</h2>
+    <a href={localizePath('/sater-apps',locale)}>SATER Apps →</a>
     <p class="note">{t("tools.note" as UIKey)}</p>
   </header>
   <div class="grid">
@@ -82,6 +83,7 @@ const path = ["idea", "code", "form", "product"] as const;
 <Band tone="base" labelledby="games-head">
   <header class="sec">
     <h2 id="games-head">{t("games.head" as UIKey)}</h2>
+    <a href={localizePath('/sater-games',locale)}>SATER Games →</a>
     <p class="note">{t("games.note" as UIKey)}</p>
   </header>
   {games.map((game) => <GameFeature game={game} locale={locale} />)}
