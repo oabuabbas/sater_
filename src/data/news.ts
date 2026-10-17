@@ -22,6 +22,36 @@ export interface NewsArticle {
 // Publication dates belong to the articles, not to the date of each site build.
 export const news: NewsArticle[] = [
   {
+    slug: 'khamen-1-7-2', date: '2026-10-17', product: 'khamen', kind: 'release',
+    illustration: khamoon, illustrationFit: 'contain', coverTitle: '1.7.2',
+    illustrationAlt: { ar: 'خمّون، رفيق جلسات خمّن', en: 'Khamoon, your KHAMEN party companion' },
+    title: { ar: 'خمّن 1.7.2: إطلالة جديدة وتحدٍّ يجمع ألعابكم', en: 'KHAMEN 1.7.2: a fresh look and a challenge that brings your games together' },
+    summary: { ar: 'يجمع هذا الإصدار جديد 1.7.1 و1.7.2: هوية بصرية مجددة، ومقدمة فيديو، وست حركات لخمّون، وتحدٍّ يجمع عدة ألعاب في جلسة واحدة.', en: 'Bringing together the changes in 1.7.1 and 1.7.2: a refreshed visual identity, a video intro, six Khamoon animations and a challenge mode that combines several games in one session.' },
+    sections: [
+      {
+        title: { ar: 'تحدّي خمّون: ماذا سنلعب اليوم؟', en: 'Khamoon Challenge: what shall we play today?' },
+        body: { ar: 'محتارون بماذا تبدأون؟ اختاروا جلسة من 3 أو 5 ألعاب متنوعة تناسب عدد اللاعبين. ينظم «تحدّي خمّون» ألعاب الجلسة في جولات متتابعة، لتتنقلوا بين تجارب مختلفة وتبقى المنافسة مستمرة.', en: 'Not sure where to start? Choose a session of 3 or 5 varied games suited to your player count. Khamoon Challenge organises the session into consecutive rounds, keeping the competition going as you try different games.' },
+        bullets: { ar: ['العبوا كل جولة وسجّلوا نقاطكم يدويًا.', 'أكدوا إكمال الجولة للانتقال إلى اللعبة التالية.', 'يُحفظ ترتيب التحدي وتقدّمه محليًا على الجهاز، لتعودوا إليه لاحقًا.'], en: ['Play each round and enter your scores manually.', 'Confirm that a round is complete to move to the next game.', 'The challenge order and progress are saved locally on your device, so you can return to the session later.'] },
+      },
+      {
+        title: { ar: 'خمّون أكثر حيوية', en: 'A livelier Khamoon' },
+        body: { ar: 'يرافقكم خمّون بست حركات وتعبيرات جديدة: تلويح، ورقصة، وتشجيع، ونعاس، ومفاجأة، وغمزة. استكشفوها في معرض الحركات داخل الإعدادات، مع مراعاة خيار تقليل الحركة لتبقى التجربة مريحة.', en: 'Khamoon joins the fun with six new animations and expressions: a wave, a dance, a cheer, sleepiness, surprise and a wink. Explore them in the animation gallery in Settings, with support for the reduced-motion option to keep the experience comfortable.' },
+      },
+      {
+        title: { ar: 'هوية مجددة من أول لحظة', en: 'A refreshed identity from the first moment' },
+        body: { ar: 'يربط الشعار والأيقونة الجديدان خمّون بهوية خمّن، وتستقبلكم مقدمة فيديو تضيف إلى البداية روحًا مرحة. يمكنكم تخطي المقدمة، أو إعادة مشاهدتها من الإعدادات متى أردتم.', en: 'A new logo and app icon bring Khamoon into KHAMEN’s visual identity, while a video intro gives each welcome a playful touch. Skip the intro or watch it again from Settings whenever you like.' },
+      },
+      {
+        title: { ar: 'تفاصيل تجعل اللعب أسلس', en: 'Details that make play smoother' },
+        body: { ar: 'تشمل التحسينات عرض الواجهة عند تكبير النص، وضبط التعامل مع حواف الشاشة، وتحديثات للتوافق مع أجهزة أندرويد؛ لتكون متابعة الألعاب والتنقل بينها أكثر راحة.', en: 'The update improves layouts with larger text, refines how the interface handles screen edges and includes Android compatibility updates, making games easier to follow and navigate.' },
+      },
+      {
+        title: { ar: '19 لعبة وأداة… وتحدٍّ يجمعها', en: '19 games and tools, plus a challenge to connect them' },
+        body: { ar: 'ما زالت ألعابكم وأدوات الجلسة معكم: 19 لعبة وأداة. ويضاف إليها وضع «تحدّي خمّون» لتنظيم عدة ألعاب في جلسة واحدة؛ فهو طريقة جديدة للجمع بينها، وليس لعبة بديلة عنها. اختاروا ما يناسب جمعتكم، ودعوا خمّون يرافق الجولة التالية. خمّن — ألعاب تجمعكم.', en: 'Your favourites are still here: 19 games and session tools. Khamoon Challenge adds a new way to organise several games into one session, rather than replacing them. Pick what suits your gathering and let Khamoon join the next round. KHAMEN — games that bring you together.' },
+      },
+    ],
+  },
+  {
     slug: 'studio-chairman-1-1-2', date: '2026-10-13', product: 'studio-chairman', kind: 'release',
     illustration: chairman, coverTitle: '1.1.2',
     illustrationAlt: { ar: 'مرشد Studio Chairman يحمل خطة الاستوديو', en: 'The Studio Chairman guide holding the studio plan' },

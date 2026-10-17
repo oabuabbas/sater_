@@ -18,7 +18,9 @@ const newsReview = process.argv.includes("--news");
 const legalReview = process.argv.includes('--legal');
 const badgeReview = process.argv.includes('--badge');
 const discoveryReview = process.argv.includes('--discovery');
-const TARGETS = process.argv.includes('--arabic-fixes') ? [
+const TARGETS = process.argv.includes('--khamen-release') ? [
+  {path:'/ar/news/khamen-1-7-2/',name:'ar-khamen-release'}, {path:'/news/khamen-1-7-2/',name:'en-khamen-release'},
+] : process.argv.includes('--arabic-fixes') ? [
   {path:'/ar/privacy/',name:'ar-privacy'}, {path:'/ar/terms/',name:'ar-terms'},
 ] : discoveryReview ? [
   {path:'/sater-apps/',name:'en-apps'}, {path:'/ar/sater-apps/',name:'ar-apps'},
