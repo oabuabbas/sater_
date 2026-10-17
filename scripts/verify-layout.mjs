@@ -30,6 +30,7 @@ const ROUTES = ["/", "/tools/", "/play/", "/studio/", "/horizon/", "/404.html",
 ROUTES.push('/khamen/privacy/','/khamen/terms/','/zill/terms/','/privacy/','/terms/');
 ROUTES.push('/sater-apps/','/sater-games/');
 ROUTES.push('/news/khamen-1-7-2/');
+ROUTES.push('/news/zill-1-1-0/');
 const EN_ONLY = /^\/(tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
 const largeText = process.argv.includes('--large-text');
 const badgeReview = process.argv.includes('--badge');

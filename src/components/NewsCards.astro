@@ -8,12 +8,12 @@ const { articles, locale } = Astro.props;
 const copy = newsCopy[locale];
 ---
 <div class="news-cards">
-  {articles.map(article => <article class:list={['news-card', article.kind, { 'contain-art': article.illustrationFit === 'contain' }]}>
+  {articles.map(article => <article class:list={['news-card', article.kind, { 'contain-art': article.illustrationFit === 'contain', 'landscape-art': article.illustrationFit === 'landscape' }]}>
     <a class="story" href={localizePath(`/news/${article.slug}`, locale)}>
       <div class="art" aria-hidden="true">
         <span class="edition">{article.kind.toUpperCase()}</span>
         <span class="art-title">{article.coverTitle}<small>{[...games, ...tools].find(p => p.slug === article.product)?.name ?? 'SATER'}</small></span>
-        <Image src={article.illustration} alt="" width={290} loading="lazy" />
+        <Image src={article.illustration} alt="" width={article.illustrationFit === 'landscape' ? 640 : 290} loading="lazy" />
       </div>
       <div class="copy">
         <p class="meta"><span>{copy[article.kind]}</span><time datetime={article.date}>{newsDate(article.date, locale)}</time></p>
@@ -37,6 +37,8 @@ const copy = newsCopy[locale];
   .art-title small { display:block; font:0.75rem var(--mono); color:#fff1db; letter-spacing:.03em; margin-top:.7rem; }
   .art img { position:absolute; height:145%; width:auto; right:2%; top:3%; max-width:45%; object-fit:contain; object-position:top; z-index:-1; }
   .contain-art .art img { height:85%; top:10%; object-position:center; }
+  .landscape-art .art img { width:100%;max-width:none;height:100%;inset:0;object-fit:cover; }
+  .landscape-art .edition,.landscape-art .art-title { display:none; }
   .copy { padding:var(--s-3); display:grid; gap:var(--s-2); }
   .meta { display:flex; flex-wrap:wrap; gap:.5rem 1rem; justify-content:space-between; font-size:.875rem; color:var(--fg-dim); }
   h3 { font-size:clamp(1.3rem,2.2vw,1.75rem); line-height:1.5; }

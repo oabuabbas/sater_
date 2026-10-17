@@ -3,6 +3,7 @@ import { games, tools } from './products';
 import chairman from '~/assets/games/chairman-guide.png';
 import director from '~/assets/games/director-guide.png';
 import khamoon from '~/assets/games/khamoon.png';
+import zillFeature from '~/assets/products/zill-feature.png';
 
 type Copy = Record<Locale, string>;
 export interface NewsArticle {
@@ -14,13 +15,43 @@ export interface NewsArticle {
   summary: Copy;
   illustration: ImageMetadata;
   illustrationAlt?: Copy;
-  illustrationFit?: 'contain';
+  illustrationFit?: 'contain' | 'landscape';
   coverTitle: string;
   sections: { title: Copy; body: Copy; bullets?: Record<Locale, string[]> }[];
 }
 
 // Publication dates belong to the articles, not to the date of each site build.
 export const news: NewsArticle[] = [
+  {
+    slug: 'zill-1-1-0', date: '2026-10-18', product: 'zill', kind: 'release',
+    illustration: zillFeature, illustrationFit: 'landscape', coverTitle: '1.1.0',
+    illustrationAlt: { ar: 'رسم توضيحي لظل: رحلة على طريق مع مسار الشمس في الأفق', en: 'ZILL artwork showing a road journey and the sun’s path across the horizon' },
+    title: { ar: 'ظل 1.1.0: تخطيط أوضح لرحلتك مع الشمس', en: 'ZILL 1.1.0: clearer planning for your journey with the sun' },
+    summary: { ar: 'تعرّف على جديد ظل: حسابات أكثر اتساقًا للرحلة والتعرض للشمس، وخرائط محسّنة، وتصدير يدعم العربية، وخيارات أوضح لإدارة بيانات التخطيط.', en: 'Explore what’s new in ZILL: more consistent trip and sun-exposure calculations, improved maps, Arabic-friendly exports and clearer controls for your saved planning data.' },
+    sections: [
+      {
+        title: { ar: 'رحلتك وتوقفاتك في حساب واحد', en: 'Your journey and stops, working together' },
+        body: { ar: 'يوحّد التحديث بيانات المسار والتوقفات ومواعيد المغادرة والوصول بين مخطط المقاعد والمحاكاة والملفات المصدّرة. تراعي تقديرات التعرض للشمس مدة كل جزء من الرحلة، ويفحص مستشار الانطلاق المسار كاملًا عند مقارنة الأوقات المقترحة.', en: 'The update brings route details, stops, departure times and arrival times into sync across the seat planner, simulation and exported files. Sun-exposure estimates account for the time spent on each part of the journey, while the departure advisor considers the full route when comparing suggested times.' },
+        bullets: { ar: ['اختيار الوقت الحالي يعني الانطلاق الآن، دون الانتقال إلى اليوم التالي بسبب فرق الثواني.', 'تعكس المحاكاة مدة التوقف وموعد انطلاق كل مقطع من الرحلة.', 'تُحفظ إعدادات المنزل والعمل ومواعيد الدوام لتعود إليها لاحقًا.'], en: ['Choosing the current time means leaving now, without accidentally switching to tomorrow because of a few seconds.', 'The simulation reflects stop durations and the departure time of each journey segment.', 'Home, work and commute times are saved for your next visit.'] },
+      },
+      {
+        title: { ar: 'خرائط واختيار موقع أكثر سلاسة', en: 'Smoother maps and location selection' },
+        body: { ar: 'أُصلح تحميل الخريطة باستخدام OpenStreetMap، مع رسائل أوضح عند تعذر الاتصال وإمكانية إعادة المحاولة. تحسّن التعامل مع قراءات الموقع والبوصلة المتأخرة، ويمكنك اختيار الموقع والاتجاه يدويًا عند تعذر الحصول عليهما من الجهاز.', en: 'Map loading has been fixed using OpenStreetMap, with clearer connection messages and a retry option. Handling of delayed location and compass readings has improved, and you can choose your position and direction manually when device readings are unavailable.' },
+      },
+      {
+        title: { ar: 'تفاصيل الرحلة جاهزة للحفظ والمشاركة', en: 'Trip details ready to save and share' },
+        body: { ar: 'تدعم ملفات PDF النص العربي بخط مضمّن، وتعرض محطات الرحلة الفعلية. وأصبحت رموز QR والباركود قابلة للقراءة، مع بيانات التاريخ والوقت والمقعد وتوضيح طبيعة التقدير. هذه بطاقات للتخطيط، وليست تذاكر سفر أو تأكيدات حجز.', en: 'PDF exports support Arabic text with an embedded font and include your journey’s actual stops. QR codes and barcodes are now scannable, carrying the date, time, seat and an explicit estimate label. These are planning cards, not travel tickets or booking confirmations.' },
+      },
+      {
+        title: { ar: 'خيارات أوضح لبياناتك', en: 'Clearer controls for your data' },
+        body: { ar: 'يمكنك قراءة الخصوصية وشروط الاستخدام داخل التطبيق بالعربية والإنجليزية دون اتصال. ويتيح خيار حذف بيانات التخطيط مسح آخر موقع والرحلات الحديثة وإعدادات الدوام. لا يشمل ذلك الملفات التي صدّرتها أو موافقة الإعلانات أو سجلات مزودي الخدمات. كما تحسّن التعامل مع اختيار موافقة الإعلانات وتغييره.', en: 'Read the privacy policy and terms inside the app in Arabic or English, even offline. A planning-data deletion option clears your last location, recent trips and commute settings. It does not delete exported files, advertising consent or service providers’ records. Advertising consent handling has also been improved.' },
+      },
+      {
+        title: { ar: 'واجهة أوضح وحدود مفهومة', en: 'A clearer interface, with clear limits' },
+        body: { ar: 'يشمل الإصدار شعارًا محدّثًا، وتحسين عرض المحتوى قرب حواف شاشة أندرويد، وحفظ لغة واجهات التخطيط المترجمة. وتُميّز الواجهة الأدوات التجريبية عن الخدمات الفعلية: يقدّم ظل تقديرات للتخطيط مع الشمس، لا ملاحة طرق أو ضمانًا لظل المباني والأشجار. وتظهر أدوات الطقس والتحكم بالمركبة غير المتصلة بخدمات فعلية بوصفها محاكاة أو معاينة.', en: 'The release includes an updated logo, improved layouts near Android screen edges and a saved language preference for translated planning screens. The interface distinguishes experimental tools from connected services: ZILL offers sun-aware planning estimates, not turn-by-turn navigation or guaranteed shade from buildings and trees. Weather and vehicle-control tools without live service connections are labelled as simulations or previews.' },
+      },
+    ],
+  },
   {
     slug: 'khamen-1-7-2', date: '2026-10-17', product: 'khamen', kind: 'release',
     illustration: khamoon, illustrationFit: 'contain', coverTitle: '1.7.2',
