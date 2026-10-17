@@ -3,14 +3,15 @@ import LegalFrame from '~/components/LegalFrame.astro';
 import legal from '~/data/legal.ts';
 import { tools,type Locale } from '~/data/products';
 interface Props { doc:keyof typeof legal; locale:Locale }
-const {doc}=Astro.props;
-const d=legal[doc];
+const {doc,locale}=Astro.props;
+const base=legal[doc];
+const d=locale==='ar'&&base?.ar?{...base,...base.ar}:base;
 const product=tools.find(p=>p.slug===doc.replace(/-(privacy|terms)$/,''));
 if(!product||!d)throw new Error(`Unknown legal document: ${doc}`);
 const blocks=d.blocks.filter(b=>!(typeof b.v==='string'&&/^(Last Updated|Effective Date):/.test(b.v)));
 const headings=blocks.flatMap((b,i)=>b.t==='h'?[{slug:`section-${i}`,text:b.v as string}]:[]);
 const parts=(text:string)=>text.split(/(https:\/\/[^\s]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,})/g).filter(Boolean);
 ---
-<LegalFrame product={product} title={d.title} current={doc.endsWith('-privacy')?'privacy':'terms'} updated="14 October 2026" headings={headings}>
+<LegalFrame product={product} title={d.title} current={doc.endsWith('-privacy')?'privacy':'terms'} updated={d.updated??"14 October 2026"} locale={locale} headings={headings}>
   {blocks.map((b,i)=>b.t==='h'?<h2 id={`section-${i}`}>{b.v}</h2>:b.t==='ul'?<ul>{(b.v as string[]).map(item=><li>{parts(item).map(part=>/^https:\/\//.test(part)?<a href={part.replace(/[.,;]+$/,'')}>{part}</a>:/^[\w.+-]+@/.test(part)?<a href={`mailto:${part.replace(/[.,;]+$/,'')}`}>{part}</a>:part)}</li>)}</ul>:<p>{parts(b.v as string).map(part=>/^https:\/\//.test(part)?<a href={part.replace(/[.,;]+$/,'')}>{part}</a>:/^[\w.+-]+@/.test(part)?<a href={`mailto:${part.replace(/[.,;]+$/,'')}`}>{part}</a>:part)}</p>)}
 </LegalFrame>

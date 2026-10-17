@@ -7,7 +7,7 @@ interface Props { locale?:'en'|'ar'; product?:Product; title:string; current:'pr
 const { product,title,current,updated,effective,applies,headings,locale='en' }=Astro.props;
 const ar=locale==='ar';
 const prefix=ar?'/ar':'';
-const items=product?[...(product.storeUrl?[{label:'Google Play',href:product.storeUrl,external:true}]:[]),{label:'Product page',href:product.legacyPath??`/${product.slug}/`},{label:'Privacy',href:`/${product.slug}/privacy/`,current:current==='privacy'},{label:'Terms',href:`/${product.slug}/terms/`,current:current==='terms'}]:[];
+const items=product?[...(product.storeUrl?[{label:'Google Play',href:product.storeUrl,external:true}]:[]),{label:'Product page',href:product.legacyPath??`/${product.slug}/`},{label:ar?'الخصوصية':'Privacy',href:`${prefix}/${product.slug}/privacy/`,current:current==='privacy'},{label:ar?'شروط الاستخدام':'Terms',href:`${prefix}/${product.slug}/terms/`,current:current==='terms'}]:[];
 ---
 <Band tone="base" class="legal-heading">
   <div class="identity">{product&&<Image src={product.icon} alt="" width={64} height={64}/>}<div><p class="eyebrow">{product?`${product.name} · SATER`:'SATER · thesater.com'}</p><h1>{title}</h1></div></div>
