@@ -4,13 +4,14 @@ import chairman from '~/assets/games/chairman-guide.png';
 import director from '~/assets/games/director-guide.png';
 import khamoon from '~/assets/games/khamoon.png';
 import zillFeature from '~/assets/products/zill-feature.png';
+import badgeFeature from '~/assets/games/behind-the-badge-feature.png';
 
 type Copy = Record<Locale, string>;
 export interface NewsArticle {
   slug: string;
   date: string;
   product?: string;
-  kind: 'release' | 'guide' | 'studio' | 'character';
+  kind: 'launch' | 'release' | 'guide' | 'studio' | 'character';
   title: Copy;
   summary: Copy;
   illustration: ImageMetadata;
@@ -22,6 +23,31 @@ export interface NewsArticle {
 
 // Publication dates belong to the articles, not to the date of each site build.
 export const news: NewsArticle[] = [
+  {
+    slug: 'behind-the-badge-launch', date: '2026-10-18', product: 'behind-the-badge', kind: 'launch',
+    illustration: badgeFeature, illustrationFit: 'landscape', coverTitle: 'OUT NOW',
+    illustrationAlt: { ar: 'Behind The Badge: ملعب كرة قدم ولوحة تكتيكية من غرفة الإدارة', en: 'Behind The Badge: a football stadium and tactics board seen from the boardroom' },
+    title: { ar: 'Behind The Badge متاحة الآن: ابدأ مسيرتك خلف الشعار', en: 'Behind The Badge is out now: begin your career behind the badge' },
+    summary: { ar: 'لعبة سطر الجديدة متاحة على Google Play. تولَّ رئاسة نادٍ، وابنِ مستقبله، وشقّ طريقك من غرفة الإدارة إلى قيادة عالم كرة القدم.', en: 'SATER’s new game is available on Google Play. Take the club presidency, build its future and work your way from the boardroom to the leadership of world football.' },
+    sections: [
+      {
+        title: { ar: 'هذه المرة، القرار من غرفة الإدارة', en: 'This time, the decisions come from the boardroom' },
+        body: { ar: 'في Behind The Badge، أنت رئيس النادي، لا المدرب على خط التماس. عيّن المدرب، وفاوض في الانتقالات، وطوّر الملعب، ووازن بين طموحات الجماهير وقدرة النادي المالية. لكل قرار أثر في المؤسسة التي تبنيها وفي ثقة من ينتظرون منك النجاح.', en: 'In Behind The Badge, you are the club president, not the coach on the touchline. Appoint the coach, negotiate transfers, develop the stadium and balance the fans’ ambitions with the club’s finances. Your decisions shape the institution you build and the trust of those who expect you to succeed.' },
+      },
+      {
+        title: { ar: 'ثلاث طرق للرئاسة', en: 'Three ways to hold the presidency' },
+        body: { ar: 'اختر شكل مسيرتك: رئيس معيّن تحاسبه الملكية ومجلس الإدارة، أو رئيس منتخب يعتمد على ثقة الأعضاء، أو مالك يقود ناديه ويتحمل مسؤولية بقائه. تختلف الضغوط بحسب طريقك، لكن الهدف واحد: بناء مؤسسة تستمر بعد صافرة النهاية.', en: 'Choose your path: an appointed president accountable to the owner and board, an elected president relying on members’ confidence, or an owner-president responsible for the club’s survival. Each path brings different pressures, with one shared goal: building an institution that lasts beyond the final whistle.' },
+      },
+      {
+        title: { ar: 'طموح يتجاوز حدود النادي', en: 'Ambition beyond your club' },
+        body: { ar: 'لا تنتهي المسيرة عند رئاسة نادٍ. تنافس على قيادة الرابطة، ثم الاتحاد الوطني والاتحاد القاري، وصولًا إلى الهيئة الدولية. تتغير مسؤولياتك مع كل منصب، لتنتقل من إدارة فريق إلى التأثير في مستقبل اللعبة.', en: 'Your career does not have to end at the club presidency. Compete for league leadership, then national and continental office, and ultimately the international governing body. Each role changes your responsibilities as you move from running a club to shaping the future of the game.' },
+      },
+      {
+        title: { ar: 'ابدأ مسيرتك الآن', en: 'Start your career today' },
+        body: { ar: 'Behind The Badge محاكاة فردية تعمل دون اتصال في اللعب الأساسي. حمّل اللعبة على أندرويد من Google Play عبر الرابط أدناه، واختر كيف ستبدأ حكايتك خلف الشعار.', en: 'Behind The Badge is a single-player simulation with offline core gameplay. Download it for Android on Google Play using the link below, and choose how your story behind the badge begins.' },
+      },
+    ],
+  },
   {
     slug: 'zill-1-1-0', date: '2026-10-18', product: 'zill', kind: 'release',
     illustration: zillFeature, illustrationFit: 'landscape', coverTitle: '1.1.0',
@@ -224,8 +250,8 @@ export const news: NewsArticle[] = [
 ];
 
 export const newsCopy = {
-  ar: { title: 'أخبار سطر', intro: 'ما الجديد في الاستوديو، والألعاب والتطبيقات التي نصنعها.', latest: 'آخر الأخبار', all: 'كل الأخبار', read: 'اقرأ الخبر', empty: 'لا توجد أخبار منشورة هنا بعد. يمكنك متابعة آخر المستجدات في جميع الأخبار.', product: 'أخبار المنتج', related: 'اقرأ أيضًا', release: 'تحديث', guide: 'دليل اللعب', studio: 'من الاستوديو', character: 'تعرّف على الشخصية' },
-  en: { title: 'SATER news', intro: 'The latest from the studio, and the games and apps we make.', latest: 'Latest news', all: 'All news', read: 'Read story', empty: 'No stories here yet. Explore all news for the latest from the studio.', product: 'Product news', related: 'Read next', release: 'Update', guide: 'Play guide', studio: 'From the studio', character: 'Meet the character' },
+  ar: { title: 'أخبار سطر', intro: 'ما الجديد في الاستوديو، والألعاب والتطبيقات التي نصنعها.', latest: 'آخر الأخبار', all: 'كل الأخبار', read: 'اقرأ الخبر', empty: 'لا توجد أخبار منشورة هنا بعد. يمكنك متابعة آخر المستجدات في جميع الأخبار.', product: 'أخبار المنتج', related: 'اقرأ أيضًا', release: 'تحديث', launch: 'إطلاق', guide: 'دليل اللعب', studio: 'من الاستوديو', character: 'تعرّف على الشخصية' },
+  en: { title: 'SATER news', intro: 'The latest from the studio, and the games and apps we make.', latest: 'Latest news', all: 'All news', read: 'Read story', empty: 'No stories here yet. Explore all news for the latest from the studio.', product: 'Product news', related: 'Read next', release: 'Update', launch: 'Launch', guide: 'Play guide', studio: 'From the studio', character: 'Meet the character' },
 };
 export const topics = [
   { slug: 'studio', title: { ar: 'الاستوديو', en: 'Studio' } },

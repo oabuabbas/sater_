@@ -51,7 +51,7 @@ export const ui = {
     "tools.note": "Each is named after the Arabic word for what it does.",
 
     "games.head": "Two games",
-    "games.note": "Studio Chairman is live. Behind The Badge remains in development.",
+    "games.note": "Studio Chairman and Behind The Badge are available on Google Play.",
 
     "runner.kicker": "A playable line",
     "runner.head": "Don't break the line.",
@@ -142,7 +142,7 @@ export const ui = {
     "tools.note": "كلٌّ منها سُمّيت بالكلمة العربية التي تصف ما تفعله.",
 
     "games.head": "لعبتان",
-    "games.note": "Studio Chairman منشورة، وBehind The Badge ما تزال قيد التطوير.",
+    "games.note": "تتوفر Studio Chairman وBehind The Badge على Google Play.",
 
     "runner.kicker": "سطر قابل للعب",
     "runner.head": "لا تقطع السطر.",

@@ -36,6 +36,7 @@ const t = useTranslations(locale);
       <p class="statement">{detail.statement[locale]}</p>
       <div class="hero-actions">
         <StatusBadge status={game.status} label={t(`status.${game.status}` as UIKey)} />
+        {game.storeUrl && <a href={game.storeUrl} target="_blank" rel="noopener noreferrer">{locale === 'ar' ? 'حمّلها من Google Play' : 'Get it on Google Play'} ↗</a>}
         <a href={game.privacyPath}>{t("tools.privacy" as UIKey)}</a>
         <a href={game.termsPath}>{t("tools.terms" as UIKey)}</a>
       </div>

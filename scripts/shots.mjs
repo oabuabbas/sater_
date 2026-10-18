@@ -18,7 +18,9 @@ const newsReview = process.argv.includes("--news");
 const legalReview = process.argv.includes('--legal');
 const badgeReview = process.argv.includes('--badge');
 const discoveryReview = process.argv.includes('--discovery');
-const TARGETS = process.argv.includes('--zill-release') ? [
+const TARGETS = process.argv.includes('--badge-launch') ? [
+  {path:'/ar/news/behind-the-badge-launch/',name:'ar-badge-launch'}, {path:'/news/behind-the-badge-launch/',name:'en-badge-launch'},
+] : process.argv.includes('--zill-release') ? [
   {path:'/ar/news/zill-1-1-0/',name:'ar-zill-release'}, {path:'/news/zill-1-1-0/',name:'en-zill-release'},
 ] : process.argv.includes('--khamen-release') ? [
   {path:'/ar/news/khamen-1-7-2/',name:'ar-khamen-release'}, {path:'/news/khamen-1-7-2/',name:'en-khamen-release'},
@@ -105,7 +107,8 @@ for (const scheme of SCHEMES) {
   for (const { path, name } of TARGETS) {
     for (const width of WIDTHS) {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto(`http://localhost:${PORT}${path}`, { waitUntil: "load" });
+      const response = await page.goto(`http://localhost:${PORT}${path}`, { waitUntil: "load" });
+      if (!response?.ok()) throw new Error(`Screenshot page failed: ${path} (${response?.status()})`);
       await page.evaluate(() => document.fonts.ready);
       await page.evaluate(async () => {
         const imgs = [...document.images];
