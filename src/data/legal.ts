@@ -62,7 +62,7 @@ const legal: Record<string, LegalDocument> = {
   "blocks": [
     {
       "t": "p",
-      "v": "ZILL is published by SATER Studio in Amman, Jordan. This policy describes the Android app's location features, local planning information, online services, advertising and user-requested exports. No account is required. This policy update describes version 1.1.0 and later. Some controls and SDK initialization behavior differ in older releases; update the app to use the controls described here."
+      "v": "ZILL is published by SATER Studio in Amman, Jordan. This policy describes the Android app's location features, local planning information, online services, advertising and user-requested exports. No account is required. This policy update describes version 1.1.1 and later. The app interface is English-only; map labels and user-supplied names may use other languages. Some controls and SDK initialization behavior differ in older releases; update the app to use the controls described here."
     },
     {
       "t": "h",
@@ -78,7 +78,7 @@ const legal: Record<string, LegalDocument> = {
     },
     {
       "t": "p",
-      "v": "ZILL saves your last selected or measured coordinates and timestamp, up to five recent routes, optional home/work commute locations and times, and preferences such as language, sound, heading and vehicle settings. A launch counter supports the advertising frequency limits. This information is held in app preferences, without a claim of separate app-level encryption. SATER does not operate a server receiving your complete saved trip history."
+      "v": "ZILL saves your last selected or measured coordinates and timestamp, up to five recent routes, legacy home/work commute locations and times from earlier versions, and preferences such as sound, heading and vehicle settings. A launch counter supports the advertising frequency limits. This information is held in app preferences, without a claim of separate app-level encryption. SATER does not operate a server receiving your complete saved trip history."
     },
     {
       "t": "h",
@@ -86,7 +86,7 @@ const legal: Record<string, LegalDocument> = {
     },
     {
       "t": "p",
-      "v": "Submitting a place search sends its text to the configured geocoding provider. Looking up a place name sends the selected or current coordinates. The default provider is OpenStreetMap Nominatim; you can change it in Settings. These requests include normal network information such as IP address, app identification and language. Map views request tiles from OpenStreetMap. Recently viewed tiles are cached on your device with HTTP freshness rules and a 100 MB size target checked when the cache opens; the cache can temporarily exceed that target and can be cleared in Android app storage settings. Tile coordinates reveal the map area being viewed to the provider. Manual selection does not make these online requests private or offline."
+      "v": "Submitting a place search sends its text to the configured geocoding provider. Looking up a place name sends the selected or current coordinates. The default provider is OpenStreetMap Nominatim; you can change it in Settings. These requests include normal network information such as IP address, app identification and language. Map views request tiles from OpenStreetMap. Recently viewed tiles are cached on your device with HTTP freshness rules and a 100 MB size target checked when the cache opens; the cache can temporarily exceed that target and can be cleared in Android app storage settings. Tile coordinates reveal the map area being viewed to the provider. Manual selection does not make these online requests private or offline. If you choose Open driving directions, ZILL opens a Google Maps URL with your selected start, destination and any stopover. The maps app or browser handles those directions under its own terms; ZILL does not receive the actual road route back."
     },
     {
       "t": "h",
@@ -259,7 +259,7 @@ const legal: Record<string, LegalDocument> = {
     },
     {
       "t": "p",
-      "v": "ZILL is a solar planning aid, not turn-by-turn navigation or an emergency, medical or vehicle-control system. Routes, distances and times are estimates between selected coordinates rather than actual road routing or traffic predictions. Seat-shade suggestions use modelled sunlight exposure over driving time. Sun height in the planner header is a mid-trip estimate; the simulator shows its selected time."
+      "v": "ZILL is a solar planning aid, not turn-by-turn navigation or an emergency, medical or vehicle-control system. Routes, distances and times are estimates between selected coordinates rather than actual road routing or traffic predictions. Seat-shade suggestions use modelled sunlight exposure over driving time. The journey preview shows solar elevation at the selected preview time. In version 1.1.1, enter the driving duration yourself, excluding stopovers. Relative exposure categories compare a simplified model, not measured shade percentages. Full driving directions open separately in your maps app or browser."
     },
     {
       "t": "h",
@@ -275,7 +275,7 @@ const legal: Record<string, LegalDocument> = {
     },
     {
       "t": "p",
-      "v": "Plan and adjust controls only while safely parked. Follow road signs, traffic rules and your observations. Do not rely on the app to decide whether it is safe to leave a child, animal or vulnerable person in a parked vehicle. Heat, UV and energy examples are approximate and are not professional advice."
+      "v": "Plan and adjust controls only while safely parked. Follow road signs, traffic rules and your observations. Do not rely on the app to decide whether it is safe to leave a child, animal or vulnerable person in a parked vehicle."
     },
     {
       "t": "h",
@@ -283,7 +283,7 @@ const legal: Record<string, LegalDocument> = {
     },
     {
       "t": "p",
-      "v": "Features labelled simulation, example or estimated do not represent live satellite/weather observations, verified charger availability or connected vehicle control. The app does not operate your air conditioning, glass or blinds. Text advice is not a guaranteed spoken assistant; background shade-loss notifications are not currently provided. QR codes, barcodes and PDFs contain planning information, not confirmed bookings, signed credentials or transport tickets."
+      "v": "The journey preview is a direct-line simulation. It does not include live weather or obstructions. QR codes and PDFs contain planning information, not confirmed bookings, signed credentials or transport tickets. No background shade-loss notifications are provided."
     },
     {
       "t": "h",
@@ -299,7 +299,7 @@ const legal: Record<string, LegalDocument> = {
     },
     {
       "t": "p",
-      "v": "You may use ZILL personally on devices you control. Do not unlawfully redistribute the software or original branding, remove ownership notices, misuse services or interfere with their security. Third-party fonts, libraries, sounds and map data retain their respective licences. ZILL is provided as available, without a guarantee of perfect accuracy or uninterrupted operation. Any warranty or liability limitation applies only to the extent permitted by law. We may change features or these terms and communicate material changes where required. Contact: sater.studios@gmail.com."
+      "v": "You may use ZILL personally on devices you control. Do not unlawfully redistribute the software or original branding, remove ownership notices, misuse services or interfere with their security. Third-party fonts, libraries and map data retain their respective licences. ZILL is provided as available, without a guarantee of perfect accuracy or uninterrupted operation. Any warranty or liability limitation applies only to the extent permitted by law. We may change features or these terms and communicate material changes where required. Contact: sater.studios@gmail.com."
     },
     {
       "t": "p",

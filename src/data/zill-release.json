@@ -3,15 +3,13 @@
   "contact": "sater.studios@gmail.com",
   "privacyUrl": "https://thesater.com/zill/privacy/",
   "termsUrl": "https://thesater.com/zill/terms/",
-  "privacyUrlAr": "https://thesater.com/ar/zill/privacy/",
-  "termsUrlAr": "https://thesater.com/ar/zill/terms/",
   "privacy": {
     "en": {
       "title": "Privacy Policy — ZILL",
       "blocks": [
         {
           "t": "p",
-          "v": "ZILL is published by SATER Studio in Amman, Jordan. This policy describes the Android app's location features, local planning information, online services, advertising and user-requested exports. No account is required. This policy update describes version 1.1.0 and later. Some controls and SDK initialization behavior differ in older releases; update the app to use the controls described here."
+          "v": "ZILL is published by SATER Studio in Amman, Jordan. This policy describes the Android app's location features, local planning information, online services, advertising and user-requested exports. No account is required. This policy update describes version 1.1.1 and later. The app interface is English-only; map labels and user-supplied names may use other languages. Some controls and SDK initialization behavior differ in older releases; update the app to use the controls described here."
         },
         {
           "t": "h",
@@ -27,7 +25,7 @@
         },
         {
           "t": "p",
-          "v": "ZILL saves your last selected or measured coordinates and timestamp, up to five recent routes, optional home/work commute locations and times, and preferences such as language, sound, heading and vehicle settings. A launch counter supports the advertising frequency limits. This information is held in app preferences, without a claim of separate app-level encryption. SATER does not operate a server receiving your complete saved trip history."
+          "v": "ZILL saves your last selected or measured coordinates and timestamp, up to five recent routes, legacy home/work commute locations and times from earlier versions, and preferences such as sound, heading and vehicle settings. A launch counter supports the advertising frequency limits. This information is held in app preferences, without a claim of separate app-level encryption. SATER does not operate a server receiving your complete saved trip history."
         },
         {
           "t": "h",
@@ -35,7 +33,7 @@
         },
         {
           "t": "p",
-          "v": "Submitting a place search sends its text to the configured geocoding provider. Looking up a place name sends the selected or current coordinates. The default provider is OpenStreetMap Nominatim; you can change it in Settings. These requests include normal network information such as IP address, app identification and language. Map views request tiles from OpenStreetMap. Recently viewed tiles are cached on your device with HTTP freshness rules and a 100 MB size target checked when the cache opens; the cache can temporarily exceed that target and can be cleared in Android app storage settings. Tile coordinates reveal the map area being viewed to the provider. Manual selection does not make these online requests private or offline."
+          "v": "Submitting a place search sends its text to the configured geocoding provider. Looking up a place name sends the selected or current coordinates. The default provider is OpenStreetMap Nominatim; you can change it in Settings. These requests include normal network information such as IP address, app identification and language. Map views request tiles from OpenStreetMap. Recently viewed tiles are cached on your device with HTTP freshness rules and a 100 MB size target checked when the cache opens; the cache can temporarily exceed that target and can be cleared in Android app storage settings. Tile coordinates reveal the map area being viewed to the provider. Manual selection does not make these online requests private or offline. If you choose Open driving directions, ZILL opens a Google Maps URL with your selected start, destination and any stopover. The maps app or browser handles those directions under its own terms; ZILL does not receive the actual road route back."
         },
         {
           "t": "h",
@@ -82,83 +80,6 @@
           "v": "ZILL is a general travel utility and does not knowingly request personal information from children under 13. Contact SATER about privacy requests or information you have sent directly to us. Support emails contain the information you choose to include and are used to respond. We update this policy and its date when practices change; applicable privacy rights remain unaffected."
         }
       ]
-    },
-    "ar": {
-      "title": "سياسة الخصوصية — ZILL",
-      "blocks": [
-        {
-          "t": "p",
-          "v": "تُنشر ZILL بواسطة استوديو SATER في عمّان، الأردن. تشرح هذه السياسة وظائف الموقع والبيانات المحلية والخدمات المتصلة والإعلانات والتصدير الذي يطلبه المستخدم في تطبيق Android. لا يتطلب التطبيق إنشاء حساب. يصف هذا التحديث الإصدار 1.1.0 وما بعده. تختلف بعض أدوات التحكم وسلوك تهيئة المكتبات في الإصدارات الأقدم؛ حدّث التطبيق للاستفادة من الأدوات الموضحة هنا."
-        },
-        {
-          "t": "h",
-          "v": "١. الموقع والحسابات على الجهاز"
-        },
-        {
-          "t": "p",
-          "v": "بإذنك، يستخدم التطبيق موقع الجهاز لحساب موضع الشمس وتقديرات الرحلة. يمكن لوضع القيادة تلقي تحديثات الموقع أثناء نشاطه في الواجهة؛ ولا يطلب التطبيق إذن موقع Android في الخلفية. تُستخدم قراءات البوصلة على الجهاز، ويمكنك إدخال الموقع والاتجاه يدوياً. قد يُرسل الموقع اليدوي إلى خدمة أسماء الأماكن كما هو موضح أدناه."
-        },
-        {
-          "t": "h",
-          "v": "٢. المعلومات المحفوظة محلياً"
-        },
-        {
-          "t": "p",
-          "v": "يحفظ ZILL آخر إحداثيات مختارة أو مقاسة مع توقيتها، وحتى خمس رحلات حديثة، وموقعي المنزل والعمل ومواعيد الدوام عند إعدادها، وتفضيلات اللغة والصوت والاتجاه والمركبة. يدعم عدّاد مرات التشغيل حدود تكرار الإعلانات. تُحفظ هذه المعلومات في تفضيلات التطبيق، دون ادعاء تشفير مستقل لها. لا يشغّل SATER خادماً يستقبل سجل رحلاتك المحفوظ كاملاً."
-        },
-        {
-          "t": "h",
-          "v": "٣. الخرائط والبحث عن الأماكن"
-        },
-        {
-          "t": "p",
-          "v": "يرسل البحث الذي تقدمه نصه إلى مزود البحث المحدد. وتُرسل الإحداثيات الحالية أو المختارة عند طلب اسم المكان. المزود الافتراضي هو Nominatim التابع لـ OpenStreetMap ويمكن تغييره في الإعدادات. تتضمن الطلبات معلومات الشبكة المعتادة مثل عنوان IP وتعريف التطبيق واللغة. تُطلب صور الخريطة من OpenStreetMap. تُحفظ الصور المعروضة مؤقتاً على الجهاز وفق صلاحية HTTP وبحجم مستهدف 100 ميغابايت يُفحص عند فتح الذاكرة المؤقتة؛ قد يتجاوزه التخزين مؤقتاً ويمكن مسحه من إعدادات تخزين التطبيق في Android. تكشف إحداثيات الصور عن منطقة الخريطة المعروضة للمزود. الاختيار اليدوي لا يلغي هذه الطلبات الخارجية ولا يجعل الخريطة غير متصلة."
-        },
-        {
-          "t": "h",
-          "v": "٤. الإعلانات والموافقة"
-        },
-        {
-          "t": "p",
-          "v": "يستخدم ZILL إعلانات Google AdMob ومنصة Google لإدارة الموافقة. يتحقق التطبيق من السماح بطلب الإعلانات قبل تهيئة مكتبتها وطلبها. تعرض Google الموافقة وخيارات الخصوصية حيث تُطلب، ويمكن فتح خيارات خصوصية الإعلانات من الإعدادات عندما تفرض Google إتاحتها."
-        },
-        {
-          "t": "p",
-          "v": "قد تجمع مكتبة الإعلانات وتشارك عناوين IP التي قد تدل على موقع تقريبي، ومعرّفات الإعلانات أو الأجهزة، والتفاعل مع التطبيق والإعلانات، وبيانات التشخيص للإعلان والقياس ومنع الاحتيال. يتلقى SATER تقارير إعلانية مجمعة. لا يمرر التطبيق قائمة رحلاتك المحفوظة أو إحداثيات GPS الدقيقة كحقل موقع في AdRequest. هذا لا يعني أن إعلانات الجهات الخارجية خالية من التتبع. توفر إعدادات معرّف الإعلان في Android خيارات إضافية."
-        },
-        {
-          "t": "h",
-          "v": "٥. بطاقات الرحلة وPDF والمشاركة"
-        },
-        {
-          "t": "p",
-          "v": "قد تتضمن بطاقات الرحلة ورموز QR والباركود والنص المنسوخ وملفات PDF المواقع والتوقيتات والمقعد وتقديرات الظل. بيانات QR قابلة للقراءة وليست مشفرة أو وثيقة سفر موقعة. تختار جهة حفظ الملف أو مشاركته، وتخضع النسخة بعد ذلك لممارسات الجهة المستقبلة. احمِ الملفات المصدرة والمعلومات المنسوخة."
-        },
-        {
-          "t": "h",
-          "v": "٦. الحذف والاحتفاظ والنسخ الاحتياطي"
-        },
-        {
-          "t": "p",
-          "v": "يحذف خيار الإعدادات > حذف بيانات التخطيط المحفوظة آخر موقع والرحلات الحديثة وملف الدوام من ZILL. لا يعيد ضبط موافقة Google الإعلانية ولا يمحو النسخ المصدرة أو سجلات المزودين. يمكنك أيضاً مسح تخزين التطبيق أو إزالته من Android. يستثني هذا الإصدار بيانات التطبيق من النسخ السحابي ونقل الجهاز التلقائيين في Android. تُدار الملفات المصدرة ونسخك الأخرى منفصلةً. يحدد المزودون الخارجيون مدد الاحتفاظ وإجراءات الحذف وفق سياساتهم."
-        },
-        {
-          "t": "h",
-          "v": "٧. الأمان والمزودون"
-        },
-        {
-          "t": "p",
-          "v": "يشترط التطبيق HTTPS لعناوين خدمة البحث، وتستخدم طلبات الخريطة HTTPS. يطبق المزودون إجراءات الأمان الخاصة بهم؛ ولا يوجد جهاز أو خدمة آمنة بصورة مطلقة. تشرح الروابط أدناه ممارساتهم، وعليك مراجعة سياسة أي مزود بحث بديل تختاره."
-        },
-        {
-          "t": "h",
-          "v": "٨. الأطفال والطلبات والتغييرات"
-        },
-        {
-          "t": "p",
-          "v": "ZILL أداة سفر عامة ولا يطلب عمداً معلومات شخصية من أطفال دون ١٣ عاماً. يمكنك التواصل مع SATER لطلبات الخصوصية أو بشأن معلومات أرسلتها إلينا مباشرة. تحتوي رسائل الدعم على المعلومات التي تختار إرسالها وتُستخدم للرد عليك. نحدث هذه السياسة وتاريخها عندما تتغير الممارسات، دون الانتقاص من حقوق الخصوصية المقررة لك."
-        }
-      ]
     }
   },
   "terms": {
@@ -175,7 +96,7 @@
         },
         {
           "t": "p",
-          "v": "ZILL is a solar planning aid, not turn-by-turn navigation or an emergency, medical or vehicle-control system. Routes, distances and times are estimates between selected coordinates rather than actual road routing or traffic predictions. Seat-shade suggestions use modelled sunlight exposure over driving time. Sun height in the planner header is a mid-trip estimate; the simulator shows its selected time."
+          "v": "ZILL is a solar planning aid, not turn-by-turn navigation or an emergency, medical or vehicle-control system. Routes, distances and times are estimates between selected coordinates rather than actual road routing or traffic predictions. Seat-shade suggestions use modelled sunlight exposure over driving time. The journey preview shows solar elevation at the selected preview time. In version 1.1.1, enter the driving duration yourself, excluding stopovers. Relative exposure categories compare a simplified model, not measured shade percentages. Full driving directions open separately in your maps app or browser."
         },
         {
           "t": "h",
@@ -191,7 +112,7 @@
         },
         {
           "t": "p",
-          "v": "Plan and adjust controls only while safely parked. Follow road signs, traffic rules and your observations. Do not rely on the app to decide whether it is safe to leave a child, animal or vulnerable person in a parked vehicle. Heat, UV and energy examples are approximate and are not professional advice."
+          "v": "Plan and adjust controls only while safely parked. Follow road signs, traffic rules and your observations. Do not rely on the app to decide whether it is safe to leave a child, animal or vulnerable person in a parked vehicle."
         },
         {
           "t": "h",
@@ -199,7 +120,7 @@
         },
         {
           "t": "p",
-          "v": "Features labelled simulation, example or estimated do not represent live satellite/weather observations, verified charger availability or connected vehicle control. The app does not operate your air conditioning, glass or blinds. Text advice is not a guaranteed spoken assistant; background shade-loss notifications are not currently provided. QR codes, barcodes and PDFs contain planning information, not confirmed bookings, signed credentials or transport tickets."
+          "v": "The journey preview is a direct-line simulation. It does not include live weather or obstructions. QR codes and PDFs contain planning information, not confirmed bookings, signed credentials or transport tickets. No background shade-loss notifications are provided."
         },
         {
           "t": "h",
@@ -215,64 +136,7 @@
         },
         {
           "t": "p",
-          "v": "You may use ZILL personally on devices you control. Do not unlawfully redistribute the software or original branding, remove ownership notices, misuse services or interfere with their security. Third-party fonts, libraries, sounds and map data retain their respective licences. ZILL is provided as available, without a guarantee of perfect accuracy or uninterrupted operation. Any warranty or liability limitation applies only to the extent permitted by law. We may change features or these terms and communicate material changes where required. Contact: sater.studios@gmail.com."
-        }
-      ]
-    },
-    "ar": {
-      "title": "شروط الاستخدام — ZILL",
-      "blocks": [
-        {
-          "t": "p",
-          "v": "تنطبق هذه الشروط على ZILL المنشور بواسطة استوديو SATER. باستخدام التطبيق توافق على هذه الشروط، دون تقييد حقوق المستهلك الإلزامية أو الاستخدامات التي يجيزها القانون أو تراخيص الجهات الخارجية."
-        },
-        {
-          "t": "h",
-          "v": "١. تقديرات التخطيط"
-        },
-        {
-          "t": "p",
-          "v": "ZILL أداة لتخطيط التعرض للشمس، وليس ملاحة تفصيلية أو نظام طوارئ أو طب أو تحكم بالمركبة. المسارات والمسافات والمدد تقديرات بين الإحداثيات المختارة وليست توجيهاً على الطرق أو توقعاً لحركة السير. تُبنى توصيات المقاعد على تعرض شمسي نموذجي موزون بوقت القيادة. ارتفاع الشمس في رأس المخطط يخص منتصف الرحلة، بينما يعرض المحاكي الوقت الذي تحدده فيه."
-        },
-        {
-          "t": "h",
-          "v": "٢. الظل والوهج والوقوف"
-        },
-        {
-          "t": "p",
-          "v": "تعتمد النتائج على الموقع والوقت والاتجاه ودقة المستشعرات وافتراضات النموذج. قد تغير الأبنية والأشجار والتضاريس والطقس والنوافذ وهندسة المركبة الظروف الفعلية. يعرض الوقوف اتجاه الشمس عند موعد العودة المختار، ولا يكتشف مواقف مظللة شاغرة ولا يضمن الظل أو برودة المقصورة. انخفاض تقدير الوهج لا يثبت أمان القيادة."
-        },
-        {
-          "t": "h",
-          "v": "٣. الاستخدام الآمن"
-        },
-        {
-          "t": "p",
-          "v": "خطط واضبط عناصر التحكم أثناء التوقف الآمن فقط. اتبع إشارات الطرق وقواعد المرور وملاحظتك المباشرة. لا تعتمد على التطبيق لتقرير أمان ترك طفل أو حيوان أو شخص ضعيف داخل مركبة متوقفة. أمثلة الحرارة والأشعة فوق البنفسجية والطاقة تقريبية وليست نصيحة مهنية."
-        },
-        {
-          "t": "h",
-          "v": "٤. المحاكاة والتصدير"
-        },
-        {
-          "t": "p",
-          "v": "الميزات الموسومة بالمحاكاة أو المثال أو التقدير ليست رصداً حياً للأقمار الصناعية أو الطقس أو تحققاً من توافر الشواحن أو اتصالاً بالمركبة. لا يشغل التطبيق المكيف أو الزجاج أو الستائر. الإرشادات النصية لا تعني وجود مساعد ناطق مضمون، ولا تتوفر حالياً تنبيهات زوال الظل الخلفية. تتضمن رموز QR والباركود وملفات PDF معلومات تخطيط، وليست حجوزات مؤكدة أو وثائق موقعة أو تذاكر نقل."
-        },
-        {
-          "t": "h",
-          "v": "٥. الخدمات والبيانات والتوافر"
-        },
-        {
-          "t": "p",
-          "v": "تخضع الخرائط والبحث والإعلانات وجهات المشاركة الخارجية لشروط مزوديها. احتفظ بإسناد الخرائط واستخدم مزود البحث وفق شروطه. قد تتعذر خدمات الشبكة، ولا يَعِد التطبيق بخرائط كاملة دون اتصال. راجع سياسة خصوصية ZILL للبيانات المحفوظة والمشاركة والإعلانات. قد يؤدي مسح تخزين التطبيق إلى فقدان خطط لم تصدرها."
-        },
-        {
-          "t": "h",
-          "v": "٦. الترخيص والتحديثات والتواصل"
-        },
-        {
-          "t": "p",
-          "v": "يجوز استخدام ZILL شخصياً على الأجهزة التي تتحكم بها. لا تُعد توزيع البرنامج أو علاماته الأصلية بصورة غير مشروعة، ولا تزل إشعارات الملكية أو تسئ استخدام الخدمات أو تتدخل بأمانها. تحتفظ الخطوط والمكتبات والأصوات والخرائط الخارجية بتراخيصها. يتاح التطبيق وفق توافره دون ضمان الدقة المطلقة أو الاستمرارية. تسري حدود الضمان أو المسؤولية فقط بالقدر الذي يسمح به القانون. قد نغير الميزات أو هذه الشروط ونوضح التغييرات الجوهرية حيث يلزم. للتواصل: sater.studios@gmail.com."
+          "v": "You may use ZILL personally on devices you control. Do not unlawfully redistribute the software or original branding, remove ownership notices, misuse services or interfere with their security. Third-party fonts, libraries and map data retain their respective licences. ZILL is provided as available, without a guarantee of perfect accuracy or uninterrupted operation. Any warranty or liability limitation applies only to the extent permitted by law. We may change features or these terms and communicate material changes where required. Contact: sater.studios@gmail.com."
         }
       ]
     }
