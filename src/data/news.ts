@@ -1,4 +1,5 @@
 import type { Locale } from './products';
+import { octoberUpdates } from './news-october-updates';
 import { games, tools } from './products';
 import chairman from '~/assets/games/chairman-guide.png';
 import director from '~/assets/games/director-guide.png';
@@ -23,6 +24,7 @@ export interface NewsArticle {
 
 // Publication dates belong to the articles, not to the date of each site build.
 export const news: NewsArticle[] = [
+  ...octoberUpdates,
   {
     slug: 'behind-the-badge-launch', date: '2026-10-18', product: 'behind-the-badge', kind: 'launch',
     illustration: badgeFeature, illustrationFit: 'landscape', coverTitle: 'OUT NOW',

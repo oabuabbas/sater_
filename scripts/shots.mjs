@@ -18,7 +18,9 @@ const newsReview = process.argv.includes("--news");
 const legalReview = process.argv.includes('--legal');
 const badgeReview = process.argv.includes('--badge');
 const discoveryReview = process.argv.includes('--discovery');
-const TARGETS = process.argv.includes('--badge-launch') ? [
+const TARGETS = process.argv.includes('--october-updates') ? [
+  ...['studio-chairman-1-1-3','studio-chairman-creative-editor','behind-the-badge-1-0-1','behind-the-badge-directors-cut','behind-the-badge-creative-editor'].flatMap(slug=>[{path:`/ar/news/${slug}/`,name:`ar-${slug}`},{path:`/news/${slug}/`,name:`en-${slug}`}]),
+] : process.argv.includes('--badge-launch') ? [
   {path:'/ar/news/behind-the-badge-launch/',name:'ar-badge-launch'}, {path:'/news/behind-the-badge-launch/',name:'en-badge-launch'},
 ] : process.argv.includes('--zill-release') ? [
   {path:'/ar/news/zill-1-1-0/',name:'ar-zill-release'}, {path:'/news/zill-1-1-0/',name:'en-zill-release'},
