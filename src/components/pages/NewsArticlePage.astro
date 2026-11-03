@@ -29,7 +29,7 @@ const structuredArticle = {
         <p class="meta">{copy[article.kind]} · <time datetime={article.date}>{newsDate(article.date, locale)}</time></p>
         <h1>{article.title[locale]}</h1>
         <p class="lede">{article.summary[locale]}</p>
-        {product && <a class="product" href={localizePath(`/news/topics/${product.slug}`, locale)}>{product.name}</a>}
+        {product && <a class="product" href={localizePath(`/news/topics/${product.slug}`, locale)}>{product.localizedName?.[locale] ?? product.name}</a>}
       </div>
       <div class:list={['portrait', { contained: article.illustrationFit === 'contain', landscape: article.illustrationFit === 'landscape' }]}><Image src={article.illustration} alt={article.illustrationAlt?.[locale] ?? (locale === 'ar' ? `مرشد ${product?.name ?? 'SATER'}` : `${product?.name ?? 'SATER'} guide`)} width={article.illustrationFit === 'landscape' ? 1024 : 360} loading="eager" /></div>
     </header>
@@ -41,7 +41,7 @@ const structuredArticle = {
         <p>{section.body[locale]}</p>
         {section.bullets && (article.kind === 'guide' && index === 1 ? <ol>{section.bullets[locale].map(point => <li>{point}</li>)}</ol> : <ul>{section.bullets[locale].map(point => <li>{point}</li>)}</ul>)}
       </section>)}
-      {product && <footer><strong>{product.name}</strong><div class="links">
+      {product && <footer><strong>{product.localizedName?.[locale] ?? product.name}</strong><div class="links">
         {product.legacyPath && <a href={localizePath(product.legacyPath, locale)}>{locale === 'ar' ? (isGame ? 'استكشف اللعبة' : 'استكشف التطبيق') : (isGame ? 'Explore the game' : 'Explore the app')}</a>}
         {product.storeUrl && <a href={product.storeUrl} target="_blank" rel="noopener noreferrer">Google Play ↗</a>}
       </div></footer>}

@@ -32,7 +32,7 @@ const canonical = new URL(localizePath(path, locale), site);
 const cleanPath = path.replace(/\/$/, '') || '/';
 const product = [...tools, ...games].find(p => cleanPath === `/${p.slug}`);
 const seo = seoPages[cleanPath];
-const heading = seo?.title[locale] ?? (product ? `${product.name} — ${productDiscovery[product.slug].purpose[locale]}` : title);
+const heading = seo?.title[locale] ?? (product ? `${product.localizedName?.[locale] ?? product.name} — ${productDiscovery[product.slug].purpose[locale]}` : title);
 const ogImage = new URL(product?.feature?.src ?? '/cover.png', site);
 const pageTitle = /^SATER\b/.test(heading) ? heading : `${heading} | SATER`;
 const desc = description ?? seo?.description[locale] ?? (product ? productDiscovery[product.slug].body[locale] : t("site.description" as UIKey));
@@ -47,7 +47,7 @@ const graph: Record<string, unknown>[] = [
     name: pageTitle, description: desc, inLanguage: locale, isPartOf: { '@id': websiteId },
     ...(product ? { mainEntity: { '@id': canonical.href + '#app' } } : {}) },
   ...(product ? [{ '@type': 'SoftwareApplication', '@id': canonical.href + '#app',
-    name: product.name, url: canonical.href, description: desc,
+    name: product.localizedName?.[locale] ?? product.name, alternateName: product.alternateNames, url: canonical.href, description: desc,
     applicationCategory: productDiscovery[product.slug].category,
     publisher: { '@id': studioId }, image: new URL(product.icon.src, site).href,
     ...(product.storeUrl ? { operatingSystem: 'Android', installUrl: product.storeUrl } : {}) }] : []),

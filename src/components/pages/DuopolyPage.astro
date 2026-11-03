@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import { games, type Locale } from '~/data/products';
+import { localizePath } from '~/i18n/ui';
+interface Props { locale: Locale }
+const {locale}=Astro.props;
+const ar=locale==='ar';
+const game=games.find(p=>p.slug==='the-duopoly')!;
+const choices=ar?[
+ ['01','اسمك على الباب','اختر اسمك واسم شركتك وهويتها، وحدّد الطموح المالي الذي تسعى إليه.'],
+ ['02','الربح ليس كل شيء','وازن بين الأسعار والطلب والمخزون والتوريد والتكاليف. وظّف وفوّض المهام عندما يصبح مشروعك أكبر منك.'],
+ ['03','السوق لا ينتظرك','تداول الأسهم، وراقب الشركات المنافسة، وشارك في مزادات الأصول. الفرصة نفسها قد تحمل مكسبًا أو مخاطرة.'],
+ ['04','اقتصاد لا يثبت','التضخم والفوائد واضطرابات التوريد تغيّر الحسابات. لا تصبح خطة الأمس مناسبة تلقائيًا للغد.'],
+ ['05','للتوسع ثمن','استخدم القروض بحذر، وخطّط للأقساط، واحمِ سيولة شركتك. ليس كل توسّع خطوة إلى الأمام.'],
+]:[
+ ['01','Your name on the door','Choose your name, your company’s name and identity, and the financial ambition you want to pursue.'],
+ ['02','Profit is not everything','Balance prices, demand, stock, supply and costs. Hire and delegate as the business grows beyond you.'],
+ ['03','The market will not wait','Trade shares, watch rival companies and bid at asset auctions. The same opportunity can carry both promise and risk.'],
+ ['04','An economy in motion','Inflation, interest rates and supply disruptions change the calculations. Yesterday’s plan may not work tomorrow.'],
+ ['05','Expansion has a price','Borrow carefully, plan repayments and protect your cash flow. Not every expansion is a step forward.'],
+];
+---
+<Base locale={locale} path="/the-duopoly" title={ar?'The Duopoly — محاكاة اقتصادية قيد التطوير':'The Duopoly — Economic Simulation in Development'} description={game.blurb[locale]}>
+ <div class="duopoly">
+  <section class="opening" aria-labelledby="duopoly-title">
+   <div class="opening-copy">
+    <a class="back" href={localizePath('/sater-games',locale)}>{ar?'ألعاب سطر':'SATER Games'}</a>
+    <p class="eyebrow">1990 <span aria-hidden="true">/</span> {ar?'المدينة ليست لك. بعد.':'The city is not yours. Yet.'}</p>
+    <h1 id="duopoly-title" lang="en" dir="ltr">THE DUOPOLY</h1>
+    <p class="claim">{ar?'شركتان تملكان السوق.':'Two giants own the market.'}<br/>{ar?'وأنت تملك البداية.':'You own the beginning.'}</p>
+    <div class="intro-links"><span class="status">{ar?'قيد التطوير':'In development'}</span><a href="#inside">{ar?'اكتشف ما وراء الواجهة ↓':'Look behind the façade ↓'}</a></div>
+   </div>
+   <figure><Image src={game.feature!} alt={ar?'تصوّر فني لمشروع صغير مضاء بين برجَي شركتين عملاقتين':'Concept artwork of a small illuminated business between two corporate towers'} width={1600} loading="eager"/><figcaption>{ar?'تصوّر بصري مبدئي مولّد بالذكاء الاصطناعي — ليس لقطة من اللعب.':'Early AI-generated concept artwork — not a gameplay screenshot.'}</figcaption></figure>
+  </section>
+  <section class="premise" id="inside" aria-labelledby="premise-title">
+   <Image src={game.icon} alt={ar?'شعار The Duopoly':'The Duopoly logo'} width={240} height={240}/>
+   <div><p class="eyebrow">{ar?'مشروع صغير. سؤال كبير.':'A small business. A big question.'}</p><h2 id="premise-title">{ar?'ابنِ شركتك. نافس الكبار. اكتب قصتك.':'Build your company. Challenge the giants. Write your story.'}</h2><p>{ar?'في مدينة تهيمن عليها شركتان عملاقتان، تبدأ بمشروع صغير وطموح كبير. هل تبني ثروتك بالتجارة، أم تستثمر في الأسهم، أم تقترض لاغتنام فرصة قد تغيّر مستقبلك؟':'In a city dominated by two giant companies, you begin with a small business and a large ambition. Will you build wealth through trade, invest in shares, or borrow to seize an opportunity that could change your future?'}</p><p>{ar?'The Duopoly محاكاة اقتصادية للهاتف تبدأ عام 1990. قرارات التسعير والمخزون والتوريد والتوظيف والاستثمار والتمويل مترابطة: الربح لا يعني دائمًا وفرة النقد.':'The Duopoly is a mobile economic simulation beginning in 1990. Pricing, inventory, supply, hiring, investment and financing are connected: profit does not always mean cash in hand.'}</p></div>
+  </section>
+  <section class="decisions" aria-labelledby="decisions-title"><p class="eyebrow">{ar?'كل قرار يترك أثرًا':'Every decision leaves a mark'}</p><h2 id="decisions-title">{ar?'ما الذي ستراهن عليه؟':'What will you stake your future on?'}</h2><div class="decision-grid">{choices.map(([n,title,body])=><article><span class="number" aria-hidden="true">{n}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section>
+  <section class="closing" aria-labelledby="closing-title"><p>{ar?'ليست لعبة بناء مدن، وليست قصة خطية. لا مسار واحدًا مفروضًا للنجاح؛ قراراتك ونتائجها تصنع حكاية شركتك.':'Not a city builder. Not a linear story. There is no single prescribed route to success: your decisions and their consequences tell your company’s story.'}</p><h2 id="closing-title">{ar?'هل تجد مكانك في السوق… أم تكسر هيمنة الشركتين؟':'Will you find your place in the market… or break the duopoly?'}</h2><div class="development"><strong>{ar?'اللعبة قيد التطوير':'Currently in development'}</strong><p>{ar?'الميزات والتوازن الاقتصادي قابلان للتغيير. الواجهة الحالية باللغة الإنجليزية. لم يُعلن موعد الإصدار بعد.':'Features and economic balance may change. The current game interface is in English. A release date has not been announced.'}</p></div><a href={localizePath('/sater-games',locale)}>{ar?'استكشف ألعاب سطر الأخرى':'Explore more SATER games'} ↗</a></section>
+ </div>
+</Base>
+<style>
+ .duopoly{background:#0b1723;color:#f5f0e6;--duo-muted:#c0c9d0;--duo-gold:#e1c48a;overflow-wrap:anywhere}
+ .opening-copy,.premise,.decisions,.closing{width:var(--col);margin-inline:auto;padding-block:clamp(3rem,7vw,7rem)}
+ .back,.intro-links a,.closing a{color:var(--duo-gold);text-decoration:underline;text-underline-offset:.3em}.back{display:inline-block;margin-bottom:3rem}
+ .eyebrow{font-size:1rem;color:var(--duo-gold);margin-bottom:1.25rem}.eyebrow span{padding-inline:1rem}
+ h1{font-family:Georgia,serif;letter-spacing:-.035em;font-size:clamp(2.8rem,8vw,7rem);line-height:1.15;max-width:100%;text-align:start}
+ .claim{font-size:clamp(1.6rem,3.5vw,3rem);line-height:1.6;margin-top:1.5rem;color:var(--duo-muted)}
+ .intro-links{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:2rem}.status{border:1px solid #82724f;border-radius:2rem;padding:.55rem 1rem;color:var(--duo-gold)}
+ figure{margin:0}figure img{width:100%;height:auto;display:block}figcaption{font-size:.875rem;color:var(--duo-muted);text-align:center;padding:1rem}
+ .premise{display:grid;grid-template-columns:minmax(140px,240px) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center}.premise img{width:100%;height:auto;border-radius:1.5rem}
+ h2{font-size:clamp(1.8rem,3vw,3rem);line-height:1.55;margin-bottom:1.25rem}p{line-height:1.9;max-width:70ch}.premise p:not(.eyebrow),.decisions p:not(.eyebrow),.closing p{color:var(--duo-muted)}.premise p+p{margin-top:1rem}
+ .decisions{border-block:1px solid #34424d}.decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 4rem;margin-top:3rem}.decision-grid article{border-top:1px solid #34424d;padding-top:1.5rem}.number{color:var(--duo-gold);font-family:monospace}h3{font-size:1.4rem;line-height:1.6;margin-block:.75rem}
+ .closing{max-width:900px;text-align:center}.closing p{margin-inline:auto}.closing h2{margin-top:2rem;color:var(--duo-gold)}.development{border:1px solid #34424d;padding:1.5rem;margin-block:2.5rem}.development strong{display:block;margin-bottom:.75rem}
+ @media(max-width:650px){.premise{grid-template-columns:1fr}.premise img{width:140px}.decision-grid{grid-template-columns:1fr}.back{margin-bottom:2rem}}
+</style>

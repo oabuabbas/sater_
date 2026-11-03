@@ -24,6 +24,20 @@ export interface NewsArticle {
 
 // Publication dates belong to the articles, not to the date of each site build.
 export const news: NewsArticle[] = [
+  {
+    slug: 'btb-1-2-0', date: '2026-11-04', product: 'behind-the-badge', kind: 'release',
+    illustration: badgeFeature, illustrationFit: 'landscape', coverTitle: '1.2.0',
+    illustrationAlt: { ar: 'ملعب ولوحة إدارة كرة القدم في BTB', en: 'BTB football stadium and boardroom artwork' },
+    title: { ar: 'BTB 1.2.0: منافسات أشدّ، وصحافة تراقب، ومدرب له مسيرة', en: 'BTB 1.2.0: fiercer rivals, a watching press and coaches with careers' },
+    summary: { ar: 'تعرّف على تحديث BTB: إدارة كرة القدم، من مواجهات الديربي وغرفة الصحافة إلى سوق المدربين وحفل جوائز ناديك، مع تنقّل أوضح وسجلات أكثر موثوقية.', en: 'Explore the BTB: Football Management update: derby rivalries, the press room, a deeper coaching market and your club’s awards night, with clearer navigation and more reliable records.' },
+    sections: [
+      { title: { ar: 'اسم أقصر، والحكاية نفسها', en: 'A shorter name, the same story' }, body: { ar: 'BTB اختصار لـBehind The Badge. ستجد اللعبة باسم «BTB: إدارة كرة القدم» بالعربية و«BTB: Football Management» بالإنجليزية. ما زلت رئيس النادي: تبني المؤسسة، وتعيّن المدرب، وتتحمل نتائج قراراتك داخل الملعب وخارجه.', en: 'BTB stands for Behind The Badge. The store name is BTB: Football Management in English and BTB: إدارة كرة القدم in Arabic. You are still the club president: building the institution, appointing the coach and answering for decisions on and off the pitch.' } },
+      { title: { ar: 'المباراة تبدأ قبل صافرة البداية', en: 'The match begins before kick-off' }, body: { ar: 'تأخذ المنافسات طابعًا أوضح مع الكلاسيكو والديربيات ومباريات الثأر. وقبل المواجهات الكبرى تنتظرك غرفة الصحافة: ثلاثة صحفيين، وأربع نبرات للرد، ووعود ستتذكرها الصحف بعد النتيجة. وتتفاعل الجماهير الأكثر حماسًا مع قراراتك بشأن المدرجات.', en: 'Rivalries take on a clearer identity through the Classic, derbies and grudge matches. Before major fixtures, face three journalists in the press room and choose from four tones. The papers will remember your promises after the result, while the ultras react to your decisions about the stands.' } },
+      { title: { ar: 'المدرب ليس مجرد اسم على عقد', en: 'The coach is more than a name on a contract' }, body: { ar: 'للمدرب صفحة ومسيرة، وللتعاقد معه خطوات تبدأ بالقائمة المختصرة والمقابلة ثم التفاوض على الأجر والمدة. يمكنك تجديد العقود أو استقطاب مدرب مرتبط بنادٍ آخر، ويقود المساعد الفريق عند شغور المنصب. يتقدم المدربون في العمر ويتقاعدون، ويمكن متابعة سجلهم العام من قسم الدوري.', en: 'Coaches have their own profiles and careers. Recruitment moves from a shortlist and interview to talks about wages and contract length. Renew contracts or approach a coach at another club, with an assistant taking charge while the role is vacant. Coaches age and retire, and a public managers’ register is available in the League section.' } },
+      { title: { ar: 'ليالٍ تستحق أن تبقى في السجل', en: 'Nights worth keeping in the record' }, body: { ar: 'يضيف التحديث حفل جوائز خاصًا بناديك وكأس سوبر يمكن متابعتها مباشرة، مع حفظ أسماء الجوائز وتحسين موثوقية السجلات والحفظ. وتساعد التقارير الفصلية على مراجعة وضع النادي خلال الموسم.', en: 'The update adds your club’s own awards night and a live Super Cup, with award names recorded and improvements to save and record reliability. Quarterly reports help you review the club’s position through the season.' } },
+      { title: { ar: 'وصول أسرع، ومقاطعات أقل', en: 'Easier navigation, fewer interruptions' }, body: { ar: 'شريط سفلي من صفّين وشاشة مساعدة يجعلان الوصول إلى الأقسام أوضح، ويظهر زر لعب المباراة في موضع زر المتابعة المعتاد. وأصبحت الإعلانات الكاملة مرتبطة بفواصل طبيعية في اللعب، مع فترات تباعد وحد يومي، وأُزيل صندوق الإعلان الدائم من الرئيسية.', en: 'A two-row bottom navigation bar and a help sheet make sections easier to find, while the match Play button sits where Continue normally appears. Full-screen ads are tied to natural breaks, with spacing and a daily limit, and the permanent sponsor box has been removed from Home.' } },
+    ],
+  },
   ...octoberUpdates,
   {
     slug: 'behind-the-badge-launch', date: '2026-10-18', product: 'behind-the-badge', kind: 'launch',
@@ -259,7 +273,7 @@ export const topics = [
   { slug: 'studio', title: { ar: 'الاستوديو', en: 'Studio' } },
   { slug: 'apps', title: { ar: 'التطبيقات', en: 'Apps' } },
   { slug: 'games', title: { ar: 'الألعاب', en: 'Games' } },
-  ...[...tools, ...games].map(p => ({ slug: p.slug, title: { ar: p.name, en: p.name } })),
+  ...[...tools, ...games].map(p => ({ slug: p.slug, title: p.localizedName ?? { ar: p.name, en: p.name } })),
 ];
 export function newsFor(topic?: string) {
   return news.filter(n => !topic || (topic === 'studio' ? !n.product : topic === 'games' ? [...games.map(p => p.slug), 'khamen'].includes(n.product ?? '') : topic === 'apps' ? tools.some(p => p.slug === n.product) : n.product === topic)).sort((a, b) => b.date.localeCompare(a.date));

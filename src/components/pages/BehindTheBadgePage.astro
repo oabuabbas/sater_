@@ -32,7 +32,8 @@ const t = useTranslations(locale);
     <div class="hero-copy" style={`--accent:${game.accent}`}>
       <p class="back label"><a href={localizePath("/play", locale)}>&larr; {t("play.title" as UIKey)}</a></p>
       <p class="eyebrow label">{detail.eyebrow[locale]}</p>
-      <h1>{game.name}</h1>
+      <h1>{game.localizedName?.[locale] ?? game.name}</h1>
+      <p>{locale === 'ar' ? 'BTB اختصار لـBehind The Badge — خلف الشعار.' : 'BTB stands for Behind The Badge.'}</p>
       <p class="statement">{detail.statement[locale]}</p>
       <div class="hero-actions">
         <StatusBadge status={game.status} label={t(`status.${game.status}` as UIKey)} />

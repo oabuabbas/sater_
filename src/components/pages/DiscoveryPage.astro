@@ -20,7 +20,7 @@ const collection = {
   '@type': 'CollectionPage', '@id': new URL(localizePath(path, locale), site).href + '#page',
   name: copy.title[locale], description: copy.description[locale],
   mainEntity: { '@type': 'ItemList', itemListElement: products.map((p, index) => ({
-    '@type': 'ListItem', position: index + 1, name: p.name,
+    '@type': 'ListItem', position: index + 1, name: p.localizedName?.[locale] ?? p.name,
     url: new URL(localizePath(p.legacyPath!, locale), site).href,
   })) },
 };
@@ -40,15 +40,15 @@ const breadcrumb = {
     <div class:list={['products', { games: kind === 'games' }]}>
       {products.map(product => (
         <article class="product" style={`--accent:${product.accent}`}>
-          <a class="art" href={localizePath(product.legacyPath!, locale)} aria-label={product.name}>
-            <Image src={product.feature ?? product.icon} alt={ar ? `صورة ${product.name}` : `${product.name} artwork`} width={1024} height={500} />
+          <a class="art" href={localizePath(product.legacyPath!, locale)} aria-label={product.localizedName?.[locale] ?? product.name}>
+            <Image src={product.feature ?? product.icon} alt={ar ? `صورة ${product.localizedName?.[locale] ?? product.name}` : `${product.localizedName?.[locale] ?? product.name} artwork`} width={1024} height={500} />
           </a>
           <div class="copy">
             <StatusBadge status={product.status} label={t(`status.${product.status}` as UIKey)} />
-            <h3><a href={localizePath(product.legacyPath!, locale)}>{product.name}</a></h3>
+            <h3><a href={localizePath(product.legacyPath!, locale)}>{product.localizedName?.[locale] ?? product.name}</a></h3>
             <p class="purpose">{productDiscovery[product.slug].purpose[locale]}</p>
             <p>{productDiscovery[product.slug].body[locale]}</p>
-            <nav aria-label={`${product.name} — ${ar ? 'روابط' : 'links'}`}>
+            <nav aria-label={`${product.localizedName?.[locale] ?? product.name} — ${ar ? 'روابط' : 'links'}`}>
               <a href={localizePath(product.legacyPath!, locale)}>{ar ? 'اكتشف المنتج' : 'Explore product'}</a>
               {product.storeUrl && <a href={product.storeUrl} target="_blank" rel="noopener noreferrer">Google Play ↗</a>}
             </nav>

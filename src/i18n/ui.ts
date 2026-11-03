@@ -50,8 +50,8 @@ export const ui = {
     "tools.head": "Three tools, on the store",
     "tools.note": "Each is named after the Arabic word for what it does.",
 
-    "games.head": "Two games",
-    "games.note": "Studio Chairman and Behind The Badge are available on Google Play.",
+    "games.head": "Three worlds to lead",
+    "games.note": "Studio Chairman and Behind The Badge are on Google Play. The Duopoly is in development.",
 
     "runner.kicker": "A playable line",
     "runner.head": "Don't break the line.",
@@ -141,8 +141,8 @@ export const ui = {
     "tools.head": "ثلاثة تطبيقات على المتجر",
     "tools.note": "كلٌّ منها سُمّيت بالكلمة العربية التي تصف ما تفعله.",
 
-    "games.head": "لعبتان",
-    "games.note": "تتوفر Studio Chairman وBehind The Badge على Google Play.",
+    "games.head": "ثلاثة عوالم لتقودها",
+    "games.note": "تتوفر Studio Chairman وBehind The Badge على Google Play. أما The Duopoly فهي قيد التطوير.",
 
     "runner.kicker": "سطر قابل للعب",
     "runner.head": "لا تقطع السطر.",

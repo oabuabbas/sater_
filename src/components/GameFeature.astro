@@ -33,13 +33,13 @@ const line: ProductLineItem[] = [
     <span class:list={["mark", game.art]} aria-hidden="true">
       <Image src={game.icon} alt="" width={192} height={192} />
     </span>
-    <h3 class="name">{game.name}</h3>
+    <h3 class="name">{game.localizedName?.[locale] ?? game.name}</h3>
     <p class="tagline">{game.tagline[locale]}</p>
     <p class="blurb">{game.blurb[locale]}</p>
     {
       line.length > 0 ? (
         <ProductLine
-          label={`${game.name} — ${t("tools.line" as UIKey)}`}
+          label={`${game.localizedName?.[locale] ?? game.name} — ${t("tools.line" as UIKey)}`}
           status={game.status}
           statusLabel={t(statusKey)}
           items={line}
@@ -54,7 +54,7 @@ const line: ProductLineItem[] = [
     {
       game.feature && (
         <div class="feature-art">
-          <Image src={game.feature} alt={`${game.name} artwork`} width={1024} height={500} loading="lazy" />
+          <Image src={game.feature} alt={`${game.localizedName?.[locale] ?? game.name} artwork`} width={1024} height={500} loading="lazy" />
         </div>
       )
     }
@@ -65,7 +65,7 @@ const line: ProductLineItem[] = [
           {game.shots.slice(0, 3).map((shot, i) => (
             <Image
               src={shot}
-              alt={`${game.name} screenshot ${i + 1}`}
+              alt={`${game.localizedName?.[locale] ?? game.name} screenshot ${i + 1}`}
               width={300}
               height={533}
               loading="lazy"
@@ -78,7 +78,7 @@ const line: ProductLineItem[] = [
     {
       game.wide && (
         <div class="wide">
-          <Image src={game.wide} alt={`${game.name} brand plate`} width={420} height={420} loading="lazy" />
+          <Image src={game.wide} alt={`${game.localizedName?.[locale] ?? game.name} brand plate`} width={420} height={420} loading="lazy" />
         </div>
       )
     }

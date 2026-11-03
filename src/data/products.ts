@@ -30,6 +30,8 @@ import chairman7 from "~/assets/games/chairman-7.png";
 import chairman8 from "~/assets/games/chairman-8.png";
 import btbFeature from "~/assets/games/behind-the-badge-feature.png";
 import chairmanFeature from "~/assets/games/studio-chairman-feature.png";
+import duopolyIcon from "~/assets/products/the-duopoly.jpg";
+import duopolyFeature from "~/assets/games/the-duopoly-feature.png";
 
 export type Locale = "en" | "ar";
 export type Status = "live" | "build";
@@ -37,6 +39,8 @@ export type Status = "live" | "build";
 export interface Product {
   slug: string;
   name: string;
+  localizedName?: Record<Locale, string>;
+  alternateNames?: string[];
   /** The Arabic word the Latin name transliterates, vowelled. */
   root?: string;
   /** Why that word — the reason the name was chosen. */
@@ -178,6 +182,13 @@ export interface GameDetail {
 
 export const games: Game[] = [
   {
+    slug: 'the-duopoly', name: 'The Duopoly', status: 'build',
+    tagline: { ar: 'شركتان تملكان السوق. أين ستضع اسمك؟', en: 'Two giants own the market. Where will you make your name?' },
+    blurb: { ar: 'عام 1990. مشروع صغير في مدينة تهيمن عليها شركتان. ابنِ شركتك، وازن بين الربح والسيولة، واختر طريقك في محاكاة اقتصادية للهاتف قيد التطوير.', en: '1990. A small business in a city ruled by two giants. Build your company, balance profit and cash flow, and choose your path in a mobile economic simulation now in development.' },
+    accent: '#D7B779', ground: '#0B1723', art: 'full', icon: duopolyIcon, feature: duopolyFeature,
+    legacyPath: '/the-duopoly/',
+  },
+  {
     slug: "studio-chairman",
     name: "Studio Chairman",
     tagline: {
@@ -202,7 +213,9 @@ export const games: Game[] = [
   },
   {
     slug: "behind-the-badge",
-    name: "Behind The Badge",
+    name: "BTB: Football Management",
+    localizedName: { ar: 'BTB: إدارة كرة القدم', en: 'BTB: Football Management' },
+    alternateNames: ['BTB', 'Behind The Badge', 'Behind The Badge: Football Management'],
     tagline: {
       en: "From the club boardroom to the top of world football.",
       ar: "من رئاسة النادي إلى قيادة عالم كرة القدم.",
