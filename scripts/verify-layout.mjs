@@ -34,12 +34,14 @@ ROUTES.push('/news/zill-1-1-0/');
 ROUTES.push('/news/behind-the-badge-launch/');
 ROUTES.push('/the-duopoly/');
 ROUTES.push('/sater-mini/','/find-the-spy/');
+ROUTES.push('/find-the-spy/privacy/','/find-the-spy/terms/');
 ROUTES.push('/news/btb-1-2-0/');
 ROUTES.push(...['studio-chairman-1-1-3','studio-chairman-creative-editor','behind-the-badge-1-0-1','behind-the-badge-directors-cut','behind-the-badge-creative-editor'].map(slug=>`/news/${slug}/`));
 const EN_ONLY = /^\/(tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;
 const largeText = process.argv.includes('--large-text');
 const badgeReview = process.argv.includes('--badge');
 const PAGES = [...ROUTES, ...ROUTES.filter((r) => !EN_ONLY.test(r)).map((r) => `/ar${r}`)]
+  .filter(r => !process.argv.includes('--spy') || /find-the-spy|sater-mini/.test(r))
   .filter(r => !process.argv.includes('--btb-update') || /btb-1-2-0|behind-the-badge\/$/.test(r))
   .filter(r => !badgeReview || /behind-the-badge|^\/(ar\/)?play\/$/.test(r))
   .filter(r => !largeText || badgeReview || /privacy|terms|sater-apps|sater-games/.test(r) || r === '/ar/tools/' || r === '/news/');

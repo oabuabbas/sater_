@@ -1,0 +1,29 @@
+---
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import { localizePath } from '~/i18n/ui';
+import type { Locale } from '~/data/products';
+interface Props { locale: Locale; kind: 'privacy' | 'terms' }
+const { locale, kind } = Astro.props;
+const ar = locale === 'ar';
+const label = kind === 'privacy' ? (ar ? 'سياسة الخصوصية' : 'Privacy Policy') : (ar ? 'شروط الاستخدام' : 'Terms of Service');
+const title = `${label} — ${ar ? 'برا السالفة · Find the Spy' : 'Find the Spy'}`;
+---
+<Base locale={locale} path={`/find-the-spy/${kind}`} title={title} description={ar ? `${label} للعبة برا السالفة — Find the Spy من سطر.` : `${label} for Find the Spy by SATER.`}>
+  <Band tone="base"><h1>{title}</h1><nav aria-label={ar ? 'روابط اللعبة والسياسات' : 'Game and policy links'}>
+    <a href={localizePath('/find-the-spy', locale)}>{ar ? 'العودة إلى اللعبة' : 'Back to the game'}</a>
+    <a href={localizePath(`/find-the-spy/${kind === 'privacy' ? 'terms' : 'privacy'}`, locale)}>{kind === 'privacy' ? (ar ? 'شروط الاستخدام' : 'Terms of service') : (ar ? 'سياسة الخصوصية' : 'Privacy policy')}</a>
+    <a href={localizePath(`/find-the-spy/${kind}`, ar ? 'en' : 'ar')} lang={ar ? 'en' : 'ar'}>{ar ? 'English' : 'العربية'}</a>
+  </nav></Band>
+  <Band tone="raised"><article><slot /></article></Band>
+</Base>
+<style>
+  h1{font-size:var(--step-head);line-height:1.4;margin-bottom:1rem;overflow-wrap:anywhere}
+  nav{display:flex;flex-wrap:wrap;gap:1rem 2rem}nav a{padding-block:.5rem}
+  article{max-width:74ch;margin-inline:auto;overflow-wrap:anywhere}
+  article :global(h2){font-size:1.5rem;margin-block:2.5rem 1rem;line-height:1.5}
+  article :global(p),article :global(li){line-height:1.9;color:var(--fg-dim)}
+  article :global(p){margin-block:1rem}article :global(ul){list-style:disc;padding-inline-start:1.5rem}
+  article :global(a),a{text-decoration:underline;text-underline-offset:.2em}
+  article :global(code){direction:ltr;unicode-bidi:isolate}
+</style>

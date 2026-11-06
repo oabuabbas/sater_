@@ -18,7 +18,9 @@ const newsReview = process.argv.includes("--news");
 const legalReview = process.argv.includes('--legal');
 const badgeReview = process.argv.includes('--badge');
 const discoveryReview = process.argv.includes('--discovery');
-const TARGETS = process.argv.includes('--mini') ? [
+const TARGETS = process.argv.includes('--spy-legal') ? [
+ {path:'/ar/find-the-spy/privacy/',name:'ar-spy-privacy'}, {path:'/ar/find-the-spy/terms/',name:'ar-spy-terms'}, {path:'/find-the-spy/terms/',name:'en-spy-terms'},
+] : process.argv.includes('--mini') ? [
  {path:'/ar/sater-mini/',name:'ar-mini'}, {path:'/find-the-spy/',name:'en-spy'}, {path:'/find-the-spy/privacy/',name:'spy-privacy'},
 ] : process.argv.includes('--btb-update') ? [
  {path:'/ar/news/btb-1-2-0/',name:'ar-btb-update'}, {path:'/news/btb-1-2-0/',name:'en-btb-update'}, {path:'/ar/behind-the-badge/',name:'ar-btb-renamed'},
