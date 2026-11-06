@@ -33,6 +33,7 @@ ROUTES.push('/news/khamen-1-7-2/');
 ROUTES.push('/news/zill-1-1-0/');
 ROUTES.push('/news/behind-the-badge-launch/');
 ROUTES.push('/the-duopoly/');
+ROUTES.push('/sater-mini/','/find-the-spy/');
 ROUTES.push('/news/btb-1-2-0/');
 ROUTES.push(...['studio-chairman-1-1-3','studio-chairman-creative-editor','behind-the-badge-1-0-1','behind-the-badge-directors-cut','behind-the-badge-creative-editor'].map(slug=>`/news/${slug}/`));
 const EN_ONLY = /^\/(tam\/(privacy|terms)|khamen\/(privacy|terms)|zill\/(privacy|terms)|studio-chairman\/(privacy|terms)|behind-the-badge\/(privacy|terms)|404)/;

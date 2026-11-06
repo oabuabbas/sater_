@@ -68,6 +68,7 @@ const path = ["idea", "code", "form", "product"] as const;
 </Band>
 
 <NewsSection locale={locale} />
+<Band tone="raised"><p class="label">{locale === 'ar' ? 'قريبًا · Soon' : 'Coming soon'}</p><h2 style="font-size:var(--step-head);line-height:1.4">SATER mini</h2><p>{locale === 'ar' ? 'ألعاب جلسات مستقلة من سطر. البداية مع برا السالفة — Find the Spy.' : 'Standalone party games from SATER. Starting with Find the Spy.'}</p><a href={localizePath('/sater-mini',locale)}>{locale === 'ar' ? 'اكتشف SATER mini ←' : 'Discover SATER mini →'}</a></Band>
 
 <Band tone="raised" labelledby="tools-head">
   <header class="sec">

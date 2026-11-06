@@ -1,0 +1,10 @@
+---
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import { Content } from '~/data/find-the-spy-privacy.md';
+---
+<Base locale="en" path="/find-the-spy/privacy" title="Find the Spy — Privacy Policy" description="Privacy policy for Find the Spy by SATER: local game data, advertising, purchases and your choices." localized={false}>
+<Band tone="base"><h1>Privacy Policy — Find the Spy</h1><a href="/find-the-spy/">Find the Spy · SATER mini</a></Band>
+<Band tone="raised"><article><Content /></article></Band>
+</Base>
+<style>h1{font-size:var(--step-head);line-height:1.4;margin-bottom:1rem}article{max-width:74ch;margin-inline:auto;overflow-wrap:anywhere}article :global(h2){font-size:1.5rem;margin-block:2.5rem 1rem;line-height:1.5}article :global(p),article :global(li){line-height:1.9;color:var(--fg-dim)}article :global(p){margin-block:1rem}article :global(ul){list-style:disc;padding-inline-start:1.5rem}article :global(a),a{text-decoration:underline;text-underline-offset:.2em}</style>

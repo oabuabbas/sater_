@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import spy from '~/assets/games/find-the-spy.png';
+import type { Locale } from '~/data/products';
+import { localizePath } from '~/i18n/ui';
+interface Props { locale: Locale; game?: boolean }
+const {locale,game=false}=Astro.props;
+const ar=locale==='ar';
+const title=game?(ar?'برا السالفة — Find the Spy':'Find the Spy'):(ar?'SATER mini — ألعاب مستقلة قريبًا':'SATER mini — Standalone games coming soon');
+---
+<Base locale={locale} path={game?'/find-the-spy':'/sater-mini'} title={title} description={ar?'ألعاب جلسات مستقلة من سطر. البداية مع برا السالفة — Find the Spy. قريبًا.':'Standalone party games from SATER. Starting with Find the Spy. Coming soon.'}>
+ <Band tone="base"><div class="intro"><p class="label">{game?'SATER mini':(ar?'تجارب صغيرة. جلسات لا تُنسى.':'Small games. Memorable gatherings.')}</p><h1>{game?title:'SATER mini'}</h1><span class="soon">{ar?'قريبًا · Soon':'Soon'}</span><p class="lede">{ar?'لعبة واحدة، وجمعة كاملة. نأخذ ألعاب الجلسات من عالم خمّن إلى تجارب مستقلة، لكل منها هويتها ومساحتها.':'One game, a whole gathering. Bringing party games from KHAMEN into standalone experiences, each with its own identity.'}</p></div></Band>
+ <Band tone="raised"><section class="spotlight" aria-labelledby="spy-title"><Image src={spy} alt={ar?'شعار Find the Spy: محقق داخل عدسة مكبّرة':'Find the Spy detective and magnifying-glass logo'} width={512} height={512}/><div><p class="label">{ar?'أول ألعاب SATER mini':'The first SATER mini game'}</p><h2 id="spy-title">{ar?'برا السالفة':'Find the Spy'}</h2><p class="english" lang="en">{ar?'Find the Spy':'Who is out of the loop?'}</p><p>{ar?'بينكم شخص برا السالفة… هل تكتشفونه؟ لعبة جماعية على جهاز واحد، قادمة كتجربة مستقلة على أندرويد.':'Someone in your group is out of the loop… can you find them? A single-device party game, coming as a standalone Android experience.'}</p><p class="note">{ar?'قريبًا على Google Play. سنضيف رابط التحميل عند الإطلاق.':'Coming soon to Google Play. The download link will be added at launch.'}</p><nav aria-label={ar?'روابط اللعبة':'Game links'}>{!game&&<a href={localizePath('/find-the-spy',locale)}>{ar?'اكتشف اللعبة':'Explore the game'} ↗</a>}<a href="/find-the-spy/privacy/">{ar?'سياسة الخصوصية (English)':'Privacy policy'}</a><a href="mailto:sater.studios@gmail.com">{ar?'تواصل معنا':'Contact us'}</a></nav></div></section></Band>
+ <Band tone="base"><div class="ending"><h2>{ar?'مستقلة، ومن نفس العائلة.':'Independent games. The same family.'}</h2><p>{ar?'SATER mini قسم مستقل، وليس بديلًا عن خمّن. يبقى خمّن مكان الألعاب المتعددة، وتمنح هذه السلسلة كل لعبة تجربة خاصة بها.':'SATER mini is a separate collection, not a replacement for KHAMEN. KHAMEN remains the multi-game collection, while each mini game gets its own focused experience.'}</p><a href={localizePath(game?'/sater-mini':'/khamen',locale)}>{game?'SATER mini':(ar?'تعرّف على خمّن':'Discover KHAMEN')} ↗</a></div></Band>
+</Base>
+<style>
+ .intro{max-width:55rem}.label{color:var(--fg-dim);margin-bottom:1rem}h1{font-size:clamp(2.5rem,7vw,5.5rem);line-height:1.3;overflow-wrap:anywhere}.soon{display:inline-block;border:1px solid var(--edge);border-radius:3rem;padding:.5rem 1rem;margin-block:1.25rem}.lede{font-size:var(--step-lede);line-height:1.8}.spotlight{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:var(--s-6);align-items:center}.spotlight img{width:100%;max-width:420px;height:auto;border-radius:2rem}h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.5;margin-bottom:1rem}p{line-height:1.9}.english,.note{color:var(--fg-dim);margin-block:1rem}nav{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;margin-top:2rem}a{text-decoration:underline;text-underline-offset:.25em;display:inline-block;padding-block:.6rem}.ending{max-width:55rem}.ending a{margin-top:1rem}@media(max-width:650px){.spotlight{grid-template-columns:1fr}.spotlight img{max-width:240px}}
+</style>
