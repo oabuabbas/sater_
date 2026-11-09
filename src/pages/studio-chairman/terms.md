@@ -4,7 +4,7 @@ title: Terms of Service — Studio Chairman
 description: "Terms for Studio Chairman, including local saves, advertising and optional purchases."
 path: /studio-chairman/terms
 effective: 25 August 2026
-updated: 14 October 2026
+updated: 9 November 2026
 applies_to: Studio Chairman (Android) — com.sater.studiochairman, version 1.0.0 and later
 publisher: sater
 contact: sater.studios@gmail.com
@@ -12,9 +12,11 @@ contact: sater.studios@gmail.com
 
 ## The short version
 
-The game is free to download and supported by advertising. An optional
-ad-removal purchase may be offered. The installed version determines which
-modes, features and rewarded offers are available.
+The game is free to download and supported by advertising. Optional one-time purchases
+can provide ad removal, the Creative Editor or a combined offer. Normal play does not
+require the Creative Editor. Features, prices, access routes and control names depend
+on the installed version and store availability. These terms also cover supported earlier
+versions; not every version includes every feature described here.
 
 ---
 
@@ -42,7 +44,9 @@ notice of authorship; or distribute modified copies.
 
 Streaming, recording and publishing your own play — videos, screenshots, written
 coverage — is **expressly permitted**, including monetised channels. You do not need our
-permission. The footage of your play is yours.
+permission from SATER for that use. This permission does not transfer ownership of the
+game or its assets, or grant rights to third-party images, music or other material you
+add. You remain responsible for rights and permissions needed for that material.
 
 ---
 
@@ -56,24 +60,49 @@ The game is funded by advertising, as described in the
 
 ---
 
-## 4. The one purchase
+## 4. Optional purchases, advertising and modes
 
-Studio Chairman offers a single optional in-app purchase: **Remove ads**.
+Depending on the version and store availability, products include **Remove Ads Forever**
+(`remove_ads`), **Creative Editor** (`creative_editor`) and a combined product
+(`creative_bundle`). These are **one-time, non-consumable purchases, not subscriptions**.
+Review the price and included features shown before confirming a purchase. Buying one
+product does not grant separate products unless the offer explicitly includes them.
 
-- It is a **one-time, non-consumable** purchase. You buy it once, per Google account.
-- It **permanently removes** the interstitial and in-list advertising.
-- In versions with **Director's Cut**, owning ad removal also unlocks that optional
-  mode. Its tools can change in-game cash, reputation and other values, and permanently
-  mark the current save as modified. Other saves are not modified by that action.
-- Optional **rewarded** ads remain available to you afterwards if you want the in-game
-  favour they grant. You are never required to watch one. To make sure paying is never
-  worse than watching, buyers also receive a standing daily allowance of favours.
+### Ad removal and privacy choices
+
+Ad removal disables the forced advertising covered by that purchase. Rewarded videos
+remain optional where offered. Some versions allow you to separately enable real ads in
+sponsor boxes; you can turn this off again, and enabling it does not restore forced
+video or interstitial ads. Fictional in-game sponsors are not external-network ads.
+
+Advertising remains subject to applicable consent choices. You do not need to buy
+anything to use the privacy controls described in our [Privacy Policy](/studio-chairman/privacy/).
+Ad availability and rewards can vary; an optional ad is not guaranteed to be available.
+
+### Director's Cut and Creative Editor
+
+**Director's Cut (Director Mode)** and **Creative Editor** are distinct optional tools.
+In versions offering Director's Cut through ad removal or an optional rewarded-ad route,
+follow the access instructions in the app. Existing access to Director Mode is preserved;
+ad removal alone does **not** unlock the separate Creative Editor.
+
+Director's Cut can change in-game cash, reputation and other values and mark the current
+save as modified. The Creative Editor works in a separate creative copy rather than
+applying its edits to the original career. Review the in-app confirmation before editing;
+creative or modified results should not be represented as an unmodified career.
+
+### Payment, refunds and restoration
 
 **Google Play processes payment.** Refund requests can use
 [Google Play's refund process](https://support.google.com/googleplay/answer/2479637),
 and are subject to Google's policy and statutory rights. Contact us for purchase support.
 
-If you reinstall or change device, use **Settings → Ads → Restore purchase**.
+Use the app's **Restore purchases** control after reinstalling or changing devices;
+its location and label may differ by version. Restoration requires the relevant Google
+account and may require Google Play and an internet connection. Clearing app data does
+not cancel your purchase. Restoring ownership does **not** restore saves, drafts,
+creative copies or imported images. Access can be adjusted when Google Play reports a
+refund or revoked purchase. Statutory consumer rights remain unaffected.
 
 ---
 
@@ -89,14 +118,18 @@ You should understand clearly:
 - **Favours and all in-game values have no monetary value.** They are not your property,
   cannot be exchanged for cash or anything of real-world value, and cannot be transferred
   or sold to another person.
-- **Favours cannot buy an advantage.** By design they purchase only information and
-  cosmetic options — never money, reputation, film quality or box office. Watching an ad
-  will not make you win, and refusing will not make you lose.
+- Favour uses and rewards are shown in the installed version. Favours are distinct from
+  the optional Director's Cut tools, which can change game values. Access to those tools
+  should not be confused with buying real currency or a guaranteed production result.
 - We may adjust the balance, cost or availability of in-game items in future updates.
 
 SATER holds no cloud copy and **cannot restore a save it does not have**.
 Clearing app data, uninstalling or losing the device can remove local progress.
 Protect backups you make; device backup or transfer settings may apply separately.
+Drafts, creative copies and imported images are also local data. Deleting one save or
+replacing an image may leave another slot, creative copy, undo record or backup intact.
+Manage those copies through the relevant app or provider controls. SATER does not offer
+a cloud-save service for this game.
 
 ---
 
@@ -106,8 +139,16 @@ Do not use the game to break the law. Do not attempt to interfere with the adver
 or billing systems, generate invalid ad traffic, automate ad views, or tamper with saved
 data in order to defraud us or our advertising partners.
 
-Studio and chairman names are typed by you and stored only on your device. If you choose
-to publish screenshots containing names you have entered, that is your responsibility.
+You may enter names, story notes and drafts and, where supported, import images for
+logos or posters. Use only material you own or are authorised to use, and respect other
+people's copyright, trademarks, privacy and other rights. Do not use these features for
+unlawful or abusive content. You are responsible for material you enter or import and
+for what you choose to share publicly.
+
+You retain any rights you hold in your own material. Importing it does not transfer
+ownership to SATER or grant rights to third-party content. Selected images are processed
+locally as described in the [Privacy Policy](/studio-chairman/privacy/); separate backup,
+photo-provider and sharing services may have their own terms.
 
 ---
 
@@ -118,16 +159,19 @@ and the events of its historical campaign are **invented**. Where the campaign d
 real periods of film history, it does so as dramatised fiction.
 
 Any resemblance to real people, living or dead, or to real companies, is coincidental and
-not intended.
+not intended. Names, images and stories you add yourself are user-created material and
+are not covered by that statement about the game's fictional content. Simulated studio
+finances, investments and production outcomes are entertainment, not financial advice
+or promises of real-world earnings.
 
 ---
 
 ## 8. Updates and availability
 
 We may update, change or discontinue the game, any feature, or the availability of the
-in-app purchase, at any time.
+in-app products. Changes remain subject to applicable consumer rights and obligations.
 
-If the ad-removal purchase is ever withdrawn from sale, purchases already made continue
+If an optional product is withdrawn from sale, purchases already made continue
 to be honoured on the versions that support them. We cannot guarantee that any specific
 version remains installable indefinitely, as that depends on Google Play and on Android
 itself.
@@ -153,7 +197,7 @@ special, consequential or punitive damages, or for lost progress, lost data, or 
 profits, arising from your use of the game.
 
 Where liability cannot lawfully be excluded, it is limited to the greater of the amount
-you actually paid us through the in-app purchase in the twelve months before the claim,
+you actually paid us through in-app purchases in the twelve months before the claim,
 or USD 10.
 
 This section does not limit liability for death or personal injury caused by negligence,
