@@ -1,10 +1,10 @@
 ---
 layout: ../../layouts/LegalMarkdown.astro
 title: Privacy Policy — Studio Chairman
-description: "How Studio Chairman handles your data. Short version: the game stays on your phone; the ads do not."
+description: "How Studio Chairman handles your data. Local game data, optional images, advertising, purchases and your privacy choices."
 path: /studio-chairman/privacy
 effective: 25 August 2026
-updated: 14 October 2026
+updated: 8 November 2026
 applies_to: Studio Chairman (Android) — com.sater.studiochairman, version 1.0.0 and later
 publisher: sater
 contact: sater.studios@gmail.com
@@ -12,218 +12,122 @@ contact: sater.studios@gmail.com
 
 ## The short version
 
-Studio Chairman has **no servers of its own**. It does not create an account, and it
-never asks for your name, email address or phone number.
+Studio Chairman does not require a SATER account. Game progress, local play statistics, settings and images you choose for creative features are stored on your device. We do not operate a game server, a cloud-save service or a purchase-verification server for this app.
 
-Your saved game, local play statistics and settings are stored in the app's
-private storage on your device. SATER does not operate a cloud-save service.
-Device backup or transfer settings may separately apply.
+The app uses Google services for advertising and purchases. Those services process data separately from the local game. Android backup, device transfer, a photo provider you use, and support messages you send may also involve services outside the app.
 
-The game is free, and **advertising pays for it**. Ads are supplied by Google AdMob,
-which is a separate company with its own privacy policy — and it does receive data
-from your device in order to choose and count ads.
-
-That is the whole trade. The rest of this page is the detail.
-
----
+Features, products and control names depend on the version installed. This policy covers the Android application **com.sater.studiochairman**, including supported earlier versions; it does not mean that every version includes every feature described below.
 
 ## 1. Who is responsible
 
-This app is published by **sater** ("we", "us"). For anything on this page, write to
-**sater.studios@gmail.com**.
+Studio Chairman is published by **sater (SATER)**. Contact us about the app or this policy at **sater.studios@gmail.com**.
 
-This policy covers the Android application **Studio Chairman**
-(package `com.sater.studiochairman`), version 1.0.0 and later. It does not cover
-other apps, or any website you may reach from a link.
+This policy concerns the app. Other websites and services reached through links have their own policies.
 
----
+## 2. Information stored locally
 
-## 2. What stays on your device
+| Information | Purpose |
+| --- | --- |
+| Game saves, drafts and creative copies | Store your studio, characters, projects, family, history and progress. Names or story notes may contain personal information if you choose to enter it. |
+| Local play statistics | Store counters such as screens visited, weeks advanced and progress. These are local statistics, not a SATER online analytics service. |
+| Settings and unlock progress | Remember language, sound, autosave, advertising preferences and optional mode access. |
+| Selected logo and poster images | Display and edit the image you choose in the relevant creative feature. |
+| Purchase entitlements | Remember access to purchased features and reconcile it with Google Play. |
 
-The following is stored locally and is not sent to a SATER game server:
+SATER does not upload your saves, drafts, selected images or local play statistics to a SATER server. The app does not require your real name, email address or telephone number to play.
 
-| Data | What it is |
-|---|---|
-| **Saved game** | Studio and character names you enter, family, films, talent and studio progress. Names may be personal if you enter real information. |
-| **Play statistics** | Plain counters — how many weeks you advanced, which screens you opened, how far you reached. Numbers only. |
-| **Settings** | Sound, haptics, language, autosave interval and appearance choices. |
-| **Ad-removal flag** | A single true/false value recording whether you bought the ad removal. |
-| **Director's Cut** | Local unlock/reward progress and the modified-save status when its tools are used. |
+## 3. Optional images
 
-Use the available settings and privacy/data controls to view or erase local
-statistics and manage saves. Controls and labels may vary by app version.
-Clearing app data can remove local progress; SATER cannot recover copies it does not hold.
+Where an image-import feature is available, you may choose an image through the device's image picker for a studio logo or a poster. You can cancel the picker and continue using the built-in designs.
 
----
+The app reads the image you select, processes it locally and stores a local copy for the feature. This does not authorize the app to upload your photo library or browse unrelated files. SATER does not receive the selected image through this feature.
 
-## 3. Advertising
+Copies can remain while referenced by a save, a backup, another slot or an undo operation. Replacing an image does not necessarily remove all copies immediately. Any cloud photo provider or device backup service you choose operates under its own settings and policy.
 
-Ads are served by **Google AdMob**. To choose an ad and count that it was shown,
-Google may collect and use:
+The app does not request contacts, microphone recording or precise GPS location for gameplay.
 
-- your device's **advertising ID** (a resettable identifier, not your name);
-- **device information** such as model, operating system version and language;
-- a **coarse region** inferred from your network — country or area level, not a
-  precise location;
-- **interaction with the ad** — whether it was shown, viewed or tapped.
+## 4. Advertising and Google services
 
-**We never see that data.** It goes to Google, not to us. What reaches us is anonymous
-totals: how many ads were shown, and how much revenue resulted.
+Ads are supplied through **Google AdMob / the Google Mobile Ads SDK**. Depending on settings, consent and the service used, Google and its advertising partners may process device or advertising identifiers, IP address and approximate region, device information, interactions and diagnostic information. These support ad delivery, measurement, security and fraud prevention.
 
-Google's handling of that data is governed by its own policies:
+This advertising processing is separate from the local play statistics described above. SATER receives advertising reports through Google; we do not operate our own advertising-data collection server.
+
+Advertising formats can include interstitial ads at natural breaks, optional rewarded videos, and native ads in designated sponsor placements. The formats available depend on the app version and the player's choices. Fictional in-game sponsors are not advertisements delivered by an external ad network.
+
+For Google's practices and controls, see:
 
 - [Google Privacy Policy](https://policies.google.com/privacy)
-- [How Google uses information from sites or apps that use our services](https://policies.google.com/technologies/partner-sites)
+- [How Google uses information from apps and sites using its services](https://policies.google.com/technologies/partner-sites)
+- [Google advertising controls](https://myadcenter.google.com/)
 
-### Ad formats used
+Google or its partners may process information outside your country under their applicable policies and safeguards.
 
-Studio Chairman shows **interstitial** ads at natural breaks — between story chapters,
-at the turn of an in-game year, and after a film's result. It never interrupts a scene
-or a decision. It also offers **rewarded** ads that you choose to watch in exchange for
-an in-game favour; these are entirely optional, and declining them costs you nothing.
+## 5. Consent and advertising choices
 
-Ad formats and placements depend on the version installed; optional rewarded
-offers describe the reward before you choose to watch.
+The app uses **Google's User Messaging Platform (UMP)** to obtain advertising privacy choices where required. The SDK determines whether a consent message is required and which advertising requests are permitted. Consent information is refreshed when the advertising flow starts at app launch; previous SDK-managed choices may remain applicable.
 
----
+Where required, you can return to **Settings → Privacy & Data → Ad privacy choices** to review or change your choices. Labels may differ by language and version. Refusing consent does not remove access to the underlying game; advertising availability may change.
 
-## 4. Your advertising choices
+Non-personalised advertising can still involve device storage or identifiers and applicable consent requirements. Buying a product is not required to exercise the privacy choices offered by the app.
 
-### If you are in the EEA, the UK or Switzerland
+Android also provides advertising-ID controls in its settings; their location depends on the Android version.
 
-Google's User Messaging Platform manages consent where required. Consent status
-is handled through the SDK and its local state. Advertising availability depends
-on region, consent and the provider's configuration.
+If you own ad removal, forced advertising covered by that purchase is disabled. Some versions offer a separate, optional setting for real ads in sponsor boxes. Turning it on does not restore forced video or interstitial ads, and you can turn it off again. Consent requirements continue to apply to those sponsor ads.
 
-You can change that choice at any time: **Settings → Privacy & Data → Ad privacy
-choices**.
+## 6. Purchases and optional modes
 
-### Anywhere
+Depending on the installed version and store availability, the app may offer these one-time products:
 
-You can reset or delete your advertising ID in Android:
-**Settings → Google → Ads**. On recent Android versions you can delete the advertising
-ID entirely, after which apps receive a string of zeros.
+- **Remove Ads Forever** (`remove_ads`).
+- **Creative Editor** (`creative_editor`).
+- A combined product (`creative_bundle`).
 
-Where offered, **ad removal stops the unsolicited ads covered by the purchase**.
-Optional rewarded ads may remain available if you explicitly choose their offer.
+The current products are not subscriptions. Prices, available offers and the features included are shown before purchase. Director's Cut and Creative Editor are separate features; their availability depends on the version and the access route described in the app.
 
-### If you are in California
+Payments are handled by **Google Play**. The app does not collect your payment-card number or billing address. Google Play supplies purchase and entitlement information needed to verify a purchase, unlock its features and restore ownership. Verification runs on the device using Google Play purchase information; SATER does not run a separate verification server for this app.
 
-Under the CCPA/CPRA, the use of an advertising ID for personalised advertising may be
-treated as **"sharing" personal information for cross-context behavioural advertising**.
-We do not sell personal information for money, and we never have. To opt out, use the
-Android advertising-ID controls above, decline personalised ads where the consent form
-is offered, or buy the ad removal.
+The app caches entitlement flags and purchase-source information locally. Google Play retains its own transaction records. Removing app data does not cancel a purchase, and restoring ownership may require Google Play, the relevant account and a network connection. It does not restore a game save or an imported image.
 
----
+See [Google Play Terms of Service](https://play.google.com/about/play-terms/) and [Google Privacy Policy](https://policies.google.com/privacy).
 
-## 5. Purchases
+## 7. Support messages
 
-Studio Chairman offers **one** optional purchase: a permanent removal of ads.
+If you email SATER, we receive your email address and the information or attachments you choose to send. We use this correspondence to respond and investigate your request. Do not send passwords, payment-card details or other information that is unnecessary for support.
 
-The transaction is handled **entirely by Google Play**. This app never sees your card
-number, billing address, or any payment detail. All the app stores is a single
-true/false flag on your device recording that the purchase exists.
+Support correspondence is separate from local gameplay. It is processed through our email provider and retained as needed for the request, relevant records or legal obligations. Contact us if you want to ask about its deletion.
 
-Mode and content availability depend on the installed version. In versions with
-Director's Cut, owning ad removal also unlocks that optional mode; eligible rewarded
-views provide another unlock route. Its tools mark the affected save as modified.
+## 8. Retention, deletion and backups
 
-Google's handling of the payment is covered by the
-[Google Play Terms of Service](https://play.google.com/intl/en/about/play-terms/) and
-the [Google Privacy Policy](https://policies.google.com/privacy).
+Local data is generally retained until you delete it through available app controls, clear the app's storage or uninstall it. Save, image and statistics controls can affect different records; deleting one save may leave a separate save slot, creative copy or backup.
 
----
+Where offered, use **Privacy & Data** to inspect or erase local statistics, and the save-management controls to manage saves. Clearing app storage can remove progress, settings and imported images. SATER cannot recover local data it does not hold.
 
-## 6. What gameplay does not request
+Android, your device manufacturer or a backup provider may separately back up or transfer app data under your settings. Copies outside the app must be managed through the relevant provider. Email support records and Google Play purchase records are not erased by deleting a local save.
 
-- No required real name, email address, phone number or postal address. Names you
-  choose for your studio and characters are stored locally.
-- No precise location. (Only the coarse region the ad network infers.)
-- No contacts, photos, files or microphone access.
-- No crash-reporting or analytics service of any kind. The play statistics described
-  in section 2 are computed and stored on your device and are never transmitted.
-- Nothing whatsoever about your saved game.
+## 9. Privacy rights
 
----
+Depending on your location and the applicable law, you may have rights to access, correct, delete or restrict the use of personal information, object to certain processing, withdraw consent or complain to a relevant authority.
 
-## 7. Children
+For local game data, use the app and device controls. For support correspondence held by SATER, contact **sater.studios@gmail.com**. For information held by Google or an advertising partner, use that provider's privacy controls or contact channels. We cannot access or delete information that is held solely on your device or by a provider acting independently.
 
-Studio Chairman is a business-management game aimed at teenagers and adults, and is not
-directed at children under 13.
+We do not sell personal information for money. Advertising-related use or disclosure may be treated as sharing or targeted advertising under some privacy laws. Use the available privacy choices and provider controls; purchasing ad removal is not a prerequisite for submitting a privacy request.
 
-We do not knowingly collect personal information from children. Because the app asks
-for no personal information from anyone, it asks for none from children either. The app
-is not enrolled in Google Play's *Designed for Families* programme.
+## 10. Children
 
-If you believe a child has provided information through this app, write to
-**sater.studios@gmail.com** and we will act on it.
+Studio Chairman is intended for a general teenage and adult audience and is not directed at children under 13. The app does not require a child to provide personal information to SATER to play.
 
----
+If you believe a child has provided personal information to SATER, contact us so that we can review the situation and take appropriate action. Advertising services remain subject to their own policies and applicable age-related requirements.
 
-## 8. Keeping and deleting data
+## 11. Security
 
-For local game data, use the controls on your device:
+Local app data is stored using Android's application storage mechanisms. Saves also use obfuscation and integrity checks against casual tampering; those measures are not a promise of complete protection or equivalent to strong encryption.
 
-- **Erase play statistics** — Settings → Privacy & Data → Erase stats.
-- **Delete your saved game** — Settings → Save & Data → Delete saved game.
-- **Remove local app data** — clear app storage or uninstall the app. Device backups,
-  transferred files or copies you made are managed separately by you and your provider.
+Google advertising and billing services use their own network security measures. No storage or transmission method is completely secure.
 
-Note that your **purchase** is recorded by Google Play, not by us. Uninstalling does not
-cancel it, and you can restore it on a new device with
-**Settings → Ads → Restore purchase**.
+## 12. Changes and contact
 
-To ask about data held by Google as the ad provider, use
-[Google's own privacy controls](https://myaccount.google.com/privacy).
+We update this policy when relevant data-handling practices change and revise the date above. Feature availability and labels may differ across supported versions. Material changes will also be reflected in the app where appropriate.
 
----
-
-## 9. Your rights
-
-If you are in the EEA or the UK, the GDPR gives you rights of access, correction,
-erasure, restriction, portability and objection.
-
-In practice, for this app, most of those rights you exercise directly on your own
-device using the controls in section 8 — we cannot access, export or delete data we
-never receive.
-
-Where Google acts as an independent controller for advertising data, direct such
-requests to Google using the links in section 3.
-
-Advertising privacy requirements depend on your location and the data involved.
-Non-personalised ads may still involve identifiers or device storage and applicable
-consent requirements. Use the app's privacy choices and Google's controls to
-manage advertising data.
-
----
-
-## 10. Security
-
-Data stored by the app sits in Android's private per-app storage, which the operating
-system isolates from other apps. Saved games are additionally obfuscated and checksummed
-to resist casual tampering. Network traffic to the ad and billing services is encrypted
-in transit by those services.
-
-No method of storage is perfectly secure, and we do not claim otherwise.
-
----
-
-## 11. Changes to this policy
-
-We update this policy when data handling changes and revise the **Last updated**
-date. Features and their controls may differ between supported versions.
-
-Material changes will also be reflected in the in-app privacy screen, which is written
-to match this page.
-
----
-
-## 12. Contact
-
-**sater.studios@gmail.com**
+**Contact:** [sater.studios@gmail.com](mailto:sater.studios@gmail.com)
 
 Studio Chairman — by sater
-
-If you contact us, we receive your email address and the information you choose to
-include, and use it to respond. This support correspondence is separate from local gameplay.
