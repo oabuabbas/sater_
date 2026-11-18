@@ -1,3 +1,4 @@
+import { novemberArticles } from './news-studio-november';
 import type { Locale } from './products';
 import { octoberUpdates } from './news-october-updates';
 import { games, tools } from './products';
@@ -14,37 +15,19 @@ export interface NewsArticle {
   product?: string;
   kind: 'launch' | 'release' | 'guide' | 'studio' | 'character';
   title: Copy;
+  readNext?: string;
+  metaDescription?: Copy;
   summary: Copy;
   illustration: ImageMetadata;
   illustrationAlt?: Copy;
   illustrationFit?: 'contain' | 'landscape';
   coverTitle: string;
-  sections: { title: Copy; body: Copy; bullets?: Record<Locale, string[]> }[];
+  sections: { title: Copy; body: Copy; closing?: Copy; bullets?: Record<Locale, string[]> }[];
 }
 
 // Publication dates belong to the articles, not to the date of each site build.
-export const news: NewsArticle[] = [
-  {
-    slug: 'studio-chairman-1-1-4', date: '2026-11-18', product: 'studio-chairman', kind: 'release',
-    illustration: chairman, coverTitle: '1.1.4',
-    title: { ar: 'Studio Chairman 1.1.4 يأخذك إلى غرفة الكتّاب', en: 'Inside the writers’ room with Studio Chairman 1.1.4' },
-    summary: { ar: 'خطّط لموسم تلفزيوني، واختر كيف تسوّق لفيلمك، وراقب رد الشبكات المنافسة حين ينجح عملك.', en: 'Plan a season of television, choose how to market your film and see how rival networks respond when you have a hit.' },
-    sections: [
-      { title: { ar: 'كيف تنهي موسمك؟', en: 'How will your season end?' }, body: { ar: 'في غرفة الكتّاب ترسم الأحداث الكبرى للموسم. ترسل القناة طلباتها وتتذكر الوعود التي قطعتها لها. يمكنك أخذ استراحة منتصف الموسم أو إعلان موسم أخير. وإذا أُلغي المسلسل، فقد يقود معجبوه حملة لإنقاذه.', en: 'Map out the season’s turning points in the writers’ room. Networks send notes and remember the commitments you make. Schedule a mid-season break or announce a final season. If a show gets cancelled, its fans may campaign to save it.' } },
-      { title: { ar: 'حملتك تبدأ قبل التصوير', en: 'Plan the campaign before the shoot' }, body: { ar: 'عند الموافقة على الإنتاج، اختر حتى حملتين تسويقيتين. قد تخفّض قناتك أو برنامجك الحواري أو حقوقك الرياضية كلفة بعض الخيارات. تعرض بطاقة الفيلم ما أنفقته على الحملات ومدى ملل الجمهور منها. وفي مصمّم الملصقات يمكنك وضع وجوه النجوم على ملصق تشويقي ثم إعداد الملصق النهائي.', en: 'Choose up to two marketing campaigns when you greenlight a project. Owning a channel, a talk show or sports rights can lower the cost of certain campaigns. Each film’s marketing card tracks your campaigns and audience fatigue. Put your stars on a teaser poster, then design the final one.' } },
-      { title: { ar: 'من الشاشة الصغيرة إلى سوق الشبكات', en: 'From vertical dramas to network bidding wars' }, body: { ar: 'جرّب إنتاج مسلسل عمودي للهاتف وتابع الصيحات الرائجة. وقد تحاول شبكة منافسة استقطاب نجمك أو تبدأ حرب أسعار ردًا على نجاحك. يضم الإصدار أيضًا تلفزيون الواقع وسوق الأسهم وشجرة الأبحاث وكتاب الأرقام القياسية. عند فتح حفظتك بعد التحديث، تقودك صفحة «ما الجديد» إلى شرح كل ميزة في الدليل.', en: 'Produce a vertical drama for phones and follow trends in the feed. A rival network may poach your star or start a price war after your next hit. The update also brings reality TV, a stock market, a research tree and a record book. Open your save after updating and select an item in What’s New to read its guide.' } },
-    ],
-  },
-  {
-    slug: 'studio-chairman-creative-editor-dlc', date: '2026-11-18', product: 'studio-chairman', kind: 'guide',
-    illustration: director, coverTitle: 'DLC',
-    title: { ar: 'المحرّر الإبداعي في Studio Chairman يمنحك خيار تعديل مسيرتك الحالية', en: 'The Creative Editor DLC lets you edit your current Studio Chairman career' },
-    summary: { ar: 'مع 1.1.4، اختر أين تطبّق تعديلاتك في الإضافة المدفوعة. غيّر اسم نجم أو مظهره، أو جرّب ميزانية مختلفة للاستوديو.', en: 'Version 1.1.4 gives you a choice of where to apply changes with the optional paid editor. Rename a star, change their look or experiment with your studio budget.' },
-    sections: [
-      { title: { ar: 'اختر الحفظة التي تريد تعديلها', en: 'Choose which save to edit' }, body: { ar: 'افتح نسخة إبداعية إذا أردت تجربة أفكارك والعودة إلى مسيرتك الأصلية. ويمكنك في هذا الإصدار تطبيق التغييرات على الحفظة الحالية نفسها. تغيير أسماء المواهب الموجودة ووجوهها يُبقي الإنجازات مفعّلة، ويطلب المحرّر تأكيدك قبل تطبيق التغييرات المؤثرة في الإنجازات، مثل تعديل المال.', en: 'Use a creative copy to try an idea and keep your original career intact, or apply edits directly to your current save. Changing an existing talent’s name or face keeps achievements enabled. The editor asks for confirmation before changes that affect achievements, such as editing cash.' } },
-      { title: { ar: 'الحصول على الإضافة', en: 'Getting the add-on' }, body: { ar: 'المحرّر الإبداعي إضافة اختيارية تُشترى مرة واحدة. يمكنك اختياره من متجر اللعبة بمفرده أو ضمن حزمة تجمعه مع إزالة الإعلانات. راجع محتوى العرض وسعره المحلي قبل الشراء. شراء إزالة الإعلانات وحدها لا يفتح المحرّر.', en: 'Creative Editor is an optional one-time purchase. Choose it on its own in the in-game store or in the bundle with ad removal. Check the contents and local price before buying. Ad removal on its own does not unlock the editor.' } },
-    ],
-  },
+const stories: NewsArticle[] = [
+  ...novemberArticles,
   {
     slug: 'btb-1-2-0', date: '2026-11-04', product: 'behind-the-badge', kind: 'release',
     illustration: badgeFeature, illustrationFit: 'landscape', coverTitle: '1.2.0',
@@ -285,6 +268,14 @@ export const news: NewsArticle[] = [
     ],
   },
 ];
+
+const today = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Asia/Amman', year: 'numeric', month: '2-digit', day: '2-digit',
+}).format(process.env.NEWS_PREVIEW_AT ? new Date(process.env.NEWS_PREVIEW_AT) : new Date());
+const published = stories.filter(article => article.date <= today);
+// A revised guide takes over its existing URL when the revision goes live.
+export const news = published.filter((article, index) =>
+  published.findIndex(other => other.slug === article.slug) === index);
 
 export const newsCopy = {
   ar: { title: 'أخبار سطر', intro: 'ما الجديد في الاستوديو، والألعاب والتطبيقات التي نصنعها.', latest: 'آخر الأخبار', all: 'كل الأخبار', read: 'اقرأ الخبر', empty: 'لا توجد أخبار منشورة هنا بعد. يمكنك متابعة آخر المستجدات في جميع الأخبار.', product: 'أخبار المنتج', related: 'اقرأ أيضًا', release: 'تحديث', launch: 'إطلاق', guide: 'دليل اللعب', studio: 'من الاستوديو', character: 'تعرّف على الشخصية' },

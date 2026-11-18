@@ -5,6 +5,10 @@ import { copyFile } from "node:fs/promises";
 
 export default defineConfig({
   site: "https://thesater.com",
+  redirects: {
+    '/news/studio-chairman-creative-editor-dlc': '/news/studio-chairman-creative-editor/',
+    '/ar/news/studio-chairman-creative-editor-dlc': '/ar/news/studio-chairman-creative-editor/',
+  },
   trailingSlash: "ignore",
 
   // English is the destination, so it sits at the root with no prefix.

@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # Rebuild at 00:15 Amman time for the two November publication dates.
+    - cron: '15 21 18,24 11 *'
   workflow_dispatch:
 
 # One in-flight deployment at a time; queued runs supersede each other rather
