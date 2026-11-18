@@ -1,6 +1,9 @@
+import campaign from '~/assets/games/chairman-114/02-campaign-plan.webp';
+import posters from '~/assets/games/chairman-114/03-posters.webp';
+import whatsNew from '~/assets/games/chairman-114/04-whats-new.webp';
 import type { NewsArticle } from './news';
-import writersRoom from '~/assets/games/chairman-writers-room.png';
-import editor from '~/assets/games/chairman-editor-screen.png';
+import writersRoom from '~/assets/games/chairman-114/01-writers-room.webp';
+import editor from '~/assets/games/chairman-114/05-creative-editor.webp';
 
 export const novemberArticles: NewsArticle[] = [
 {
@@ -11,10 +14,10 @@ export const novemberArticles: NewsArticle[] = [
   "product": "studio-chairman",
   "kind": "release",
   "coverTitle": "1.1.4",
-  "illustrationFit": "contain",
+  "illustrationFit": "landscape",
   "illustrationAlt": {
-    "en": "Characters and role choices in the series writers’ room",
-    "ar": "شخصيات المسلسل وخيارات أدوارها في غرفة الكتّاب"
+    "en": "Character ties and a season arc showing a betrayal and a breakup",
+    "ar": "غرفة الكتّاب تعرض علاقات الشخصيات وخيانة في الحلقة الخامسة وانفصالًا في الثامنة"
   },
   "title": {
     "en": "Studio Chairman 1.1.4: run your series, face live rivals",
@@ -40,6 +43,10 @@ export const novemberArticles: NewsArticle[] = [
       }
     },
     {
+      images: [
+        { src: campaign, alt: { en: 'Two campaigns selected for Iron Verse with prices scaled to the film budget', ar: 'خطة تسويق Iron Verse تعرض حملتين مختارتين وتكلفتهما بحسب ميزانية الفيلم' } },
+        { src: posters, alt: { en: 'Teaser and final posters for Iron Verse featuring the lead actors', ar: 'الملصقان التشويقي والنهائي لفيلم Iron Verse ويظهر فيهما بطلا الفيلم' } },
+      ],
       "title": {
         "en": "Plan the campaign before the shoot",
         "ar": "خطّط للحملة قبل التصوير"
@@ -88,6 +95,7 @@ export const novemberArticles: NewsArticle[] = [
       }
     },
     {
+      images: [{ src: whatsNew, alt: { en: 'Release highlights listing the writers room, campaign planning and rival networks', ar: 'شاشة ما الجديد تعرض غرفة الكتّاب وتخطيط الحملات والشبكات المنافسة' } }],
       "title": {
         "en": "Smoother and clearer",
         "ar": "بدء أسرع ودليل أسهل"
@@ -111,10 +119,10 @@ export const novemberArticles: NewsArticle[] = [
   "product": "studio-chairman",
   "kind": "guide",
   "coverTitle": "Creative Editor",
-  "illustrationFit": "contain",
+  "illustrationFit": "landscape",
   "illustrationAlt": {
-    "en": "Creative Editor with studio name, cash, reputation and research fields",
-    "ar": "المحرّر الإبداعي يعرض اسم الاستوديو والسيولة والسمعة ونقاط البحث"
+    "en": "Creative Editor showing the current save, creative copy option and Director mode tab",
+    "ar": "المحرّر الإبداعي يعرض الحفظة الحالية وخيار النسخة الإبداعية وتبويب وضع المخرج"
   },
   "title": {
     "en": "The Creative Editor: shape your Studio Chairman career your way",

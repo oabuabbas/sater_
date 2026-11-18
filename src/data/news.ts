@@ -22,7 +22,7 @@ export interface NewsArticle {
   illustrationAlt?: Copy;
   illustrationFit?: 'contain' | 'landscape';
   coverTitle: string;
-  sections: { title: Copy; body: Copy; closing?: Copy; bullets?: Record<Locale, string[]> }[];
+  sections: { title: Copy; body: Copy; closing?: Copy; images?: { src: ImageMetadata; alt: Copy }[]; bullets?: Record<Locale, string[]> }[];
 }
 
 // Publication dates belong to the articles, not to the date of each site build.

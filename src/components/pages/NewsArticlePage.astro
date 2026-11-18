@@ -46,6 +46,7 @@ const structuredArticle = {
         <h2>{section.title[locale]}</h2>
         {section.body[locale] && <p>{section.body[locale]}</p>}
         {section.bullets && (article.kind === 'guide' && index === 1 ? <ol>{section.bullets[locale].map(point => <li>{point}</li>)}</ol> : <ul>{section.bullets[locale].map(point => <li>{point}</li>)}</ul>)}
+        {section.images?.map(image => <Image class="section-image" src={image.src} alt={image.alt[locale]} width={1024} loading="lazy" />)}
         {section.closing && <p class="closing">{section.closing[locale]}</p>}
       </section>)}
       {product && <footer><strong>{product.localizedName?.[locale] ?? product.name}</strong><div class="links">
@@ -57,6 +58,7 @@ const structuredArticle = {
   {related.length > 0 && <Band tone="raised"><h2 class="related">{copy.related}</h2><NewsCards articles={related} locale={locale} /></Band>}
 </Base>
 <style>
+  .section-image{display:block;width:100%;height:auto;margin-top:1.5rem;border-radius:var(--radius-card)}
   .closing{margin-top:1rem} @media(max-width:650px){.article-head .portrait.contained:has(img[src*="chairman-"]){display:block}}
 
   .article-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.35fr);align-items:center;gap:var(--s-6)}
