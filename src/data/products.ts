@@ -187,6 +187,8 @@ export const games: Game[] = [
     blurb: { ar: 'عام 1990. مشروع صغير في مدينة تهيمن عليها شركتان. ابنِ شركتك، وازن بين الربح والسيولة، واختر طريقك في محاكاة اقتصادية للهاتف قيد التطوير.', en: '1990. A small business in a city ruled by two giants. Build your company, balance profit and cash flow, and choose your path in a mobile economic simulation now in development.' },
     accent: '#D7B779', ground: '#0B1723', art: 'full', icon: duopolyIcon, feature: duopolyFeature,
     legacyPath: '/the-duopoly/',
+    privacyPath: '/the-duopoly/privacy/',
+    termsPath: '/the-duopoly/terms/',
   },
   {
     slug: "studio-chairman",
