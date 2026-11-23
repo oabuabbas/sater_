@@ -29,7 +29,7 @@ export default defineConfig({
         locales: { en: "en", ar: "ar" },
       },
       // Prioritise discovery pages in the sitemap; policy pages remain crawlable.
-      filter: (page) => !/(privacy|terms)(?:\.html)?\/?$/.test(page) && !/\/404(?:\.html)?\/?$/.test(page),
+      filter: (page) => !/(privacy|terms)(?:\.html)?\/?$/.test(page) && !/\/404(?:\.html)?\/?$/.test(page) && !/\/lucky-draw(?:\/|$)/.test(page),
     }),
   ],
 

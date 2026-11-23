@@ -1,0 +1,253 @@
+---
+import { Image } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import luckyDrawArt from '~/assets/games/lucky-draw.jpg';
+import type { Locale } from '~/data/products';
+import { localizePath } from '~/i18n/ui';
+
+interface Props {
+  locale: Locale;
+  kind: 'privacy' | 'terms';
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { locale, kind, headings } = Astro.props;
+const ar = locale === 'ar';
+const label = kind === 'privacy'
+  ? (ar ? 'سياسة الخصوصية' : 'Privacy Policy')
+  : (ar ? 'شروط الاستخدام' : 'Terms of Service');
+const title = `${label} — Lucky Draw`;
+const description = ar
+  ? `${label} لأداة Lucky Draw من SATER mini (أندرويد، com.sater.luckydraw).`
+  : `${label} for Lucky Draw by SATER mini (Android, com.sater.luckydraw).`;
+const toc = headings.filter((h) => h.depth === 2);
+---
+<Base locale={locale} path={`/lucky-draw/${kind}`} title={title} description={description} noindex>
+  <Band tone="base" class="legal-heading">
+    <div class="identity">
+      <Image src={luckyDrawArt} alt="" width={64} height={64} />
+      <div>
+        <p class="eyebrow">Lucky Draw · SATER mini</p>
+        <h1>{label}</h1>
+      </div>
+    </div>
+
+    <dl class="facts">
+      <div>
+        <dt>{ar ? 'تاريخ السريان' : 'Effective date'}</dt>
+        <dd>{ar ? '23 نوفمبر 2026' : 'November 23, 2026'}</dd>
+      </div>
+      <div>
+        <dt>{ar ? 'المطوّر' : 'Developer'}</dt>
+        <dd>{ar ? 'SATER (سطر)' : 'SATER'}</dd>
+      </div>
+      <div>
+        <dt>{ar ? 'نطاق التطبيق' : 'Applies to'}</dt>
+        <dd>{ar ? 'Lucky Draw (أندرويد) — ' : 'Lucky Draw (Android) — '}<code>com.sater.luckydraw</code></dd>
+      </div>
+    </dl>
+
+    <nav class="legal-links" aria-label={ar ? 'روابط Lucky Draw والسياسات' : 'Lucky Draw and policy links'}>
+      <a href={localizePath('/lucky-draw', locale)}>Lucky Draw</a>
+      <a href={localizePath('/lucky-draw/privacy', locale)} aria-current={kind === 'privacy' ? 'page' : undefined}>
+        {ar ? 'سياسة الخصوصية' : 'Privacy Policy'}
+      </a>
+      <a href={localizePath('/lucky-draw/terms', locale)} aria-current={kind === 'terms' ? 'page' : undefined}>
+        {ar ? 'شروط الاستخدام' : 'Terms of Service'}
+      </a>
+      <a href={localizePath(`/lucky-draw/${kind}`, ar ? 'en' : 'ar')} lang={ar ? 'en' : 'ar'}>
+        {ar ? 'English' : 'العربية'}
+      </a>
+    </nav>
+  </Band>
+
+  <Band tone="raised">
+    <div class="reading-layout">
+      <aside>
+        <nav aria-label={ar ? 'في هذه الصفحة' : 'On this page'}>
+          <h2>{ar ? 'في هذه الصفحة' : 'On this page'}</h2>
+          <ol>
+            {toc.map((item) => <li><a href={`#${item.slug}`}>{item.text}</a></li>)}
+          </ol>
+        </nav>
+        <a class="contact" href="mailto:sater.studios@gmail.com">{ar ? 'تواصل مع سطر' : 'Contact SATER'}</a>
+      </aside>
+      <article class="legal-body">
+        <slot />
+      </article>
+    </div>
+  </Band>
+</Base>
+
+<style>
+  .legal-heading :global(.inner) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding-block: var(--s-8);
+  }
+  .identity {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+  .identity img {
+    width: calc(var(--u) * 8);
+    height: calc(var(--u) * 8);
+    object-fit: cover;
+    border-radius: var(--radius-card);
+  }
+  .eyebrow {
+    color: var(--fg-dim);
+    font-size: var(--step-0);
+    line-height: var(--lead-body);
+    margin-block-end: var(--s-1);
+  }
+  h1 {
+    font-size: var(--step-head);
+    line-height: var(--lead-head);
+    overflow-wrap: anywhere;
+  }
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin: 0;
+    max-width: 100%;
+  }
+  .facts div {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+  .facts dt {
+    color: var(--fg-dim);
+    font-size: 0.875rem;
+    line-height: var(--lead-body);
+  }
+  .facts dd {
+    margin: 0;
+    font-size: var(--step-0);
+    line-height: var(--lead-body);
+    overflow-wrap: anywhere;
+  }
+  .legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+  }
+  .legal-links a {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    line-height: var(--lead-body);
+    padding-block: var(--s-1);
+  }
+  .legal-links a[aria-current="page"] {
+    font-weight: var(--w-bold);
+  }
+  .reading-layout {
+    display: grid;
+    grid-template-columns: minmax(12rem, 1fr) minmax(0, 3fr);
+    gap: var(--s-8);
+    align-items: start;
+  }
+  aside {
+    position: sticky;
+    top: var(--s-4);
+  }
+  aside h2 {
+    font-size: var(--step-0);
+    line-height: var(--lead-head);
+    margin-block-end: var(--s-2);
+  }
+  aside ol {
+    display: grid;
+    gap: var(--s-1);
+  }
+  aside a {
+    display: inline-block;
+    font-size: 0.95rem;
+    color: var(--fg-dim);
+    line-height: var(--lead-body);
+  }
+  aside a:hover {
+    color: var(--fg);
+    text-decoration: underline;
+  }
+  .contact {
+    display: inline-block;
+    margin-block-start: var(--s-3);
+    text-decoration: underline;
+  }
+  .legal-body {
+    min-width: 0;
+    width: 100%;
+    max-width: 74ch;
+    overflow-wrap: anywhere;
+  }
+  .legal-body :global(h2) {
+    font-size: var(--step-2);
+    line-height: var(--lead-head);
+    margin-block: var(--s-6) var(--s-2);
+    scroll-margin-top: var(--s-4);
+  }
+  .legal-body :global(h2:first-child) {
+    margin-block-start: 0;
+  }
+  .legal-body :global(p),
+  .legal-body :global(li) {
+    color: var(--fg-dim);
+    font-size: var(--step-0);
+    line-height: var(--lead-body);
+    max-width: none;
+  }
+  .legal-body :global(p) {
+    margin-block: var(--s-2);
+  }
+  .legal-body :global(strong) {
+    color: var(--fg);
+  }
+  .legal-body :global(ul),
+  .legal-body :global(ol) {
+    padding-inline-start: var(--s-3);
+    list-style: disc;
+    margin-block: var(--s-2);
+    display: grid;
+    gap: var(--s-1);
+  }
+  .legal-body :global(a) {
+    color: var(--fg);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  code,
+  .legal-body :global(code) {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-family: var(--mono);
+  }
+  @media (max-width: 850px) {
+    .reading-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-4);
+    }
+    aside {
+      position: static;
+      padding-block-end: var(--s-3);
+      border-block-end: var(--hair) solid var(--edge);
+    }
+    aside ol {
+      grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+    }
+    .identity {
+      align-items: flex-start;
+    }
+    .identity img {
+      width: calc(var(--u) * 6);
+      height: calc(var(--u) * 6);
+    }
+  }
+</style>

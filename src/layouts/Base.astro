@@ -17,10 +17,12 @@ interface Props {
   path: string;
   /** False for English-only legal/product pages that have no Arabic twin. */
   localized?: boolean;
+  /** True for unlisted direct-access pages that must stay out of search indexes. */
+  noindex?: boolean;
   structuredData?: Record<string, unknown>[];
 }
 
-const { locale, title, description, path, localized = true, structuredData = [] } = Astro.props;
+const { locale, title, description, path, localized = true, noindex = false, structuredData = [] } = Astro.props;
 const t = useTranslations(locale);
 
 const site = Astro.site ?? new URL("https://thesater.com");
@@ -79,7 +81,7 @@ for (const node of graph) {
     <title>{pageTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical.href} />
-    {cleanPath === '/404' && <meta name="robots" content="noindex, follow" />}
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : cleanPath === '/404' && <meta name="robots" content="noindex, follow" />}
     <script type="application/ld+json" is:inline set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': [...entities.values()] }).replaceAll('<', '\\u003c')} />
 
     {

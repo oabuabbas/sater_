@@ -1,0 +1,158 @@
+---
+import { Image } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import Band from '~/components/Band.astro';
+import luckyDrawArt from '~/assets/games/lucky-draw.jpg';
+import type { Locale } from '~/data/products';
+import { localizePath } from '~/i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ar = locale === 'ar';
+const title = ar ? 'Lucky Draw — أداة السحب وعجلة الحظ' : 'Lucky Draw — SATER mini';
+const description = ar
+  ? 'أداة Lucky Draw من SATER mini — عجلة قرارات وسحب على الجوائز ومقسّم فرق عشوائي يعمل دون اتصال على أندرويد.'
+  : 'Lucky Draw by SATER mini — an offline spin-wheel, giveaway prize-draw picker and random team splitter for Android.';
+---
+<Base locale={locale} path="/lucky-draw" title={title} description={description} noindex>
+  <Band tone="base">
+    <div class="intro">
+      <p class="label">SATER mini</p>
+      <h1>Lucky Draw</h1>
+      <p class="lede">
+        {ar
+          ? 'أداة محلية سريعة لعجلات القرار المخصصة، والسحب العشوائي على الجوائز، وتوزيع الفرق — تعمل دون اتصال ودون الحاجة إلى تسجيل حساب.'
+          : 'A fast, offline utility for custom decision wheels, giveaway prize draws, and balanced team splitting — no account required.'}
+      </p>
+    </div>
+  </Band>
+
+  <Band tone="raised">
+    <section class="spotlight" aria-labelledby="lucky-draw-title">
+      <Image
+        src={luckyDrawArt}
+        alt={ar ? 'شعار أداة Lucky Draw: عجلة حظ ذهبية بست شرائح ملوّنة' : 'Lucky Draw logo: a golden prize wheel with six colourful slices'}
+        width={512}
+        height={512}
+      />
+      <div class="details">
+        <h2 id="lucky-draw-title">
+          {ar ? 'دوّر العجلة، اسحب الفائزين، أو وزّع الفرق — دون اتصال.' : 'Spin, draw, or split teams — offline.'}
+        </h2>
+        <ul class="features">
+          <li>
+            {ar
+              ? 'عجلات حظ مخصصة مع التحكم في أوزان الشرائح وخيار «هز للتدوير» الاختياري على جهازك.'
+              : 'Custom spin wheels with slice weights, colour palettes, and optional on-device shake-to-spin.'}
+          </li>
+          <li>
+            {ar
+              ? 'سحب على الجوائز مع إزالة التكرار وبطاقات نتائج تحمل رموز تحقق محلية جاهزة للمشاركة.'
+              : 'Giveaway prize-draw picker with duplicate removal and shareable result cards bearing local verification codes.'}
+          </li>
+          <li>
+            {ar
+              ? 'مقسّم فرق عشوائي لتشكيل مجموعات متوازنة بضغطة واحدة.'
+              : 'Random team splitter to organize players, students, or guests into balanced groups in one tap.'}
+          </li>
+        </ul>
+        <p class="meta">
+          {ar ? 'أندرويد' : 'Android'} · <code>com.sater.luckydraw</code>
+        </p>
+        <nav aria-label={ar ? 'روابط Lucky Draw' : 'Lucky Draw links'}>
+          <a href={localizePath('/lucky-draw/privacy', locale)}>{ar ? 'سياسة الخصوصية' : 'Privacy Policy'}</a>
+          <a href={localizePath('/lucky-draw/terms', locale)}>{ar ? 'شروط الاستخدام' : 'Terms of Service'}</a>
+          <a href="mailto:sater.studios@gmail.com">{ar ? 'تواصل مع سطر' : 'Contact SATER'}</a>
+          <a href={localizePath('/lucky-draw', ar ? 'en' : 'ar')} lang={ar ? 'en' : 'ar'}>
+            {ar ? 'English' : 'العربية'}
+          </a>
+        </nav>
+      </div>
+    </section>
+  </Band>
+</Base>
+
+<style>
+  .intro {
+    max-width: var(--measure);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .label {
+    color: var(--fg-dim);
+  }
+  h1 {
+    font-size: var(--step-hero);
+    line-height: var(--lead-tight);
+    overflow-wrap: anywhere;
+  }
+  .lede {
+    font-size: var(--step-lede);
+    line-height: var(--lead-body);
+    color: var(--fg-dim);
+  }
+  .spotlight {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: var(--s-6);
+    align-items: center;
+  }
+  .spotlight img {
+    width: 100%;
+    max-width: calc(var(--u) * 46);
+    height: auto;
+    border-radius: var(--radius-art);
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    min-width: 0;
+  }
+  h2 {
+    font-size: var(--step-3);
+    line-height: var(--lead-head);
+    overflow-wrap: anywhere;
+  }
+  .features {
+    list-style: disc;
+    padding-inline-start: var(--s-3);
+    display: grid;
+    gap: var(--s-2);
+    color: var(--fg-dim);
+    line-height: var(--lead-body);
+  }
+  .meta {
+    color: var(--fg-dim);
+    line-height: var(--lead-body);
+  }
+  code {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-family: var(--mono);
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin-block-start: var(--s-1);
+  }
+  nav a {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    line-height: var(--lead-body);
+    padding-block: var(--s-1);
+  }
+  @media (max-width: 720px) {
+    .spotlight {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .spotlight img {
+      max-width: calc(var(--u) * 30);
+    }
+  }
+</style>

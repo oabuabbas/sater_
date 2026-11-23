@@ -1,0 +1,7 @@
+---
+import LuckyDrawLegalPage from '~/components/pages/LuckyDrawLegalPage.astro';
+import { Content, getHeadings } from '~/data/lucky-draw-privacy.md';
+---
+<LuckyDrawLegalPage locale="en" kind="privacy" headings={getHeadings()}>
+  <Content />
+</LuckyDrawLegalPage>
