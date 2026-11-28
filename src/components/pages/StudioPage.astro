@@ -1,6 +1,7 @@
 ---
 import Band from "~/components/Band.astro";
 import PageHead from "~/components/PageHead.astro";
+import { miniStoreUrl } from "~/data/catalog";
 import Logo from "~/components/Logo.astro";
 import { tools, games, horizon, studioLinks, type Locale } from "~/data/products";
 import { useTranslations, type UIKey } from "~/i18n/ui";
@@ -52,6 +53,7 @@ const counts = [
         <span class="node" aria-hidden="true"></span>
         <span>{t("studio.links.play" as UIKey)} ↗</span>
       </a>
+      <a href={miniStoreUrl}><span class="node" aria-hidden="true"></span>SATER mini · Google Play</a>
       <a href={studioLinks.youtube} target="_blank" rel="noopener noreferrer">
         <span class="node" aria-hidden="true"></span>
         <span>{t("studio.links.youtube" as UIKey)} ↗</span>

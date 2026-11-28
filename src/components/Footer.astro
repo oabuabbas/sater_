@@ -21,6 +21,7 @@ const year = new Date().getFullYear();
         <a href={localizePath('/sater-apps',locale)}>{discovery.apps.title[locale]}</a>
         <a href={localizePath('/sater-games',locale)}>{discovery.games.title[locale]}</a>
         <a href={localizePath('/sater-mini',locale)}>SATER mini</a>
+        <a href={localizePath('/horizon',locale)}>{ar ? "الأفق" : "Horizon"}</a>
         <a href={localizePath('/studio',locale)}>{ar?'عن الاستوديو':'About the studio'}</a>
       </nav>
       <nav aria-labelledby="footer-follow">
@@ -41,7 +42,7 @@ const year = new Date().getFullYear();
   </div>
 </footer>
 <style>
-  .foot {background:var(--bg);color:var(--fg);border-block-start:var(--hair) solid var(--edge)}
+  .foot {--fg:#faf4e2;--fg-dim:#c5d1c5;--edge:#40554a;background:#152b23;color:var(--fg);border-block-start:var(--hair) solid var(--edge)}
   .inner {width:var(--col);margin-inline:auto;padding-block:var(--s-6) var(--s-3)}
   .main-row {display:grid;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:var(--s-6);padding-block-end:var(--s-4)}
   .identity {display:flex;flex-direction:column;align-items:flex-start;gap:var(--s-2)}

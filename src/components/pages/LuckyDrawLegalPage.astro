@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '~/layouts/Base.astro';
 import Band from '~/components/Band.astro';
-import luckyDrawArt from '~/assets/games/lucky-draw.jpg';
+import { luckyDraw } from '~/data/catalog';
 import type { Locale } from '~/data/products';
 import { localizePath } from '~/i18n/ui';
 
@@ -23,10 +23,10 @@ const description = ar
   : `${label} for Lucky Draw by SATER mini (Android, com.sater.luckydraw).`;
 const toc = headings.filter((h) => h.depth === 2);
 ---
-<Base locale={locale} path={`/lucky-draw/${kind}`} title={title} description={description} noindex>
+<Base locale={locale} path={`/lucky-draw/${kind}`} title={title} description={description} shareImage={luckyDraw.icon.src} noindex>
   <Band tone="base" class="legal-heading">
     <div class="identity">
-      <Image src={luckyDrawArt} alt="" width={64} height={64} />
+      <Image src={luckyDraw.icon} alt="" width={64} height={64} />
       <div>
         <p class="eyebrow">Lucky Draw · SATER mini</p>
         <h1>{label}</h1>

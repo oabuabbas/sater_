@@ -1,8 +1,6 @@
 ---
-import tamIcon from "~/assets/products/tam.png";
-import khamenIcon from "~/assets/products/khamen.png";
-import zillIcon from "~/assets/products/zill.png";
-import chairmanIcon from "~/assets/products/studio-chairman.png";
+import { getImage } from "astro:assets";
+import { catalog } from "~/data/catalog";
 import { useTranslations, type UIKey } from "~/i18n/ui";
 import type { Locale } from "~/data/products";
 
@@ -19,43 +17,41 @@ const labels = {
   ready: t("runner.ready" as UIKey),
   over: t("runner.over" as UIKey),
 };
-const icons = [tamIcon.src, zillIcon.src, khamenIcon.src, chairmanIcon.src];
-const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
+const roster = await Promise.all(catalog.map(async product => ({
+  slug: product.slug,
+  name: product.localizedName?.[locale] ?? (locale === "ar" && product.root ? product.root : product.name),
+  icon: (await getImage({src:product.icon, width:88, height:88, format:"webp"})).src,
+  accent: product.accent,
+})));
 ---
 
 <section
   class="runner"
   data-sater-runner
   data-labels={JSON.stringify(labels)}
-  data-icons={JSON.stringify(icons)}
-  data-accents={JSON.stringify(accents)}
+  id="line-game"
+  aria-labelledby="runner-head"
+  data-roster={JSON.stringify(roster)}
   dir={locale === "ar" ? "rtl" : "ltr"}
 >
   <header class="intro">
-    <p class="label kicker">{t("runner.kicker" as UIKey)}</p>
-    <h2 id="runner-head">{t("runner.head" as UIKey)}</h2>
-    <p>{t("runner.note" as UIKey)}</p>
+    <h2 id="runner-head">{t("runner.head")}</h2>
+    <p>{locale === "ar" ? "اقفز بحرف «س» فوق منتجات الاستوديو." : "Jump over the studio’s products with the letter س."}</p>
+    <ul class="cast" aria-label={locale === "ar" ? "منتجات اللعبة" : "Products in the game"}>
+      {roster.map(product => <li><img src={product.icon} width="28" height="28" alt={product.name} title={product.name}/></li>)}
+    </ul>
+    <button class="start" type="button" data-start>{labels.start}</button>
+    <span role="status" data-card hidden><span data-state></span></span>
   </header>
-
   <div class="machine">
-    <div class="hud label" aria-live="polite">
-      <span>{t("runner.score" as UIKey)} <b data-score>000</b></span>
-      <span>{t("runner.best" as UIKey)} <b data-best>000</b></span>
+    <div class="hud">
+      <span>{t("runner.score")} <b data-score>000</b></span>
+      <span>{t("runner.best")} <b data-best>000</b></span>
     </div>
-
     <button class="stage" type="button" data-stage aria-label={labels.start}>
       <canvas data-canvas aria-hidden="true"></canvas>
-      <span class="start-card" data-card>
-        <span class="mini-mark" aria-hidden="true">س</span>
-        <strong data-state>{labels.ready}</strong>
-        <span class="label">{labels.jump}</span>
-      </span>
     </button>
-
-    <div class="controls">
-      <button type="button" class="start label" data-start>{labels.start}</button>
-      <p class="label">{labels.jump}</p>
-    </div>
+    <p class="hint">{labels.jump}</p>
   </div>
 </section>
 
@@ -77,20 +73,38 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
     if (!ctx) return;
 
     const labels = JSON.parse(root.dataset.labels ?? "{}") as Record<string, string>;
-    const sources = JSON.parse(root.dataset.icons ?? "[]") as string[];
-    const accents = JSON.parse(root.dataset.accents ?? "[]") as string[];
-    const images = sources.map((src) => {
+    const roster = JSON.parse(root.dataset.roster ?? "[]") as {icon:string; accent:string; name:string}[];
+    const images = roster.map(({icon:src}) => {
       const image = new Image();
       image.src = src;
       return image;
     });
 
+    // Keep the bag across retries so even short rounds reveal different products.
+    let remaining: number[] = [];
+    let previous = -1;
+    function nextProduct() {
+      if (!remaining.length) {
+        remaining = roster.map((_, index) => index);
+        for (let i = remaining.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+        }
+        const last = remaining.length - 1;
+        if (last > 0 && remaining[last] === previous) {
+          [remaining[last], remaining[0]] = [remaining[0], remaining[last]];
+        }
+      }
+      previous = remaining.pop()!;
+      return previous;
+    }
     let width = 0;
     let height = 0;
     let dpr = 1;
     let baseline = 0;
     let running = false;
     let ended = false;
+    let frameId = 0;
     let last = 0;
     let elapsed = 0;
     let nextObstacle = 0.9;
@@ -98,7 +112,8 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
     let velocity = 0;
     let obstacles: Obstacle[] = [];
     let trail: Trail[] = [];
-    let best = Number(localStorage.getItem("sater-line-best") ?? 0);
+    let best = 0;
+    try { best = Number(localStorage.getItem("sater-line-best")) || 0; } catch { /* Storage is optional. */ }
     bestNode.textContent = String(best).padStart(3, "0");
 
     const css = () => getComputedStyle(root);
@@ -134,9 +149,9 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      const fg = color("--fg", "#f2f1ef");
-      const dim = color("--fg-dim", "#a8a5a1");
-      const edge = color("--edge", "#34343c");
+      const fg = color("--run-ink", "#f2f1ef");
+      const dim = color("--run-muted", "#a8a5a1");
+      const edge = color("--run-grid", "#34343c");
 
       ctx.strokeStyle = edge;
       ctx.lineWidth = 1;
@@ -174,11 +189,18 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
       ctx.textBaseline = "alphabetic";
       ctx.fillText("س", playerX, baseline - playerY + 2);
 
+      if (!running && !ended) {
+        const size = Math.min(34, width * .065);
+        images.forEach((image, index) => {
+          const fraction = .28 + .63 * index / Math.max(1, images.length - 1);
+          roundedImage(image, width * fraction, baseline - size, size);
+        });
+      }
       for (const item of obstacles) {
         const y = baseline - item.size;
         ctx.save();
         ctx.shadowColor = item.accent;
-        ctx.shadowBlur = 15;
+        ctx.shadowBlur = 0;
         roundedImage(item.image, item.x, y, item.size);
         ctx.restore();
         ctx.fillStyle = item.accent;
@@ -198,6 +220,7 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
     }
 
     function begin() {
+      cancelAnimationFrame(frameId);
       reset();
       running = true;
       card.hidden = true;
@@ -205,7 +228,7 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
       stage.setAttribute("aria-label", labels.jump);
       stage.focus({ preventScroll: true });
       last = performance.now();
-      requestAnimationFrame(frame);
+      frameId = requestAnimationFrame(frame);
     }
 
     function jump() {
@@ -224,7 +247,7 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
       ended = true;
       const score = Math.floor(elapsed * 10);
       best = Math.max(best, score);
-      localStorage.setItem("sater-line-best", String(best));
+      try { localStorage.setItem("sater-line-best", String(best)); } catch { /* Keep the session score. */ }
       bestNode.textContent = String(best).padStart(3, "0");
       stateNode.textContent = labels.over;
       card.hidden = false;
@@ -246,9 +269,9 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
 
       nextObstacle -= dt;
       if (nextObstacle <= 0 && images.length) {
-        const index = Math.floor(Math.random() * images.length);
+        const index = nextProduct();
         const size = Math.min(50, Math.max(36, width * 0.055));
-        obstacles.push({ x: width + size, size, image: images[index], accent: accents[index] });
+        obstacles.push({ x: width + size, size, image: images[index], accent: roster[index].accent });
         nextObstacle = Math.max(0.72, 1.42 - elapsed * 0.012) + Math.random() * 0.55;
       }
 
@@ -277,11 +300,11 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
 
       scoreNode.textContent = String(Math.floor(elapsed * 10)).padStart(3, "0");
       draw();
-      requestAnimationFrame(frame);
+      frameId = requestAnimationFrame(frame);
     }
 
     stage.addEventListener("click", jump);
-    start.addEventListener("click", () => (running ? begin() : ended ? begin() : begin()));
+    start.addEventListener("click", begin);
     stage.addEventListener("keydown", (event) => {
       if (event.key === " " || event.key === "ArrowUp") {
         event.preventDefault();
@@ -289,6 +312,8 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
       }
     });
 
+    images.forEach(image => image.addEventListener("load", draw));
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     new ResizeObserver(resize).observe(stage);
     document.fonts.ready.then(resize);
     resize();
@@ -296,169 +321,23 @@ const accents = ["#d6b43c", "#16bde8", "#64baf0", "#e6813f"];
 </script>
 
 <style>
-  .runner {
-    display: grid;
-    grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.6fr);
-    gap: var(--s-8);
-    align-items: center;
-    padding-block: var(--s-6);
-  }
-
-  .intro {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--s-2);
-  }
-
-  .kicker {
-    color: var(--fg-dim);
-  }
-
-  .intro h2 {
-    font-size: var(--step-head);
-    line-height: var(--lead-head);
-  }
-
-  .intro > p:last-child {
-    color: var(--fg-dim);
-  }
-
-  .machine {
-    min-width: 0;
-    padding: var(--s-2);
-    border: var(--hair) solid var(--edge);
-    border-radius: var(--radius-card);
-    background: var(--surface-2);
-    box-shadow: 0 24px 70px rgb(0 0 0 / 0.12);
-  }
-
-  .hud,
-  .controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--s-2);
-  }
-
-  .hud {
-    padding: var(--s-1) var(--s-1) var(--s-2);
-    color: var(--fg-dim);
-  }
-
-  .hud b {
-    color: var(--fg);
-    font-weight: var(--w-bold);
-  }
-
-  .stage {
-    position: relative;
-    display: block;
-    inline-size: 100%;
-    block-size: clamp(240px, 34vw, 390px);
-    overflow: hidden;
-    padding: 0;
-    border: var(--hair) solid var(--edge);
-    border-radius: calc(var(--radius-card) - 2px);
-    background:
-      radial-gradient(circle at 78% 24%, color-mix(in srgb, #16bde8 9%, transparent), transparent 27%),
-      radial-gradient(circle at 20% 82%, color-mix(in srgb, #d6b43c 9%, transparent), transparent 29%),
-      var(--bg);
-    color: var(--fg);
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-
-  canvas {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-  }
-
-  .start-card {
-    position: absolute;
-    inset: 50% auto auto 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--s-1);
-    min-inline-size: min(19rem, calc(100% - var(--s-4)));
-    padding: var(--s-3);
-    background: color-mix(in srgb, var(--surface-2) 88%, transparent);
-    border: var(--hair) solid var(--edge);
-    border-radius: var(--radius-card);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 16px 40px rgb(0 0 0 / 0.16);
-  }
-
-  .start-card[hidden] {
-    display: none;
-  }
-
-  .start-card strong {
-    font-size: var(--step-2);
-  }
-
-  .start-card .label {
-    color: var(--fg-dim);
-  }
-
-  .mini-mark {
-    display: grid;
-    place-items: center;
-    inline-size: 54px;
-    block-size: 54px;
-    border-radius: 50%;
-    background: var(--fg);
-    color: var(--bg);
-    font-family: var(--arabic);
-    font-size: 2rem;
-    font-weight: var(--w-bold);
-  }
-
-  .controls {
-    padding: var(--s-2) var(--s-1) 0;
-  }
-
-  .controls p {
-    color: var(--fg-dim);
-  }
-
-  .start {
-    min-block-size: 42px;
-    padding-inline: var(--s-2);
-    border: var(--hair) solid var(--fg);
-    border-radius: 999px;
-    background: var(--fg);
-    color: var(--bg);
-    cursor: pointer;
-  }
-
-  @media (max-width: 820px) {
-    .runner {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--s-4);
-    }
-
-    .stage {
-      block-size: clamp(230px, 62vw, 330px);
-    }
-  }
-
-  @media (max-width: 520px) {
-    .controls p {
-      display: none;
-    }
-
-    .start {
-      inline-size: 100%;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .machine {
-      box-shadow: none;
-    }
+  .runner { --run-ink:#fff4dc; --run-muted:#d2cebe; --run-grid:#45554d; display:grid; grid-template-columns:minmax(15rem,.8fr) minmax(0,1.7fr); gap:clamp(1.5rem,4vw,4rem); align-items:center; background:#172921; color:var(--run-ink); border-radius:7px; padding:clamp(1.4rem,3.5vw,3.5rem); }
+  .intro h2 { font-size:clamp(1.75rem,3vw,2.8rem); font-weight:600; }
+  .intro p,.hint { color:var(--run-muted); }
+  .cast { display:flex; align-items:center; gap:.35rem; flex-wrap:wrap; margin-block:.85rem; }
+  .cast img { border-radius:6px; border:1px solid #ffffff30; }
+  .start { min-height:42px; padding:.35rem 1.3rem; font:inherit; font-weight:600; background:#ede5ca; color:#15241d; border:0; border-radius:4px; cursor:pointer; }
+  .intro [role=status] { display:block; margin-block-start:.45rem; color:var(--run-muted); }
+  .intro [hidden] {display:none;}
+  .machine { position:relative; min-width:0; }
+  .hud { display:flex; gap:1.4rem; font-size:.85rem; color:var(--run-muted); }
+  .hud b { font-family:var(--mono); color:var(--run-ink); }
+  .stage { display:block; background:transparent; height:185px; width:100%; border:0; padding:0; cursor:pointer; touch-action:manipulation; }
+  canvas { display:block; width:100%; height:100%; }
+  .hint { font-size:.85rem; }
+  .runner :focus-visible { outline-color:#f3d391; }
+  @media(max-width:740px) {
+    .runner { grid-template-columns:1fr; gap:1.3rem; }
+    .stage { height:185px; }
   }
 </style>

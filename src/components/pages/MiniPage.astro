@@ -1,20 +1,90 @@
 ---
-import { Image } from 'astro:assets';
-import Base from '~/layouts/Base.astro';
-import Band from '~/components/Band.astro';
-import spy from '~/assets/games/find-the-spy.png';
-import type { Locale } from '~/data/products';
-import { localizePath } from '~/i18n/ui';
+import { Image } from "astro:assets";
+import Base from "~/layouts/Base.astro";
+import { findTheSpy, miniProducts, miniStoreUrl } from "~/data/catalog";
+import miniCover from "~/assets/brand/sater-mini-launch.webp";
+import type { Locale } from "~/data/products";
+import { localizePath } from "~/i18n/ui";
+
 interface Props { locale: Locale; game?: boolean }
-const {locale,game=false}=Astro.props;
-const ar=locale==='ar';
-const title=game?(ar?'برا السالفة — Find the Spy':'Find the Spy'):(ar?'SATER mini — ألعاب مستقلة قريبًا':'SATER mini — Standalone games coming soon');
+const { locale, game = false } = Astro.props;
+const ar = locale === "ar";
+const link = (path:string) => localizePath(path,locale);
+const name = findTheSpy.localizedName![locale];
+const title = game ? (ar ? "برا السالفة · Find the Spy" : "Find the Spy") : (ar ? "SATER mini — ألعاب الجلسات من سطر" : "SATER mini — Standalone party games");
+const description = game
+  ? (ar ? "لعبة جلسات على هاتف واحد. بينكم لاعب يجهل الكلمة، فهل تكتشفونه؟ متاحة الآن على أندرويد." : "A party game on one phone. One player doesn’t know the secret word. Can your group spot the spy? Available on Android.")
+  : (ar ? "ألعاب وأدوات للجلسات من سطر. العبوا «برا السالفة»، وتعرّفوا على أداة القرعة Lucky Draw قيد التطوير." : "Standalone party games and tools from SATER. Play Find the Spy and discover Lucky Draw, our draw tool in development.");
+const art = game ? findTheSpy.icon : miniCover;
+const path = game ? "/find-the-spy" : "/sater-mini";
+const schema = game ? [{
+  "@type":"MobileApplication", "@id":new URL(link(path)+"#app",Astro.site).href,
+  name:"Find the Spy", alternateName:"برا السالفة", operatingSystem:"Android", applicationCategory:"GameApplication",
+  installUrl:findTheSpy.storeUrl, image:new URL(art.src,Astro.site).href,
+}] : [];
 ---
-<Base locale={locale} path={game?'/find-the-spy':'/sater-mini'} title={title} description={ar?'ألعاب جلسات مستقلة من سطر. البداية مع برا السالفة — Find the Spy. قريبًا.':'Standalone party games from SATER. Starting with Find the Spy. Coming soon.'}>
- <Band tone="base"><div class="intro"><p class="label">{game?'SATER mini':(ar?'تجارب صغيرة. جلسات لا تُنسى.':'Small games. Memorable gatherings.')}</p><h1>{game?title:'SATER mini'}</h1><span class="soon">{ar?'قريبًا · Soon':'Soon'}</span><p class="lede">{ar?'لعبة واحدة، وجمعة كاملة. نأخذ ألعاب الجلسات من عالم خمّن إلى تجارب مستقلة، لكل منها هويتها ومساحتها.':'One game, a whole gathering. Bringing party games from KHAMEN into standalone experiences, each with its own identity.'}</p></div></Band>
- <Band tone="raised"><section class="spotlight" aria-labelledby="spy-title"><Image src={spy} alt={ar?'شعار Find the Spy: محقق داخل عدسة مكبّرة':'Find the Spy detective and magnifying-glass logo'} width={512} height={512}/><div><p class="label">{ar?'أول ألعاب SATER mini':'The first SATER mini game'}</p><h2 id="spy-title">{ar?'برا السالفة':'Find the Spy'}</h2><p class="english" lang="en">{ar?'Find the Spy':'Who is out of the loop?'}</p><p>{ar?'بينكم شخص برا السالفة… هل تكتشفونه؟ لعبة جماعية على جهاز واحد، قادمة كتجربة مستقلة على أندرويد.':'Someone in your group is out of the loop… can you find them? A single-device party game, coming as a standalone Android experience.'}</p><p class="note">{ar?'قريبًا على Google Play. سنضيف رابط التحميل عند الإطلاق.':'Coming soon to Google Play. The download link will be added at launch.'}</p><nav aria-label={ar?'روابط اللعبة':'Game links'}>{!game&&<a href={localizePath('/find-the-spy',locale)}>{ar?'اكتشف اللعبة':'Explore the game'} ↗</a>}<a href={localizePath('/find-the-spy/privacy',locale)}>{ar?'سياسة الخصوصية':'Privacy policy'}</a><a href={localizePath('/find-the-spy/terms',locale)}>{ar?'شروط الاستخدام':'Terms of service'}</a><a href="mailto:sater.studios@gmail.com">{ar?'تواصل معنا':'Contact us'}</a></nav></div></section></Band>
- <Band tone="base"><div class="ending"><h2>{ar?'مستقلة، ومن نفس العائلة.':'Independent games. The same family.'}</h2><p>{ar?'SATER mini قسم مستقل، وليس بديلًا عن خمّن. يبقى خمّن مكان الألعاب المتعددة، وتمنح هذه السلسلة كل لعبة تجربة خاصة بها.':'SATER mini is a separate collection, not a replacement for KHAMEN. KHAMEN remains the multi-game collection, while each mini game gets its own focused experience.'}</p><a href={localizePath(game?'/sater-mini':'/khamen',locale)}>{game?'SATER mini':(ar?'تعرّف على خمّن':'Discover KHAMEN')} ↗</a></div></Band>
+<Base locale={locale} path={path} title={title} description={description} shareImage={art.src} structuredData={schema}>
+  <section class:list={["opening", {spy:game}]}>
+    <div class="wrap lead">
+      <div>
+        <a class="parent" href={link(game ? "/sater-mini" : "/studio")}>{game ? "SATER mini" : (ar ? "استوديو سطر" : "SATER Studio")}</a>
+        <h1>{game ? name : "SATER mini"}</h1>
+        <p>{description}</p>
+        <a class="action" href={game ? findTheSpy.storeUrl : miniStoreUrl}>{game ? (ar ? "نزّل اللعبة من Google Play" : "Get the game on Google Play") : (ar ? "تصفّح المجموعة على Google Play" : "Browse the collection on Google Play")}</a>
+      </div>
+      <figure><Image src={art} width={game ? 480 : 900} alt={game ? (ar ? "الشعار الرسمي للعبة برا السالفة" : "Official Find the Spy icon") : "SATER mini"} loading="eager"/></figure>
+    </div>
+  </section>
+  <section class="wrap spread">
+    <h2>{game ? (ar ? "مين برا السالفة؟" : "Who’s out of the loop?") : (ar ? "من «خمّن» إلى لعبتكم المفضّلة" : "From KHAMEN to your favourite game")}</h2>
+    <div>
+      <p>{game ? (ar ? "مرّروا الهاتف ليطّلع كل لاعب على دوره سرًّا. المجموعة تعرف الكلمة، وأحدكم يحاول استنتاجها من مجرى الحديث. بعد الأسئلة صوّتوا على المشتبه به. وحتى إذا كشفتم الجاسوس، تبقى له فرصة أخيرة للفوز بتخمين الكلمة." : "Pass the phone around so each player can check their role in secret. The group knows the word. One of you has to piece it together from the conversation. After questioning, vote for the player you suspect. Even a spy who gets caught has one last chance to win by guessing the word.") : (ar ? "أحيانًا تعرف المجموعة ماذا تريد أن تلعب قبل أن تفتح الهاتف. من هنا جاءت فكرة SATER mini. نأخذ ألعاب الجلسات من عالم «خمّن» ونمنح كل واحدة اسمًا وأيقونة وتطبيقًا مستقلًا، لتصلوا إليها مباشرة في جلستكم التالية." : "Sometimes your group knows what it wants to play before anyone picks up a phone. That’s the idea behind SATER mini. Party games from the world of KHAMEN get a name, an icon and an app of their own, ready for your next gathering.")}</p>
+      <a class="text-link" href={link(game ? "/news/find-the-spy-on-google-play" : "/news/introducing-sater-mini")}>{game ? (ar ? "اقرأ إعلان إطلاق اللعبة" : "Read the launch announcement") : (ar ? "اقرأ إعلان SATER mini" : "Read the SATER mini announcement")}</a>
+    </div>
+  </section>
+  <div class="wrap ending">
+    {game ? <nav aria-label={ar ? "معلومات اللعبة" : "Game information"}>
+      <a href={link("/sater-mini")}>SATER mini</a>
+      <a href={link("/find-the-spy/privacy")}>{ar ? "سياسة الخصوصية" : "Privacy policy"}</a>
+      <a href={link("/find-the-spy/terms")}>{ar ? "شروط الاستخدام" : "Terms of service"}</a>
+      <a href="mailto:sater.studios@gmail.com">{ar ? "تواصل معنا" : "Contact us"}</a>
+    </nav> : <section id="mini-products" aria-labelledby="mini-products-title">
+      <h2 id="mini-products-title">{ar ? "ألعاب وأدوات سطر ميني" : "SATER mini games and tools"}</h2>
+      {miniProducts.map(product => <a class="first-game" href={link("/" + product.slug)}>
+        <Image src={product.icon} width={100} height={100} alt=""/>
+        <div>
+          <small>{product.status === "live" ? (ar ? "متاحة على Google Play" : "Available on Google Play") : (ar ? "قيد التطوير" : "In development")}</small>
+          <h3><bdi>{product.localizedName?.[locale] ?? product.name}</bdi></h3>
+          <p>{product.tagline[locale]}</p>
+        </div>
+      </a>)}
+    </section>}
+  </div>
 </Base>
 <style>
- .intro{max-width:55rem}.label{color:var(--fg-dim);margin-bottom:1rem}h1{font-size:clamp(2.5rem,7vw,5.5rem);line-height:1.3;overflow-wrap:anywhere}.soon{display:inline-block;border:1px solid var(--edge);border-radius:3rem;padding:.5rem 1rem;margin-block:1.25rem}.lede{font-size:var(--step-lede);line-height:1.8}.spotlight{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:var(--s-6);align-items:center}.spotlight img{width:100%;max-width:420px;height:auto;border-radius:2rem}h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.5;margin-bottom:1rem}p{line-height:1.9}.english,.note{color:var(--fg-dim);margin-block:1rem}nav{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;margin-top:2rem}a{text-decoration:underline;text-underline-offset:.25em;display:inline-block;padding-block:.6rem}.ending{max-width:55rem}.ending a{margin-top:1rem}@media(max-width:650px){.spotlight{grid-template-columns:1fr}.spotlight img{max-width:240px}}
+  .wrap {width:var(--col);margin-inline:auto}
+  .opening {background:#122b24;color:#f6f2e4}
+  .opening.spy {background:#101115;color:#fffaec}
+  .lead,.spread {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(2rem,6vw,6rem);padding-block:clamp(3rem,5vw,5rem)}
+  .parent,.text-link,nav a {text-decoration:underline;text-underline-offset:.28em}
+  .parent {color:#e7cd93}
+  h1 {font-size:clamp(3rem,6.5vw,6rem);line-height:1.2;margin-block:.65rem}
+  .lead p,.spread p {font-size:clamp(1.05rem,1.5vw,1.35rem);max-width:46ch;line-height:1.8}
+  .action {display:inline-flex;padding:.7rem 1.2rem;border-radius:4px;background:#f1e8d4;color:#152820;margin-top:1.6rem;font-weight:600}
+  .spy .action {background:#ffcf20;color:#15130b}
+  figure {margin:0;display:grid;place-items:center}
+  figure img {width:100%;height:auto;border-radius:5px}
+  .spy figure img {width:min(72%,22rem);border-radius:15%}
+  .spread {align-items:baseline}
+  h2 {font-size:clamp(1.7rem,3.2vw,3rem);line-height:1.4}
+  .text-link {display:inline-block;margin-top:1rem}
+  .ending {padding-bottom:clamp(2.5rem,5vw,5rem)}
+  .ending nav,.first-game {display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;border-top:1px solid var(--edge);padding-block:1.5rem}
+  #mini-products-title {margin-bottom:1.2rem}
+  .first-game h3 {font-size:clamp(1.35rem,2.3vw,2rem)}
+  .first-game:hover h3 {text-decoration:underline;text-underline-offset:.25em}
+  .first-game img {border-radius:10px}
+  .first-game small,.first-game p {color:var(--fg-dim)}
+  .first-game span {margin-inline-start:auto;text-decoration:underline;text-underline-offset:.3em}
+  @media(max-width:680px){.lead,.spread{grid-template-columns:1fr;gap:1.5rem}.lead{padding-block:2rem}.spy figure img{width:10rem}.lead figure{justify-items:start}.lead figure img{max-width:23rem}.first-game{gap:1rem}.first-game img{width:64px}.first-game span{margin-inline-start:0}}
 </style>

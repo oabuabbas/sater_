@@ -30,7 +30,7 @@ import chairman7 from "~/assets/games/chairman-7.png";
 import chairman8 from "~/assets/games/chairman-8.png";
 import btbFeature from "~/assets/games/behind-the-badge-feature.png";
 import chairmanFeature from "~/assets/games/studio-chairman-feature.png";
-import duopolyIcon from "~/assets/products/the-duopoly.jpg";
+import duopolyIcon from "~/assets/products/the-duopoly.png";
 import duopolyFeature from "~/assets/games/the-duopoly-feature.png";
 
 export type Locale = "en" | "ar";

@@ -17,7 +17,7 @@
   /* App icons are drawn with a corner radius; framing them in hard
      squares crops the silhouette the store actually shows. */
   --radius-art: calc(var(--u) * 2.75);
-  --radius-card: calc(var(--u) * 1.5);
+  --radius-card: 6px;
 
   --s-1: calc(var(--u) * 1);
   --s-2: calc(var(--u) * 2);
@@ -30,7 +30,7 @@
   --s-20: calc(var(--u) * 20);
 
   --gutter: clamp(var(--s-3), 5vw, var(--s-10));
-  --band: clamp(var(--s-10), 12vh, var(--s-20));
+  --band: clamp(2.5rem,6vw,5.5rem);
 
   /* ---------- surfaces ----------
      Light is the default declaration so the un-stamped document is

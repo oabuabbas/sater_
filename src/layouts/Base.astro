@@ -13,6 +13,7 @@ interface Props {
   /** Page title without the brand — the layout appends it. */
   title: string;
   description?: string;
+  shareImage?: string;
   /** Path with no locale prefix, e.g. "/tools". Drives the language switch. */
   path: string;
   /** False for English-only legal/product pages that have no Arabic twin. */
@@ -22,7 +23,7 @@ interface Props {
   structuredData?: Record<string, unknown>[];
 }
 
-const { locale, title, description, path, localized = true, noindex = false, structuredData = [] } = Astro.props;
+const { locale, title, description, shareImage, path, localized = true, noindex = false, structuredData = [] } = Astro.props;
 const t = useTranslations(locale);
 
 const site = Astro.site ?? new URL("https://thesater.com");
@@ -35,7 +36,7 @@ const cleanPath = path.replace(/\/$/, '') || '/';
 const product = [...tools, ...games].find(p => cleanPath === `/${p.slug}`);
 const seo = seoPages[cleanPath];
 const heading = seo?.title[locale] ?? (product ? `${product.localizedName?.[locale] ?? product.name} — ${productDiscovery[product.slug].purpose[locale]}` : title);
-const ogImage = new URL(product?.feature?.src ?? '/cover.png', site);
+const ogImage = new URL(shareImage ?? product?.feature?.src ?? '/cover.png', site);
 const pageTitle = /^SATER\b/.test(heading) ? heading : `${heading} | SATER`;
 const desc = description ?? seo?.description[locale] ?? (product ? productDiscovery[product.slug].body[locale] : t("site.description" as UIKey));
 const websiteId = new URL('/#website', site).href;

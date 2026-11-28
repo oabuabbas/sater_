@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '~/layouts/Base.astro';
 import Band from '~/components/Band.astro';
-import luckyDrawArt from '~/assets/games/lucky-draw.jpg';
+import { luckyDraw } from '~/data/catalog';
 import type { Locale } from '~/data/products';
 import { localizePath } from '~/i18n/ui';
 
@@ -17,10 +17,10 @@ const description = ar
   ? 'أداة Lucky Draw من SATER mini — عجلة قرارات وسحب على الجوائز ومقسّم فرق عشوائي يعمل دون اتصال على أندرويد.'
   : 'Lucky Draw by SATER mini — an offline spin-wheel, giveaway prize-draw picker and random team splitter for Android.';
 ---
-<Base locale={locale} path="/lucky-draw" title={title} description={description} noindex>
+<Base locale={locale} path="/lucky-draw" title={title} description={description} shareImage={luckyDraw.icon.src} noindex>
   <Band tone="base">
     <div class="intro">
-      <p class="label">SATER mini</p>
+      <p class="label"><a href={localizePath('/sater-mini',locale)}>SATER mini</a> · {ar ? "قيد التطوير" : "In development"}</p>
       <h1>Lucky Draw</h1>
       <p class="lede">
         {ar
@@ -33,7 +33,7 @@ const description = ar
   <Band tone="raised">
     <section class="spotlight" aria-labelledby="lucky-draw-title">
       <Image
-        src={luckyDrawArt}
+        src={luckyDraw.icon}
         alt={ar ? 'شعار أداة Lucky Draw: عجلة حظ ذهبية بست شرائح ملوّنة' : 'Lucky Draw logo: a golden prize wheel with six colourful slices'}
         width={512}
         height={512}

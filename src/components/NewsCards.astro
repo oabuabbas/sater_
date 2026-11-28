@@ -2,17 +2,18 @@
 import { Image } from 'astro:assets';
 import { newsCopy, newsDate, type NewsArticle } from '~/data/news';
 import { localizePath } from '~/i18n/ui';
-import { games, tools, type Locale } from '~/data/products';
+import { catalog } from '~/data/catalog';
+import { type Locale } from '~/data/products';
 interface Props { articles: NewsArticle[]; locale: Locale }
 const { articles, locale } = Astro.props;
 const copy = newsCopy[locale];
 ---
 <div class="news-cards">
-  {articles.map(article => <article class:list={['news-card', article.kind, { 'contain-art': article.illustrationFit === 'contain', 'landscape-art': article.illustrationFit === 'landscape' }]}>
+  {articles.map(article => <article class:list={['news-card', article.kind, { "spy-launch": article.product === "find-the-spy", 'contain-art': article.illustrationFit === 'contain', 'landscape-art': article.illustrationFit === 'landscape' }]}>
     <a class="story" href={localizePath(`/news/${article.slug}`, locale)}>
       <div class="art" aria-hidden="true">
         <span class="edition">{article.kind.toUpperCase()}</span>
-        <span class="art-title">{article.coverTitle}<small>{[...games, ...tools].find(p => p.slug === article.product)?.name ?? 'SATER'}</small></span>
+        <span class="art-title">{article.coverTitle}<small>{catalog.find(p => p.slug === article.product)?.name ?? 'SATER'}</small></span>
         <Image src={article.illustration} alt="" width={article.illustrationFit === 'landscape' ? 640 : 290} loading="lazy" />
       </div>
       <div class="copy">
@@ -47,4 +48,5 @@ const copy = newsCopy[locale];
   .story:hover h3 { text-decoration:underline; text-underline-offset:.2em; }
   .story:focus-visible { outline:3px solid var(--fg); outline-offset:-4px; }
   @media(max-width:650px) { .news-cards { grid-template-columns:1fr; } }
+.spy-launch .art{background:#101115}.spy-launch .art-title{color:#ffcf18;font-size:clamp(1.4rem,3vw,2.5rem);max-width:48%}.spy-launch .art img{z-index:0}
 </style>

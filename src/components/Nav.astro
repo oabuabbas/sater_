@@ -18,7 +18,7 @@ const normalise = (p: string) => (p === "/" ? "/" : p.replace(/\/$/, ""));
 const current = normalise(path);
 ---
 
-<header class="bar band-raised">
+<header class="bar front">
   <div class="inner">
     <a class="home" href={localizePath("/", locale)}>
       <Logo variant="wordmark" locale={locale} height={26} title={t("nav.home" as UIKey)} />
@@ -26,14 +26,16 @@ const current = normalise(path);
 
     <nav aria-label={t("nav.aria" as UIKey)}>
       <ul class="items label">
+        <li><a href={localizePath("/",locale) + "#products"}>{locale === "ar" ? "المنتجات" : "Products"}</a></li>
+        <li><a href={localizePath("/sater-mini",locale)} aria-current={current === "/sater-mini" ? "page" : undefined}>SATER mini</a></li>
         {
-          navItems.map((item) => (
+          navItems.filter(item => item.path === "/studio" || item.path === "/news").map((item) => (
             <li>
               <a
                 href={localizePath(item.path, locale)}
                 aria-current={normalise(item.path) === current || (item.path === '/news' && current.startsWith('/news/')) ? "page" : undefined}
               >
-                {item.path === '/sater-apps' ? (locale === 'ar' ? 'تطبيقات سطر' : 'SATER Apps') : item.path === '/sater-games' ? (locale === 'ar' ? 'ألعاب سطر' : 'SATER Games') : t(item.key)}
+                {t(item.key)}
               </a>
             </li>
           ))
@@ -125,5 +127,13 @@ const current = normalise(path);
     .tail {
       margin-inline-start: auto;
     }
+  }
+  .front .inner { min-height:70px; }
+  .front .items { font:inherit; letter-spacing:normal; text-transform:none; }
+  .front nav { margin-inline-start:var(--s-6); }
+  .front .tail { margin-inline-start:auto; }
+  @media(max-width:720px) {
+    .front .inner { padding-block:.8rem; gap:.6rem 1rem; }
+    .front nav { margin-inline-start:0; }
   }
 </style>

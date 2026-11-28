@@ -1,3 +1,5 @@
+import { miniLaunch } from "./news-mini-launch";
+import { findTheSpy } from "./catalog";
 import { novemberArticles } from './news-studio-november';
 import type { Locale } from './products';
 import { octoberUpdates } from './news-october-updates';
@@ -16,6 +18,7 @@ export interface NewsArticle {
   kind: 'launch' | 'release' | 'guide' | 'studio' | 'character';
   title: Copy;
   readNext?: string;
+  actions?: { href: string; label: Copy }[];
   metaDescription?: Copy;
   summary: Copy;
   illustration: ImageMetadata;
@@ -27,6 +30,7 @@ export interface NewsArticle {
 
 // Publication dates belong to the articles, not to the date of each site build.
 const stories: NewsArticle[] = [
+  ...miniLaunch,
   ...novemberArticles,
   {
     slug: 'btb-1-2-0', date: '2026-11-04', product: 'behind-the-badge', kind: 'release',
@@ -285,10 +289,10 @@ export const topics = [
   { slug: 'studio', title: { ar: 'الاستوديو', en: 'Studio' } },
   { slug: 'apps', title: { ar: 'التطبيقات', en: 'Apps' } },
   { slug: 'games', title: { ar: 'الألعاب', en: 'Games' } },
-  ...[...tools, ...games].map(p => ({ slug: p.slug, title: p.localizedName ?? { ar: p.name, en: p.name } })),
+  ...[...tools, ...games, findTheSpy].map(p => ({ slug: p.slug, title: p.localizedName ?? { ar: p.name, en: p.name } })),
 ];
 export function newsFor(topic?: string) {
-  return news.filter(n => !topic || (topic === 'studio' ? !n.product : topic === 'games' ? [...games.map(p => p.slug), 'khamen'].includes(n.product ?? '') : topic === 'apps' ? tools.some(p => p.slug === n.product) : n.product === topic)).sort((a, b) => b.date.localeCompare(a.date));
+  return news.filter(n => !topic || (topic === 'studio' ? !n.product : topic === 'games' ? [...games.map(p => p.slug), 'khamen', findTheSpy.slug].includes(n.product ?? '') : topic === 'apps' ? tools.some(p => p.slug === n.product) : n.product === topic)).sort((a, b) => b.date.localeCompare(a.date));
 }
 export function newsDate(date: string, locale: Locale) {
   return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-JO' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T12:00:00Z`));

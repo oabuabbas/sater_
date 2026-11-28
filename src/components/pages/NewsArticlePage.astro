@@ -4,16 +4,17 @@ import Base from '~/layouts/Base.astro';
 import Band from '~/components/Band.astro';
 import NewsCards from '~/components/NewsCards.astro';
 import { newsCopy, newsFor, newsDate, type NewsArticle } from '~/data/news';
-import { games, tools, type Locale } from '~/data/products';
+import { catalog, findTheSpy } from '~/data/catalog';
+import { games, type Locale } from '~/data/products';
 import { localizePath } from '~/i18n/ui';
 interface Props { locale: Locale; article: NewsArticle }
 const { locale, article } = Astro.props;
 const copy = newsCopy[locale];
-const product = [...games, ...tools].find(p => p.slug === article.product);
-const isGame = article.product === 'khamen' || games.some(p => p.slug === article.product);
+const product = catalog.find(p => p.slug === article.product);
+const isGame = article.product === 'khamen' || article.product === findTheSpy.slug || games.some(p => p.slug === article.product);
 const candidates = newsFor(article.product).filter(item => item.slug !== article.slug);
 const pairedSlug = article.readNext;
-const paired = candidates.find(item => item.slug === pairedSlug && item.readNext === article.slug);
+const paired = newsFor().find(item => item.slug === pairedSlug && item.readNext === article.slug);
 const related = [
   ...(paired ? [paired] : []),
   ...candidates.filter(item => item.slug !== pairedSlug),
@@ -27,7 +28,7 @@ const structuredArticle = {
   publisher:{'@id':new URL('/#studio',Astro.site!).href},mainEntityOfPage:{'@id':articleUrl+'#page'},
 };
 ---
-<Base locale={locale} title={article.title[locale]} description={(article.metaDescription ?? article.summary)[locale]} path={`/news/${article.slug}`} structuredData={[structuredArticle]}>
+<Base locale={locale} title={article.title[locale]} description={(article.metaDescription ?? article.summary)[locale]} path={`/news/${article.slug}`} shareImage={article.illustration.src} structuredData={[structuredArticle]}>
   <Band tone="raised">
     <header class:list={['article-head', {'landscape-head': article.illustrationFit === 'landscape'}]}>
       <div>
@@ -49,7 +50,8 @@ const structuredArticle = {
         {section.images?.map(image => <Image class="section-image" src={image.src} alt={image.alt[locale]} width={1024} loading="lazy" />)}
         {section.closing && <p class="closing">{section.closing[locale]}</p>}
       </section>)}
-      {product && <footer><strong>{product.localizedName?.[locale] ?? product.name}</strong><div class="links">
+      {article.actions && <nav class="launch-actions" aria-label={locale === "ar" ? "روابط الإعلان" : "Announcement links"}>{article.actions.map(action => <a href={action.href.startsWith("/") ? localizePath(action.href, locale) : action.href}>{action.label[locale]}</a>)}</nav>}
+      {product && !article.actions && <footer><strong>{product.localizedName?.[locale] ?? product.name}</strong><div class="links">
         {product.legacyPath && <a href={localizePath(product.legacyPath, locale)}>{locale === 'ar' ? (isGame ? 'استكشف اللعبة' : 'استكشف التطبيق') : (isGame ? 'Explore the game' : 'Explore the app')}</a>}
         {product.storeUrl && <a href={product.storeUrl} target="_blank" rel="noopener noreferrer">Google Play ↗</a>}
       </div></footer>}
@@ -58,6 +60,8 @@ const structuredArticle = {
   {related.length > 0 && <Band tone="raised"><h2 class="related">{copy.related}</h2><NewsCards articles={related} locale={locale} /></Band>}
 </Base>
 <style>
+  .launch-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-block-start:2rem}.launch-actions a{padding:.65rem 1rem;text-decoration:underline;text-underline-offset:.25em}.launch-actions a:first-child{background:var(--fg);color:var(--bg);border-radius:4px;text-decoration:none}
+  @media(max-width:650px){.article-head:has(.portrait img[src*="find-the-spy"]) .portrait{display:block;height:160px}}
   .section-image{display:block;width:100%;height:auto;margin-top:1.5rem;border-radius:var(--radius-card)}
   .closing{margin-top:1rem} @media(max-width:650px){.article-head .portrait.contained:has(img[src*="chairman-"]){display:block}}
 
